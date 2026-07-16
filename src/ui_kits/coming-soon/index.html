@@ -1,0 +1,742 @@
+<!-- @dsCard group="Ctechintl.com" viewport="1440x900" name="Coming Soon page" subtitle="Recreation of the live placeholder — the established brand moment" -->
+<!-- @startingPoint section="Screens" subtitle="ctechintl.com Coming Soon hero — shimmer headline + outline-glow CTA" viewport="1440x900" -->
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.24.7/babel.min.js"></script>
+<script>Babel.registerPreset('react-classic',{presets:[[Babel.availablePresets.react,{runtime:'classic'}]]});</script>
+<script type="text/babel" data-presets="react-classic">
+/* Ctech International DS bundle — auto-concatenated from component .jsx sources.
+   Load with <script type="text/babel" src="..."> after React + Babel. Exposes window.CtechDS. */
+window.CtechDS = (() => {
+
+// ---- components/core/Button.jsx ----
+
+function Button({ variant = 'primary', size = 'md', disabled = false, children, style, ...rest }) {
+  const [hover, setHover] = React.useState(false);
+  const h = hover && !disabled;
+  const sizes = {
+    sm: { padding: '8px 16px', fontSize: 14 },
+    md: { padding: '12px 24px', fontSize: 16 },
+    lg: { padding: '16px 32px', fontSize: 18 },
+  };
+  const base = {
+    fontFamily: 'var(--font-sans)', fontWeight: 600, letterSpacing: '0.01em',
+    cursor: disabled ? 'not-allowed' : 'pointer',
+    borderRadius: 'var(--radius-control)',
+    transition: 'all 250ms var(--ease-hud)',
+    display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+    opacity: disabled ? 0.4 : 1,
+    ...sizes[size],
+  };
+  const variants = {
+    primary: {
+      background: 'var(--nebula-cyan)', color: 'var(--space-black)', border: 'none',
+      boxShadow: h ? 'var(--glow-cyan-strong)' : 'none',
+    },
+    secondary: {
+      background: 'var(--surface-translucent)', color: 'var(--text-primary)',
+      border: '0.8px solid ' + (h ? 'var(--nebula-cyan-60)' : 'var(--nebula-cyan-50)'),
+      boxShadow: h ? 'var(--glow-cyan-strong)' : 'var(--glow-cyan)',
+    },
+    ghost: {
+      background: h ? 'var(--glass-bg-hover)' : 'var(--glass-bg)',
+      backdropFilter: 'var(--glass-blur)', WebkitBackdropFilter: 'var(--glass-blur)',
+      color: 'var(--text-primary)',
+      border: '1px solid ' + (h ? 'var(--nebula-cyan-50)' : 'var(--glass-border)'),
+      boxShadow: (h ? 'var(--glow-cyan-soft), ' : '') + 'var(--glass-highlight)',
+      transform: h ? 'translateY(-2px)' : 'translateY(0)',
+    },
+  };
+  return (
+    <button disabled={disabled} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}
+      style={{ ...base, ...variants[variant], ...style }} {...rest}>{children}</button>
+  );
+}
+
+
+// ---- components/core/IconButton.jsx ----
+
+function IconButton({ variant = 'secondary', size = 'md', disabled = false, label, children, style, ...rest }) {
+  const [hover, setHover] = React.useState(false);
+  const h = hover && !disabled;
+  const dims = { sm: 32, md: 40, lg: 48 };
+  const d = dims[size];
+  const variants = {
+    primary: { background: 'var(--nebula-cyan)', color: 'var(--space-black)', border: 'none', boxShadow: h ? 'var(--glow-cyan-strong)' : 'none' },
+    secondary: { background: 'var(--surface-translucent)', color: 'var(--text-primary)', border: '0.8px solid ' + (h ? 'var(--nebula-cyan-60)' : 'var(--nebula-cyan-50)'), boxShadow: h ? 'var(--glow-cyan-strong)' : 'var(--glow-cyan)' },
+    ghost: { background: h ? 'var(--glass-bg-hover)' : 'var(--glass-bg)', backdropFilter: 'var(--glass-blur)', WebkitBackdropFilter: 'var(--glass-blur)', color: 'var(--text-primary)', border: '1px solid ' + (h ? 'var(--nebula-cyan-50)' : 'var(--glass-border)'), boxShadow: (h ? 'var(--glow-cyan-soft), ' : '') + 'var(--glass-highlight)' },
+  };
+  return (
+    <button aria-label={label} title={label} disabled={disabled}
+      onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}
+      style={{ width: d, height: d, display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+        borderRadius: 'var(--radius-control)', cursor: disabled ? 'not-allowed' : 'pointer',
+        opacity: disabled ? 0.4 : 1, transition: 'all 250ms var(--ease-hud)', ...variants[variant], ...style }}
+      {...rest}>{children}</button>
+  );
+}
+
+
+// ---- components/core/Badge.jsx ----
+
+function Badge({ variant = 'cyan', children, style }) {
+  const variants = {
+    cyan: { background: 'var(--nebula-cyan-10)', color: 'var(--nebula-cyan)', border: '1px solid var(--nebula-cyan-30)' },
+    neutral: { background: 'var(--space-surface-hover)', color: 'var(--text-secondary)', border: '1px solid var(--space-border)' },
+  };
+  return (
+    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '3px 10px',
+      fontFamily: 'var(--font-sans)', fontSize: 12, fontWeight: 500, letterSpacing: '0.06em',
+      textTransform: 'uppercase', borderRadius: 'var(--radius-control)',
+      ...variants[variant], ...style }}>{children}</span>
+  );
+}
+
+
+// ---- components/core/Tag.jsx ----
+
+function Tag({ children, onRemove, style }) {
+  const [hover, setHover] = React.useState(false);
+  return (
+    <span onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}
+      style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '5px 12px',
+        fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 400,
+        background: hover ? 'var(--space-surface-hover)' : 'var(--space-surface)',
+        color: 'var(--text-primary)', border: '1px solid var(--space-border)',
+        borderRadius: 'var(--radius-input)', transition: 'all 150ms var(--ease-hud)', ...style }}>
+      {children}
+      {onRemove && (
+        <button onClick={onRemove} aria-label="Remove"
+          style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0,
+            color: 'var(--text-secondary)', fontSize: 14, lineHeight: 1 }}>×</button>
+      )}
+    </span>
+  );
+}
+
+
+// ---- components/core/Card.jsx ----
+
+function Card({ interactive = false, glow = false, padding = 24, children, style, ...rest }) {
+  const [hover, setHover] = React.useState(false);
+  const h = interactive && hover;
+  return (
+    <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}
+      style={{ background: h ? 'var(--glass-bg-hover)' : 'var(--glass-bg)',
+        backdropFilter: 'var(--glass-blur)', WebkitBackdropFilter: 'var(--glass-blur)',
+        border: '1px solid ' + (h ? 'var(--nebula-cyan-30)' : 'var(--glass-border)'),
+        borderRadius: 'var(--radius-card)', padding,
+        boxShadow: (glow || h ? 'var(--glow-cyan-soft), ' : '') + 'var(--glass-highlight)',
+        cursor: interactive ? 'pointer' : 'default',
+        transition: 'all 250ms var(--ease-hud)',
+        fontFamily: 'var(--font-sans)', color: 'var(--text-primary)', ...style }}
+      {...rest}>{children}</div>
+  );
+}
+
+
+// ---- components/forms/Input.jsx ----
+
+function Input({ label, hint, error, multiline = false, style, ...rest }) {
+  const [focus, setFocus] = React.useState(false);
+  const Field = multiline ? 'textarea' : 'input';
+  const fieldStyle = {
+    width: '100%', boxSizing: 'border-box',
+    background: 'var(--surface-translucent)',
+    border: '1px solid ' + (error ? 'rgba(248,113,113,0.6)' : focus ? 'var(--nebula-cyan-60)' : 'var(--space-border)'),
+    borderRadius: 'var(--radius-input)',
+    boxShadow: focus && !error ? 'var(--glow-cyan-soft)' : 'none',
+    color: 'var(--text-primary)', fontFamily: 'var(--font-sans)', fontSize: 15,
+    padding: '11px 14px', outline: 'none',
+    transition: 'all 250ms var(--ease-hud)',
+    resize: multiline ? 'vertical' : undefined,
+    minHeight: multiline ? 96 : undefined,
+  };
+  return (
+    <label style={{ display: 'flex', flexDirection: 'column', gap: 6, fontFamily: 'var(--font-sans)', ...style }}>
+      {label && <span style={{ fontSize: 14, fontWeight: 500, color: 'var(--text-primary)' }}>{label}</span>}
+      <Field onFocus={() => setFocus(true)} onBlur={() => setFocus(false)} style={fieldStyle} {...rest} />
+      {error ? (
+        <span style={{ fontSize: 12, color: '#F87171' }}>{error}</span>
+      ) : hint ? (
+        <span style={{ fontSize: 12, color: 'var(--text-secondary)' }}>{hint}</span>
+      ) : null}
+    </label>
+  );
+}
+
+
+// ---- components/forms/Select.jsx ----
+
+function Select({ label, options = [], style, ...rest }) {
+  const [focus, setFocus] = React.useState(false);
+  return (
+    <label style={{ display: 'flex', flexDirection: 'column', gap: 6, fontFamily: 'var(--font-sans)', ...style }}>
+      {label && <span style={{ fontSize: 14, fontWeight: 500, color: 'var(--text-primary)' }}>{label}</span>}
+      <div style={{ position: 'relative' }}>
+        <select onFocus={() => setFocus(true)} onBlur={() => setFocus(false)}
+          style={{ width: '100%', appearance: 'none', WebkitAppearance: 'none',
+            background: 'var(--surface-translucent)',
+            border: '1px solid ' + (focus ? 'var(--nebula-cyan-60)' : 'var(--space-border)'),
+            boxShadow: focus ? 'var(--glow-cyan-soft)' : 'none',
+            borderRadius: 'var(--radius-input)', color: 'var(--text-primary)',
+            fontFamily: 'var(--font-sans)', fontSize: 15, padding: '11px 36px 11px 14px',
+            outline: 'none', cursor: 'pointer', transition: 'all 250ms var(--ease-hud)' }} {...rest}>
+          {options.map((o) => (
+            <option key={o.value} value={o.value} style={{ background: '#0D1220', color: '#F8FAFC' }}>{o.label}</option>
+          ))}
+        </select>
+        <span style={{ position: 'absolute', right: 14, top: '50%', transform: 'translateY(-50%)',
+          pointerEvents: 'none', color: 'var(--text-secondary)', fontSize: 11 }}>▾</span>
+      </div>
+    </label>
+  );
+}
+
+
+// ---- components/forms/Checkbox.jsx ----
+
+function Checkbox({ label, checked, onChange, disabled = false, style }) {
+  const [hover, setHover] = React.useState(false);
+  return (
+    <label onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}
+      style={{ display: 'inline-flex', alignItems: 'center', gap: 10, cursor: disabled ? 'not-allowed' : 'pointer',
+        fontFamily: 'var(--font-sans)', fontSize: 15, color: 'var(--text-primary)', opacity: disabled ? 0.4 : 1, ...style }}>
+      <input type="checkbox" checked={checked} disabled={disabled}
+        onChange={(e) => onChange && onChange(e.target.checked)}
+        style={{ position: 'absolute', opacity: 0, width: 0, height: 0 }} />
+      <span aria-hidden="true" style={{ width: 18, height: 18, flexShrink: 0, display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+        borderRadius: 'var(--radius-control)',
+        border: '1px solid ' + (checked ? 'var(--nebula-cyan)' : hover ? 'var(--nebula-cyan-50)' : 'var(--space-border)'),
+        background: checked ? 'var(--nebula-cyan)' : 'var(--surface-translucent)',
+        boxShadow: checked ? 'var(--glow-cyan-soft)' : 'none',
+        transition: 'all 150ms var(--ease-hud)' }}>
+        {checked && (
+          <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6.5L4.8 9L10 3.5" stroke="#05080F" strokeWidth="2" strokeLinecap="square" />
+          </svg>
+        )}
+      </span>
+      {label}
+    </label>
+  );
+}
+
+
+// ---- components/forms/Radio.jsx ----
+
+function Radio({ label, checked, onChange, name, value, disabled = false, style }) {
+  const [hover, setHover] = React.useState(false);
+  return (
+    <label onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}
+      style={{ display: 'inline-flex', alignItems: 'center', gap: 10, cursor: disabled ? 'not-allowed' : 'pointer',
+        fontFamily: 'var(--font-sans)', fontSize: 15, color: 'var(--text-primary)', opacity: disabled ? 0.4 : 1, ...style }}>
+      <input type="radio" name={name} value={value} checked={checked} disabled={disabled}
+        onChange={() => onChange && onChange(value)}
+        style={{ position: 'absolute', opacity: 0, width: 0, height: 0 }} />
+      <span aria-hidden="true" style={{ width: 18, height: 18, flexShrink: 0, borderRadius: '50%',
+        display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+        border: '1px solid ' + (checked ? 'var(--nebula-cyan)' : hover ? 'var(--nebula-cyan-50)' : 'var(--space-border)'),
+        background: 'var(--surface-translucent)',
+        boxShadow: checked ? 'var(--glow-cyan-soft)' : 'none',
+        transition: 'all 150ms var(--ease-hud)' }}>
+        {checked && <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--nebula-cyan)' }} />}
+      </span>
+      {label}
+    </label>
+  );
+}
+
+
+// ---- components/forms/Switch.jsx ----
+
+function Switch({ label, checked, onChange, disabled = false, style }) {
+  return (
+    <label style={{ display: 'inline-flex', alignItems: 'center', gap: 10, cursor: disabled ? 'not-allowed' : 'pointer',
+      fontFamily: 'var(--font-sans)', fontSize: 15, color: 'var(--text-primary)', opacity: disabled ? 0.4 : 1, ...style }}>
+      <input type="checkbox" role="switch" checked={checked} disabled={disabled}
+        onChange={(e) => onChange && onChange(e.target.checked)}
+        style={{ position: 'absolute', opacity: 0, width: 0, height: 0 }} />
+      <span aria-hidden="true" style={{ width: 38, height: 20, flexShrink: 0, borderRadius: 'var(--radius-input)',
+        position: 'relative',
+        background: checked ? 'var(--nebula-cyan-10)' : 'var(--space-surface-hover)',
+        border: '1px solid ' + (checked ? 'var(--nebula-cyan-50)' : 'var(--space-border)'),
+        boxShadow: checked ? 'var(--glow-cyan-soft)' : 'none',
+        transition: 'all 250ms var(--ease-hud)' }}>
+        <span style={{ position: 'absolute', top: 2, left: checked ? 19 : 2, width: 14, height: 14,
+          borderRadius: '2px', background: checked ? 'var(--nebula-cyan)' : 'var(--text-secondary)',
+          transition: 'all 250ms var(--ease-hud)' }} />
+      </span>
+      {label}
+    </label>
+  );
+}
+
+
+// ---- components/navigation/Tabs.jsx ----
+
+function Tabs({ items = [], activeId, onChange, style }) {
+  return (
+    <div role="tablist" style={{ display: 'flex', gap: 4, borderBottom: '1px solid var(--space-border)',
+      fontFamily: 'var(--font-sans)', ...style }}>
+      {items.map((it) => {
+        const active = it.id === activeId;
+        return <TabItem key={it.id} item={it} active={active} onChange={onChange} />;
+      })}
+    </div>
+  );
+}
+
+function TabItem({ item, active, onChange }) {
+  const [hover, setHover] = React.useState(false);
+  return (
+    <button role="tab" aria-selected={active} onClick={() => onChange && onChange(item.id)}
+      onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}
+      style={{ background: 'none', border: 'none', cursor: 'pointer',
+        padding: '10px 16px', marginBottom: -1, fontFamily: 'var(--font-sans)',
+        fontSize: 15, fontWeight: active ? 600 : 400,
+        color: active ? 'var(--text-primary)' : hover ? 'var(--text-primary)' : 'var(--text-secondary)',
+        borderBottom: '2px solid ' + (active ? 'var(--nebula-cyan)' : 'transparent'),
+        textShadow: active ? '0 0 16px rgba(0,204,255,0.4)' : 'none',
+        transition: 'all 200ms var(--ease-hud)' }}>{item.label}</button>
+  );
+}
+
+
+// ---- components/feedback/Dialog.jsx ----
+
+function Dialog({ open, onClose, title, children, footer, width = 480 }) {
+  if (!open) return null;
+  return (
+    <div onClick={onClose} style={{ position: 'fixed', inset: 0, zIndex: 100,
+      background: 'var(--scrim)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
+      <div role="dialog" aria-modal="true" onClick={(e) => e.stopPropagation()}
+        style={{ width, maxWidth: '100%', background: 'var(--space-surface)',
+          border: '1.6px solid var(--space-border)', borderRadius: 'var(--radius-card)',
+          boxShadow: 'var(--glow-cyan-soft)', fontFamily: 'var(--font-sans)', color: 'var(--text-primary)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '20px 24px 0' }}>
+          <div style={{ fontSize: 20, fontWeight: 600 }}>{title}</div>
+          <button onClick={onClose} aria-label="Close"
+            style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-secondary)',
+              fontSize: 20, lineHeight: 1, padding: 4 }}>×</button>
+        </div>
+        <div style={{ padding: '14px 24px 24px', fontSize: 15, lineHeight: 1.6, color: 'var(--text-secondary)' }}>{children}</div>
+        {footer && (
+          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 12, padding: '0 24px 24px' }}>{footer}</div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+
+// ---- components/feedback/Toast.jsx ----
+
+function Toast({ title, description, variant = 'info', onDismiss, style }) {
+  const dot = variant === 'success' ? 'var(--nebula-cyan)' : variant === 'error' ? '#F87171' : 'var(--text-secondary)';
+  return (
+    <div role="status" style={{ display: 'flex', alignItems: 'flex-start', gap: 12,
+      width: 360, maxWidth: '100%', padding: '14px 16px',
+      background: 'var(--space-surface)', border: '1px solid var(--space-border)',
+      borderRadius: 'var(--radius-card)',
+      boxShadow: variant === 'success' ? 'var(--glow-cyan-soft)' : '0 8px 24px rgba(0,0,0,0.5)',
+      fontFamily: 'var(--font-sans)', color: 'var(--text-primary)', ...style }}>
+      <span style={{ width: 8, height: 8, borderRadius: '50%', background: dot, marginTop: 6, flexShrink: 0,
+        boxShadow: variant === 'success' ? '0 0 8px rgba(0,204,255,0.6)' : 'none' }} />
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ fontSize: 14, fontWeight: 600 }}>{title}</div>
+        {description && <div style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.5, marginTop: 2 }}>{description}</div>}
+      </div>
+      {onDismiss && (
+        <button onClick={onDismiss} aria-label="Dismiss"
+          style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-secondary)',
+            fontSize: 16, lineHeight: 1, padding: 0 }}>×</button>
+      )}
+    </div>
+  );
+}
+
+
+// ---- components/feedback/Tooltip.jsx ----
+
+function Tooltip({ label, children, style }) {
+  const [show, setShow] = React.useState(false);
+  return (
+    <span onMouseEnter={() => setShow(true)} onMouseLeave={() => setShow(false)}
+      style={{ position: 'relative', display: 'inline-flex', ...style }}>
+      {children}
+      {show && (
+        <span role="tooltip" style={{ position: 'absolute', bottom: '100%', left: '50%',
+          transform: 'translateX(-50%) translateY(-8px)', whiteSpace: 'nowrap',
+          background: 'var(--space-surface-hover)', border: '1px solid var(--nebula-cyan-30)',
+          borderRadius: 'var(--radius-input)', boxShadow: 'var(--glow-cyan-soft)',
+          color: 'var(--text-primary)', fontFamily: 'var(--font-sans)', fontSize: 12.5,
+          padding: '6px 10px', zIndex: 50, pointerEvents: 'none' }}>{label}</span>
+      )}
+    </span>
+  );
+}
+
+
+// ---- components/brand/ShimmerHeading.jsx ----
+
+function ShimmerHeading({ as = 'h1', size = 80, animated = true, children, style }) {
+  const Tag = as;
+  return (
+    <Tag className={animated ? 'shimmer-text' : undefined}
+      style={{ margin: 0, fontFamily: 'var(--font-sans)', fontWeight: 700,
+        fontSize: size, lineHeight: 1.05, letterSpacing: '-0.01em',
+        ...(animated ? {} : {
+          background: 'var(--shimmer-gradient)', WebkitBackgroundClip: 'text', backgroundClip: 'text',
+          WebkitTextFillColor: 'transparent', color: 'transparent',
+        }), ...style }}>{children}</Tag>
+  );
+}
+
+
+// ---- components/brand/Eyebrow.jsx ----
+
+function Eyebrow({ children, style }) {
+  return (
+    <div style={{ fontFamily: 'var(--font-sans)', fontSize: 'var(--text-eyebrow)', fontWeight: 400,
+      letterSpacing: 'normal', textTransform: 'uppercase', color: 'var(--text-primary)', ...style }}>{children}</div>
+  );
+}
+
+
+// ---- components/brand/StarField.jsx ----
+
+/* Deterministic scattered star-points. Parent must be position:relative. */
+function StarField({ count = 24, seed = 7, opacity = 0.35, style }) {
+  const stars = React.useMemo(() => {
+    let s = seed;
+    const rnd = () => { s = (s * 16807) % 2147483647; return s / 2147483647; };
+    return Array.from({ length: count }, (_, i) => ({
+      id: i, x: rnd() * 100, y: rnd() * 100,
+      r: 0.75 + rnd() * 1.25, o: 0.4 + rnd() * 0.6,
+    }));
+  }, [count, seed]);
+  return (
+    <svg aria-hidden="true" width="100%" height="100%" preserveAspectRatio="none"
+      style={{ position: 'absolute', inset: 0, pointerEvents: 'none', opacity, ...style }}>
+      {stars.map((st) => (
+        <circle key={st.id} cx={st.x + '%'} cy={st.y + '%'} r={st.r} fill="#F8FAFC" opacity={st.o} />
+      ))}
+    </svg>
+  );
+}
+
+
+// ---- ui_kits/coming-soon/ComingSoon.jsx ----
+
+function ComingSoon() {
+  const [now, setNow] = React.useState(new Date());
+  React.useEffect(() => {
+    const id = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(id);
+  }, []);
+  const time = now.toLocaleTimeString('en-US', { timeZone: 'America/Belize', hour12: false });
+  const systems = [
+    { name: 'Website Development', status: 'ONLINE' },
+    { name: 'Web App Development', status: 'ONLINE' },
+    { name: 'Hosting', status: '99.9% UPTIME' },
+    { name: 'Custom Domain Email', status: 'ONLINE' },
+    { name: 'Design & Print', status: 'ONLINE' },
+    { name: 'AI Automation', status: 'IN DEVELOPMENT', dim: true },
+  ];
+  return (
+    <div style={{ minHeight: '100vh', background: 'transparent', color: 'var(--text-primary)',
+      fontFamily: 'var(--font-sans)', display: 'flex', flexDirection: 'column', position: 'relative' }}>
+      <main style={{ flex: 1, width: '100%', maxWidth: 1240, margin: '0 auto', boxSizing: 'border-box',
+        padding: '96px 48px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+        gap: 72, alignItems: 'center' }}>
+
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 28 }}>
+          <ShimmerHeading size={72}>Ctech International</ShimmerHeading>
+          <p style={{ margin: 0, maxWidth: 520, fontSize: 18, lineHeight: 1.6, color: 'var(--text-secondary)' }}>
+            Websites, web apps, and everything around them — built in Belize, ready for the world.
+          </p>
+          <div style={{ display: 'flex', gap: 16, alignItems: 'center', marginTop: 8 }}>
+            <Button variant="secondary" size="lg">Book a Consultation</Button>
+          </div>
+          <div style={{ fontSize: 14, color: 'var(--text-secondary)' }}>+501 606-3532 · info@ctechintl.com</div>
+        </div>
+
+        <aside style={{ background: 'var(--glass-bg)', backdropFilter: 'var(--glass-blur)', WebkitBackdropFilter: 'var(--glass-blur)',
+          border: '1px solid var(--glass-border)',
+          borderRadius: 'var(--radius-card)', padding: 28, display: 'flex', flexDirection: 'column', gap: 18,
+          boxShadow: 'var(--glow-cyan-soft), var(--glass-highlight)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--nebula-cyan)',
+                animation: 'ctech-pulse 2.4s ease-out infinite' }} />
+              <span style={{ fontSize: 13, letterSpacing: '0.08em' }}>ALL SYSTEMS OPERATIONAL</span>
+            </div>
+            <span style={{ fontSize: 13, color: 'var(--text-secondary)', fontVariantNumeric: 'tabular-nums' }}>BELIZE {time}</span>
+          </div>
+          <div style={{ height: 1, background: 'var(--space-border)' }} />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 13 }}>
+            {systems.map((s) => (
+              <div key={s.name} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                gap: 12, opacity: s.dim ? 0.55 : 1 }}>
+                <span style={{ fontSize: 15 }}>{s.name}</span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 11.5,
+                  letterSpacing: '0.08em', color: s.dim ? 'var(--text-secondary)' : 'var(--nebula-cyan)' }}>
+                  <span style={{ width: 5, height: 5, borderRadius: '50%',
+                    background: s.dim ? 'var(--text-secondary)' : 'var(--nebula-cyan)',
+                    boxShadow: s.dim ? 'none' : '0 0 8px rgba(0,204,255,0.6)' }} />
+                  {s.status}
+                </span>
+              </div>
+            ))}
+          </div>
+          <div style={{ height: 1, background: 'var(--space-border)' }} />
+          <div style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.6 }}>We reply within 1 business day.</div>
+        </aside>
+      </main>
+
+      <footer style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        padding: '24px 48px', borderTop: '1px solid var(--space-border)', fontSize: 14, color: 'var(--text-secondary)' }}>
+        <span>© 2026 Ctech International — Belize City, Belize</span>
+        <span>Powered by <span style={{ color: 'var(--text-primary)' }}>Ctech International</span></span>
+      </footer>
+    </div>
+  );
+}
+
+
+// ---- ui_kits/homepage/Homepage.jsx ----
+
+function HomeNavLink({ children }) {
+  const [h, setH] = React.useState(false);
+  return (
+    <a href="#" onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
+      style={{ fontSize: 14.5, textDecoration: 'none', padding: '8px 2px',
+        color: h ? 'var(--text-primary)' : 'var(--text-secondary)',
+        textShadow: h ? '0 0 14px rgba(0,204,255,0.5)' : 'none',
+        transition: 'all 200ms var(--ease-hud)' }}>{children}</a>
+  );
+}
+
+function SectionTitle({ title, lead }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 14, maxWidth: 680 }}>
+      <div style={{ width: 40, height: 2, background: 'var(--nebula-cyan)', boxShadow: '0 0 12px rgba(0,204,255,0.6)' }} />
+      <h2 style={{ margin: 0, fontSize: 36, fontWeight: 600, lineHeight: 1.1 }}>{title}</h2>
+      {lead && <p style={{ margin: 0, fontSize: 17, lineHeight: 1.6, color: 'var(--text-secondary)' }}>{lead}</p>}
+    </div>
+  );
+}
+
+function Homepage() {
+  const [now, setNow] = React.useState(new Date());
+  React.useEffect(() => {
+    const id = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(id);
+  }, []);
+  const time = now.toLocaleTimeString('en-US', { timeZone: 'America/Belize', hour12: false });
+  const systems = [
+    { name: 'Website Development', status: 'ONLINE' },
+    { name: 'Web App Development', status: 'ONLINE' },
+    { name: 'Hosting', status: '99.9% UPTIME' },
+    { name: 'Custom Domain Email', status: 'ONLINE' },
+    { name: 'Design & Print', status: 'ONLINE' },
+    { name: 'AI Automation', status: 'IN DEVELOPMENT', dim: true },
+  ];
+  const services = [
+    { title: 'Websites & Web Apps', body: 'Fast, modern sites and custom web applications — designed and engineered from scratch, never from a template.' },
+    { title: 'Hosting, Email & Presence', body: 'Managed hosting with 99.9% uptime, email on your own domain, and Google Business Profiles that put you on the map.' },
+    { title: 'Design & Print', body: 'Business cards, flyers, banners, billboards, t-shirts — the same brand, on and off the screen.' },
+  ];
+  const reasons = [
+    { title: 'Everything under one roof', body: 'Site, hosting, email, and print from a single studio — one call fixes anything.' },
+    { title: '99.9% uptime', body: 'Your site stays up. We watch the infrastructure so you never have to.' },
+    { title: 'Custom, never templated', body: 'Every build is designed around your business, not squeezed into a theme.' },
+    { title: 'Fast, local support', body: 'Based in Belize City. Real replies within one business day.' },
+  ];
+  const clients = ['YEC Belize', 'Healing Touch Day Spa', 'Into the Blue Excursions', 'CareBelize', 'Superstar Car Wash'];
+  const wrap = { width: '100%', maxWidth: 1240, margin: '0 auto', boxSizing: 'border-box', paddingLeft: 48, paddingRight: 48 };
+  const tick = { color: 'var(--nebula-cyan)', flexShrink: 0 };
+  return (
+    <div style={{ background: 'transparent', color: 'var(--text-primary)', fontFamily: 'var(--font-sans)', position: 'relative' }}>
+
+      <header data-screen-label="Nav" style={{ position: 'sticky', top: 0, zIndex: 20,
+        background: 'rgba(5,8,15,0.5)', backdropFilter: 'var(--glass-blur)', WebkitBackdropFilter: 'var(--glass-blur)',
+        borderBottom: '1px solid var(--glass-border)' }}>
+        <div style={{ ...wrap, display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 68 }}>
+          <div style={{ fontSize: 16, fontWeight: 600, letterSpacing: '0.14em' }}>CTECH INTERNATIONAL</div>
+          <nav style={{ display: 'flex', alignItems: 'center', gap: 26 }}>
+            <HomeNavLink>Services</HomeNavLink>
+            <HomeNavLink>Build Your Site</HomeNavLink>
+            <HomeNavLink>Portfolio</HomeNavLink>
+            <HomeNavLink>Products</HomeNavLink>
+            <HomeNavLink>About</HomeNavLink>
+            <Button variant="secondary" size="sm">Book a Call</Button>
+          </nav>
+        </div>
+      </header>
+
+      <main data-screen-label="Hero" style={{ ...wrap, minHeight: 'calc(100vh - 68px)', paddingTop: 64, paddingBottom: 96,
+        display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: 72, alignItems: 'center' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 28 }}>
+          <ShimmerHeading size={72}>Ctech International</ShimmerHeading>
+          <p style={{ margin: 0, maxWidth: 520, fontSize: 18, lineHeight: 1.6, color: 'var(--text-secondary)' }}>
+            Websites, web apps, and everything around them — built in Belize, ready for the world.
+          </p>
+          <div style={{ display: 'flex', gap: 16, alignItems: 'center', marginTop: 8 }}>
+            <Button variant="secondary" size="lg">Book a Consultation</Button>
+          </div>
+          <div style={{ fontSize: 14, color: 'var(--text-secondary)' }}>+501 606-3532 · info@ctechintl.com</div>
+        </div>
+        <aside style={{ background: 'var(--glass-bg)', backdropFilter: 'var(--glass-blur)', WebkitBackdropFilter: 'var(--glass-blur)',
+          border: '1px solid var(--glass-border)',
+          borderRadius: 'var(--radius-card)', padding: 28, display: 'flex', flexDirection: 'column', gap: 18,
+          boxShadow: 'var(--glow-cyan-soft), var(--glass-highlight)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--nebula-cyan)',
+                animation: 'ctech-pulse 2.4s ease-out infinite' }} />
+              <span style={{ fontSize: 13, letterSpacing: '0.08em' }}>ALL SYSTEMS OPERATIONAL</span>
+            </div>
+            <span style={{ fontSize: 13, color: 'var(--text-secondary)', fontVariantNumeric: 'tabular-nums' }}>BELIZE {time}</span>
+          </div>
+          <div style={{ height: 1, background: 'var(--space-border)' }} />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 13 }}>
+            {systems.map((s) => (
+              <div key={s.name} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                gap: 12, opacity: s.dim ? 0.55 : 1 }}>
+                <span style={{ fontSize: 15 }}>{s.name}</span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 11.5,
+                  letterSpacing: '0.08em', color: s.dim ? 'var(--text-secondary)' : 'var(--nebula-cyan)' }}>
+                  <span style={{ width: 5, height: 5, borderRadius: '50%',
+                    background: s.dim ? 'var(--text-secondary)' : 'var(--nebula-cyan)',
+                    boxShadow: s.dim ? 'none' : '0 0 8px rgba(0,204,255,0.6)' }} />
+                  {s.status}
+                </span>
+              </div>
+            ))}
+          </div>
+          <div style={{ height: 1, background: 'var(--space-border)' }} />
+          <div style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.6 }}>We reply within 1 business day.</div>
+        </aside>
+      </main>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 128, paddingBottom: 128 }}>
+
+        <section data-screen-label="Value prop" style={wrap}>
+          <SectionTitle title="One studio for your whole web presence"
+            lead="We design, build, host, and maintain — for shops, tour operators, clinics, and every business in Belize ready to look world-class online." />
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 20, marginTop: 44 }}>
+            {services.map((s) => (
+              <Card key={s.title} interactive padding={26}>
+                <div style={{ fontSize: 20, fontWeight: 600 }}>{s.title}</div>
+                <p style={{ margin: '10px 0 0', fontSize: 15, lineHeight: 1.6, color: 'var(--text-secondary)' }}>{s.body}</p>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        <section data-screen-label="Why choose us" style={wrap}>
+          <SectionTitle title="Why businesses choose Ctech" />
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 28, marginTop: 44 }}>
+            {reasons.map((r) => (
+              <div key={r.title} style={{ borderTop: '1px solid var(--space-border)', paddingTop: 18 }}>
+                <div style={{ fontSize: 17, fontWeight: 600 }}>{r.title}</div>
+                <p style={{ margin: '8px 0 0', fontSize: 14.5, lineHeight: 1.6, color: 'var(--text-secondary)' }}>{r.body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section data-screen-label="Consultation CTA" style={wrap}>
+          <div style={{ border: '1px solid var(--nebula-cyan-30)', borderRadius: 'var(--radius-card)',
+            boxShadow: 'var(--glow-cyan-soft), var(--glass-highlight)', background: 'var(--glass-bg)',
+            backdropFilter: 'var(--glass-blur)', WebkitBackdropFilter: 'var(--glass-blur)',
+            padding: '72px 48px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 18, textAlign: 'center' }}>
+            <h2 style={{ margin: 0, fontSize: 36, fontWeight: 600, lineHeight: 1.1 }}>Let's build something that wins clients</h2>
+            <p style={{ margin: 0, fontSize: 16, lineHeight: 1.6, color: 'var(--text-secondary)' }}>A 20-minute call is all it takes to scope your project.</p>
+            <div style={{ marginTop: 10 }}><Button variant="primary" size="lg">Book a Consultation</Button></div>
+            <div style={{ fontSize: 14, color: 'var(--text-secondary)' }}>or call +501 606-3532</div>
+          </div>
+        </section>
+
+        <section data-screen-label="Configurator snapshot" style={wrap}>
+          <SectionTitle title="Two ways to get your site"
+            lead="A quick snapshot — the full Build Your Site configurator is on its way." />
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: 24, marginTop: 44 }}>
+            <Card padding={32}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 12 }}>
+                <div style={{ fontSize: 22, fontWeight: 600 }}>Starter</div>
+                <div style={{ fontSize: 13, letterSpacing: '0.06em', color: 'var(--text-secondary)' }}>SUBSCRIPTION</div>
+              </div>
+              <div style={{ marginTop: 20, display: 'flex', alignItems: 'baseline', gap: 8 }}>
+                <span style={{ fontSize: 44, fontWeight: 700, lineHeight: 1 }}>99 BZD</span>
+                <span style={{ fontSize: 15, color: 'var(--text-secondary)' }}>/month</span>
+              </div>
+              <div style={{ fontSize: 14, color: 'var(--text-secondary)', marginTop: 6 }}>+ 100 BZD/year domain</div>
+              <div style={{ height: 1, background: 'var(--space-border)', margin: '24px 0' }} />
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12, fontSize: 15, lineHeight: 1.5 }}>
+                <div style={{ display: 'flex', gap: 10 }}><span style={tick}>—</span><span>Professionally built and maintained for you</span></div>
+                <div style={{ display: 'flex', gap: 10 }}><span style={tick}>—</span><span>Hosting, updates, and domain handled by Ctech</span></div>
+                <div style={{ display: 'flex', gap: 10 }}><span style={tick}>—</span><span>Lowest cost to get online</span></div>
+              </div>
+            </Card>
+            <Card padding={32} glow>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 12 }}>
+                <div style={{ fontSize: 22, fontWeight: 600 }}>Custom Build</div>
+                <div style={{ fontSize: 13, letterSpacing: '0.06em', color: 'var(--nebula-cyan)' }}>FULL OWNERSHIP</div>
+              </div>
+              <div style={{ marginTop: 20, display: 'flex', alignItems: 'baseline', gap: 8 }}>
+                <span style={{ fontSize: 44, fontWeight: 700, lineHeight: 1 }}>700 BZD</span>
+                <span style={{ fontSize: 15, color: 'var(--text-secondary)' }}>one-time</span>
+              </div>
+              <div style={{ fontSize: 14, color: 'var(--text-secondary)', marginTop: 6 }}>+ 500 BZD/year hosting</div>
+              <div style={{ height: 1, background: 'var(--space-border)', margin: '24px 0' }} />
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12, fontSize: 15, lineHeight: 1.5 }}>
+                <div style={{ display: 'flex', gap: 10 }}><span style={tick}>—</span><span>Designed and engineered from scratch</span></div>
+                <div style={{ display: 'flex', gap: 10 }}><span style={tick}>—</span><span>You own the site and the domain outright</span></div>
+                <div style={{ display: 'flex', gap: 10 }}><span style={tick}>—</span><span>Grows into web apps and integrations</span></div>
+              </div>
+            </Card>
+          </div>
+        </section>
+
+        <section data-screen-label="Trust" style={{ ...wrap, textAlign: 'center' }}>
+          <div style={{ fontSize: 13, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-secondary)' }}>Trusted by businesses across Belize</div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '18px 48px', marginTop: 28 }}>
+            {clients.map((c) => (
+              <span key={c} style={{ fontSize: 19, fontWeight: 600, color: 'var(--text-secondary)', opacity: 0.85 }}>{c}</span>
+            ))}
+          </div>
+        </section>
+      </div>
+
+      <footer style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12,
+        padding: '24px 48px', borderTop: '1px solid var(--space-border)', fontSize: 14, color: 'var(--text-secondary)' }}>
+        <span>© 2026 Ctech International — Belize City, Belize</span>
+        <span>Powered by <span style={{ color: 'var(--text-primary)' }}>Ctech International</span></span>
+      </footer>
+    </div>
+  );
+}
+
+return { Button, IconButton, Badge, Tag, Card, Input, Select, Checkbox, Radio, Switch, Tabs, Dialog, Toast, Tooltip, ShimmerHeading, Eyebrow, StarField, ComingSoon, Homepage };
+})();
+
+</script>
+<link rel="stylesheet" href="../../components/brand/hero.css">
+<script defer src="../../components/brand/hero.js"></script>
+<style>html,body{margin:0;background:var(--bg-page)}#root{position:relative;z-index:1}.hero-sky{position:fixed}</style>
+</head><body><div class="hero-sky" data-hero-sky></div><div id="root"></div>
+<script type="text/babel" data-presets="react-classic">
+const NS = (() => {
+  for (const k of Object.getOwnPropertyNames(window)) {
+    try { const v = window[k]; if (v && typeof v === 'object' && typeof v.Button === 'function' && typeof v.Card === 'function') return v; } catch (e) {}
+  }
+  return {};
+})();
+const { ComingSoon } = NS;
+ReactDOM.createRoot(document.getElementById('root')).render(<ComingSoon />);
+</script></body></html>

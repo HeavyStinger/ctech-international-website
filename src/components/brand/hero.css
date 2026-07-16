@@ -1,0 +1,10 @@
+/* Tesseract hero sky — pair with hero.js.
+   Host element: <div class="hero-sky" data-hero-sky></div> (parent positioned, or override to fixed). */
+.hero-sky {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: radial-gradient(115% 85% at 50% 0%, #08111F 0%, #050913 48%, #02040A 100%);
+}
+.hero-sky canvas { display: block; width: 100%; height: 100%; }

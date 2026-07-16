@@ -1,0 +1,21 @@
+/* Ctech International — spacing & shape tokens */
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px; /* generous hero negative space — lean into the void */
+
+  /* shape: sharp HUD corners on controls, 12px on panels. No pills. */
+  --radius-control: 4px;   /* buttons: small radius, 4px standard */
+  --radius-input: 4px;
+  --radius-card: 12px;     /* the ONE card radius — keep consistent everywhere */
+
+  --border-card-width: 1.6px;
+  --border-control-width: 0.8px;
+}

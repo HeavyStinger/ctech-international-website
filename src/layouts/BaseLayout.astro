@@ -1,0 +1,44 @@
+---
+import '../styles/global.css';
+import '../components/brand/hero.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Websites, web apps, and everything around them — built in Belize, ready for the world.' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="hero-sky" data-hero-sky></div>
+    <div id="root">
+      <slot />
+    </div>
+    <script src="/hero.js" defer></script>
+  </body>
+</html>
+
+<style is:global>
+  html,
+  body {
+    margin: 0;
+    background: var(--space-black);
+  }
+  .hero-sky {
+    position: fixed;
+  }
+  #root {
+    position: relative;
+    z-index: 1;
+  }
+</style>
