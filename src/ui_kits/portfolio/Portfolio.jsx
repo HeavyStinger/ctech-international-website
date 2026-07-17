@@ -3,21 +3,71 @@ import { Button } from '../../components/core/Button.jsx';
 import { Card } from '../../components/core/Card.jsx';
 import { Eyebrow } from '../../components/brand/Eyebrow.jsx';
 import { ShimmerHeading } from '../../components/brand/ShimmerHeading.jsx';
+import { SectionTitle } from '../../components/brand/SectionTitle.jsx';
 import { Header } from '../../components/brand/Header.jsx';
 import { Footer } from '../../components/brand/Footer.jsx';
+import { MockupFrame } from '../../components/brand/MockupFrame.jsx';
+import { AlbumStack } from '../../components/brand/AlbumStack.jsx';
+import { FlyerLightbox } from '../../components/brand/FlyerLightbox.jsx';
 
-const projects = [
-  { name: 'YEC Belize', type: 'Website', domain: 'yecbelize.com' },
-  { name: 'Healing Touch Day Spa', type: 'Website', domain: 'healingtouchdayspa.com' },
-  { name: 'Into the Blue Excursions', type: 'Website', domain: 'intotheblueexcursions.bz' },
-  { name: 'Father of the Nation', type: 'Website', domain: 'fatherofthenation.blog' },
-  { name: 'CareBelize', type: 'Website' },
-  { name: 'Superstar Car Wash', type: 'Website' },
-  { name: 'Tsunami Adventures', type: 'Flyer Design' },
+const websites = [
+  { name: 'YEC Belize', domain: 'yecbelize.com', image: '/portfolio/websites/yec.webp' },
+  { name: 'Healing Touch Day Spa', domain: 'healingtouchdayspa.com', image: '/portfolio/websites/healingtouchdayspa.webp' },
+  { name: 'Into the Blue Excursions', domain: 'intotheblueexcursions.bz', image: '/portfolio/websites/intotheblueexcursions.webp' },
+  { name: 'Father of the Nation', domain: 'fatherofthenation.blog', image: '/portfolio/websites/fatherofthenation.webp' },
+  { name: 'CareBelize', domain: 'carebelize.bz', image: '/portfolio/websites/carebelize.webp' },
+  { name: 'Superstar Car Wash', domain: 'heavystinger.github.io/superstar-car-wash-website/', image: '/portfolio/websites/superstarcarwash.webp' },
 ];
+
+function albumImages(folder, count) {
+  return Array.from({ length: count }, (_, i) => `/portfolio/flyers/${folder}/${folder}-${i + 1}.webp`);
+}
+
+const flyers = [
+  { name: 'Tsunami Adventures', images: albumImages('tsunami-adventures', 6) },
+  { name: 'Edmund Kwan · Re-Elect 2026', images: albumImages('edmund-kwan-re-elect-2026', 6) },
+];
+
+function WebsiteGrid({ items }) {
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 20, marginTop: 36 }}>
+      {items.map((p) => {
+        const card = (
+          <Card interactive padding={0} style={{ overflow: 'hidden' }}>
+            <MockupFrame domain={p.domain} name={p.name} image={p.image} alt={p.name} />
+            <div style={{ padding: '16px 20px', fontSize: 17, fontWeight: 600 }}>{p.name}</div>
+          </Card>
+        );
+        return p.domain ? (
+          <a key={p.name} href={`https://${p.domain}`} target="_blank" rel="noopener noreferrer"
+            style={{ display: 'block', textDecoration: 'none', color: 'inherit' }}>
+            {card}
+          </a>
+        ) : (
+          <div key={p.name}>{card}</div>
+        );
+      })}
+    </div>
+  );
+}
+
+function FlyerGrid({ items, onOpen }) {
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 260px))', gap: 20, marginTop: 36 }}>
+      {items.map((p) => (
+        <Card key={p.name} interactive padding={20}
+          onClick={p.images.length > 0 ? () => onOpen(p) : undefined}>
+          <AlbumStack images={p.images} />
+          <div style={{ marginTop: 12, fontSize: 17, fontWeight: 600, textAlign: 'center' }}>{p.name}</div>
+        </Card>
+      ))}
+    </div>
+  );
+}
 
 export function Portfolio() {
   const wrap = { width: '100%', maxWidth: 1240, margin: '0 auto', boxSizing: 'border-box', paddingLeft: 48, paddingRight: 48 };
+  const [lightboxFlyer, setLightboxFlyer] = React.useState(null);
   return (
     <div style={{ background: 'transparent', color: 'var(--text-primary)', fontFamily: 'var(--font-sans)', position: 'relative' }}>
       <Header />
@@ -33,21 +83,20 @@ export function Portfolio() {
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 96, paddingBottom: 128 }}>
         <section style={wrap}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20 }}>
-            {projects.map((p) => (
-              <Card key={p.name} interactive padding={26}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
-                  <div style={{ fontSize: 19, fontWeight: 600 }}>{p.name}</div>
-                  <span style={{ fontSize: 11.5, letterSpacing: '0.08em', color: 'var(--nebula-cyan)' }}>{p.type.toUpperCase()}</span>
-                </div>
-                {p.domain && (
-                  <a href={`https://${p.domain}`} target="_blank" rel="noopener noreferrer"
-                    style={{ display: 'block', marginTop: 10, fontSize: 14, color: 'var(--text-secondary)', textDecoration: 'none' }}>
-                    {p.domain}
-                  </a>
-                )}
-              </Card>
-            ))}
+          <SectionTitle title="Websites" lead="Including web apps." />
+          <WebsiteGrid items={websites} />
+        </section>
+
+        <section style={wrap}>
+          <SectionTitle title="Flyers" />
+          <FlyerGrid items={flyers} onOpen={setLightboxFlyer} />
+        </section>
+
+        <section style={wrap}>
+          <SectionTitle title="Concepts" />
+          <div style={{ marginTop: 24, border: '1px dashed var(--space-border)', borderRadius: 'var(--radius-card)',
+            padding: 28, fontSize: 15, lineHeight: 1.6, color: 'var(--text-secondary)' }}>
+            Design concepts are on their way. Check back soon.
           </div>
         </section>
 
@@ -64,6 +113,9 @@ export function Portfolio() {
       </div>
 
       <Footer />
+
+      <FlyerLightbox open={!!lightboxFlyer} images={lightboxFlyer?.images ?? []}
+        name={lightboxFlyer?.name} onClose={() => setLightboxFlyer(null)} />
     </div>
   );
 }
