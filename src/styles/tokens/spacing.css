@@ -6,10 +6,16 @@
   --space-4: 16px;
   --space-5: 24px;
   --space-6: 32px;
-  --space-7: 48px;
-  --space-8: 64px;
-  --space-9: 96px;
-  --space-10: 128px; /* generous hero negative space — lean into the void */
+
+  /* --space-7 through --space-10 are the large structural/section-level gaps
+     (page gutters, section rhythm, hero padding). Mobile-first: these are the
+     small-viewport defaults; the desktop values (the ones the whole site was
+     designed against) only apply at >=768px, so nothing above that breakpoint
+     changes at all. */
+  --space-7: 20px;   /* desktop: 48px */
+  --space-8: 32px;   /* desktop: 64px */
+  --space-9: 48px;   /* desktop: 96px */
+  --space-10: 64px;  /* desktop: 128px — generous hero negative space, lean into the void */
 
   /* shape: sharp HUD corners on controls, 12px on panels. No pills. */
   --radius-control: 4px;   /* buttons: small radius, 4px standard */
@@ -18,4 +24,13 @@
 
   --border-card-width: 1.6px;
   --border-control-width: 0.8px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --space-7: 48px;
+    --space-8: 64px;
+    --space-9: 96px;
+    --space-10: 128px;
+  }
 }

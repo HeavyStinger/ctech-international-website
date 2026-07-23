@@ -1,6 +1,7 @@
 import React from 'react';
 import { Phone, Mail, MapPin } from 'lucide-react';
 import { Button } from '../core/Button.jsx';
+import { withBase } from '../../lib/url.js';
 
 /* lucide-react dropped brand/logo icons, so socials are hand-drawn to match its thin-stroke line weight */
 function InstagramGlyph({ size = 16, color }) {
@@ -99,18 +100,18 @@ function SocialIconLink({ href, label, Glyph }) {
 }
 
 export function Footer() {
-  const wrap = { width: '100%', maxWidth: 1240, margin: '0 auto', boxSizing: 'border-box', paddingLeft: 48, paddingRight: 48, position: 'relative' };
+  const wrap = { width: '100%', maxWidth: 1240, margin: '0 auto', boxSizing: 'border-box', paddingLeft: 'var(--space-7)', paddingRight: 'var(--space-7)', position: 'relative' };
   const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
   const explore = [
-    { label: 'Services & Tech', href: '/services' },
-    { label: 'Build Your Site', href: '/build' },
-    { label: 'Portfolio', href: '/portfolio' },
-    { label: 'About', href: '/about' },
+    { label: 'Services & Tech', href: withBase('/services') },
+    { label: 'Build Your Site', href: withBase('/build') },
+    { label: 'Portfolio', href: withBase('/portfolio') },
+    { label: 'About', href: withBase('/about') },
   ];
   const products = [
-    { label: 'Tapt', href: '/products' },
-    { label: 'Tesseract', href: '/products' },
-    { label: 'Book a Call', href: '#' },
+    { label: 'Tapt', href: withBase('/products') },
+    { label: 'Tesseract', href: withBase('/products') },
+    { label: 'Book a Call', href: withBase('/build') },
   ];
   const legal = [
     { label: 'Privacy Policy', href: '#' },
@@ -132,7 +133,7 @@ export function Footer() {
         <div style={{ background: 'var(--glass-bg)', backdropFilter: 'var(--glass-blur)', WebkitBackdropFilter: 'var(--glass-blur)',
           border: '1px solid var(--glass-border)', borderRadius: 'var(--radius-card)',
           boxShadow: 'var(--glass-highlight)',
-          padding: '40px 48px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between',
+          padding: '40px var(--space-7)', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between',
           gap: 24, marginBottom: 'var(--space-9)' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8, maxWidth: 480 }}>
             <div style={{ fontSize: 'var(--text-h3)', fontWeight: 600, color: 'var(--text-primary)', lineHeight: 1.2 }}>
@@ -142,7 +143,9 @@ export function Footer() {
               A 20-minute call is all it takes to scope your project.
             </div>
           </div>
-          <Button variant="primary" size="lg">Book a Consultation</Button>
+          <a href={withBase('/build')} style={{ textDecoration: 'none' }}>
+            <Button variant="primary" size="lg">Book a Consultation</Button>
+          </a>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 40 }}>

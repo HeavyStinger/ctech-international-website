@@ -66,3 +66,85 @@
   0%, 100% { box-shadow: 0 0 0 0 rgba(0,204,255,0.5); }
   50% { box-shadow: 0 0 0 6px rgba(0,204,255,0); }
 }
+
+/* concept marquee: continuous drift, one full item-set width per loop (track is
+   rendered twice back-to-back so -50% is a seamless wrap) */
+@keyframes ctech-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Astro stack icon: small contained engine vibration — sub-pixel jitter, not a
+   visible bounce, so it reads as "idling" rather than "broken." */
+@keyframes ctech-astro-shake {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  10% { transform: translate(-0.6px, 0.4px) rotate(-0.4deg); }
+  20% { transform: translate(0.5px, -0.5px) rotate(0.3deg); }
+  30% { transform: translate(-0.4px, 0.6px) rotate(-0.3deg); }
+  40% { transform: translate(0.6px, -0.3px) rotate(0.4deg); }
+  50% { transform: translate(-0.5px, 0.3px) rotate(-0.2deg); }
+  60% { transform: translate(0.4px, -0.6px) rotate(0.3deg); }
+  70% { transform: translate(-0.3px, 0.4px) rotate(-0.4deg); }
+  80% { transform: translate(0.5px, -0.4px) rotate(0.2deg); }
+  90% { transform: translate(-0.4px, 0.5px) rotate(-0.3deg); }
+}
+
+/* Astro stack icon: flickering thruster flame beneath the logomark */
+@keyframes ctech-astro-flame {
+  0%, 100% { transform: scaleY(1) scaleX(1); opacity: 0.75; }
+  50% { transform: scaleY(1.4) scaleX(0.82); opacity: 1; }
+}
+
+/* React stack icon: continuous slow spin */
+@keyframes ctech-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* mobile-first nav: hamburger + drawer below 768px, the original inline nav
+   row at/above it. Inline styles can't express a media query, so this is the
+   one bit of layout that has to live in CSS rather than a style object. */
+.ctech-nav-desktop {
+  display: none;
+}
+.ctech-nav-toggle {
+  display: inline-flex;
+}
+.ctech-nav-drawer {
+  display: block;
+}
+@media (min-width: 768px) {
+  .ctech-nav-desktop {
+    display: flex;
+  }
+  .ctech-nav-toggle,
+  .ctech-nav-drawer {
+    display: none;
+  }
+}
+
+/* Homepage hero grid: a plain single column is always overflow-safe on mobile;
+   restore the two-up minmax(340px, 1fr) layout only once there's room for it. */
+.ctech-hero-grid {
+  grid-template-columns: 1fr;
+}
+@media (min-width: 768px) {
+  .ctech-hero-grid {
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  }
+}
+
+/* native <dialog>: strip the UA chrome (white box, default border/padding),
+   let our own panel markup inside it do the styling */
+dialog.ctech-dialog {
+  border: none;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  max-width: none;
+  max-height: none;
+  overflow: visible;
+}
+dialog.ctech-dialog::backdrop {
+  background: var(--scrim);
+}

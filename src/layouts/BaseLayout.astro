@@ -1,13 +1,14 @@
 ---
 import '../styles/global.css';
 import '../components/brand/hero.css';
+import { withBase } from '../lib/url.js';
 
 interface Props {
   title: string;
   description?: string;
 }
 
-const { title, description = 'Websites, web apps, and everything around them — built in Belize, ready for the world.' } = Astro.props;
+const { title, description = 'Websites, web apps, and everything around them. Built in Belize, ready for the world.' } = Astro.props;
 ---
 
 <!doctype html>
@@ -16,7 +17,7 @@ const { title, description = 'Websites, web apps, and everything around them —
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href={withBase('/favicon.ico')} />
     <title>{title}</title>
   </head>
   <body>
@@ -24,7 +25,7 @@ const { title, description = 'Websites, web apps, and everything around them —
     <div id="root">
       <slot />
     </div>
-    <script src="/hero.js" defer></script>
+    <script src={withBase('/hero.js')} defer></script>
   </body>
 </html>
 

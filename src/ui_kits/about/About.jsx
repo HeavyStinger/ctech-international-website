@@ -6,14 +6,15 @@ import { ShimmerHeading } from '../../components/brand/ShimmerHeading.jsx';
 import { SectionTitle } from '../../components/brand/SectionTitle.jsx';
 import { Header } from '../../components/brand/Header.jsx';
 import { Footer } from '../../components/brand/Footer.jsx';
+import { withBase } from '../../lib/url.js';
 
 export function About() {
-  const wrap = { width: '100%', maxWidth: 1240, margin: '0 auto', boxSizing: 'border-box', paddingLeft: 48, paddingRight: 48 };
+  const wrap = { width: '100%', maxWidth: 1240, margin: '0 auto', boxSizing: 'border-box', paddingLeft: 'var(--space-7)', paddingRight: 'var(--space-7)' };
   return (
     <div style={{ background: 'transparent', color: 'var(--text-primary)', fontFamily: 'var(--font-sans)', position: 'relative' }}>
       <Header />
 
-      <main data-screen-label="Intro" style={{ ...wrap, paddingTop: 96, paddingBottom: 64,
+      <main data-screen-label="Intro" style={{ ...wrap, paddingTop: 'var(--space-9)', paddingBottom: 'var(--space-8)',
         display: 'flex', flexDirection: 'column', gap: 20, alignItems: 'flex-start' }}>
         <Eyebrow>About</Eyebrow>
         <ShimmerHeading as="h1" size={56}>One studio, built to grow</ShimmerHeading>
@@ -22,7 +23,7 @@ export function About() {
         </p>
       </main>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 96, paddingBottom: 128 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-9)', paddingBottom: 'var(--space-10)' }}>
         <section style={wrap}>
           <SectionTitle title="Our story"
             lead="The owner has been building sites and apps since college. Ctech International became a formal brand a few months ago, built on that same hands-on experience." />
@@ -49,10 +50,14 @@ export function About() {
           <div style={{ border: '1px solid var(--nebula-cyan-30)', borderRadius: 'var(--radius-card)',
             boxShadow: 'var(--glow-cyan-soft), var(--glass-highlight)', background: 'var(--glass-bg)',
             backdropFilter: 'var(--glass-blur)', WebkitBackdropFilter: 'var(--glass-blur)',
-            padding: '72px 48px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 18, textAlign: 'center' }}>
+            padding: '72px var(--space-7)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 18, textAlign: 'center' }}>
             <h2 style={{ margin: 0, fontSize: 36, fontWeight: 600, lineHeight: 1.1 }}>Let's build something that wins clients</h2>
             <p style={{ margin: 0, fontSize: 16, lineHeight: 1.6, color: 'var(--text-secondary)' }}>A 20-minute call is all it takes to scope your project.</p>
-            <div style={{ marginTop: 10 }}><Button variant="primary" size="lg">Book a Consultation</Button></div>
+            <div style={{ marginTop: 10 }}>
+              <a href={withBase('/build')} style={{ textDecoration: 'none' }}>
+                <Button variant="primary" size="lg">Book a Consultation</Button>
+              </a>
+            </div>
           </div>
         </section>
       </div>

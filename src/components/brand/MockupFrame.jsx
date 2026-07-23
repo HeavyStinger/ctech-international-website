@@ -17,10 +17,10 @@ export function MockupFrame({ domain, name, image, alt }) {
           <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{domain || name}</span>
         </div>
       </div>
-      <div style={{ position: 'relative', aspectRatio: '16 / 10', overflow: 'hidden' }}>
+      <div style={{ position: 'relative', aspectRatio: '16 / 10', overflow: 'hidden', background: 'var(--space-surface)' }}>
         {image ? (
           <img src={image} alt={alt || name} loading="lazy" decoding="async"
-            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+            style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }} />
         ) : (
           <div style={{ position: 'absolute', inset: 8, display: 'flex', alignItems: 'center', justifyContent: 'center',
             border: '1px dashed var(--space-border)', borderRadius: 'var(--radius-input)',

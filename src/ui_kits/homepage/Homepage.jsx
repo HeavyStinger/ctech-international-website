@@ -6,6 +6,7 @@ import { ShimmerHeading } from '../../components/brand/ShimmerHeading.jsx';
 import { Header } from '../../components/brand/Header.jsx';
 import { SectionTitle } from '../../components/brand/SectionTitle.jsx';
 import { Footer } from '../../components/brand/Footer.jsx';
+import { withBase } from '../../lib/url.js';
 
 export function Homepage() {
   const [now, setNow] = React.useState(new Date());
@@ -34,21 +35,24 @@ export function Homepage() {
     { title: 'Fast, local support', body: 'Based in Belize City. Real replies within one business day.' },
   ];
   const clients = ['YEC Belize', 'Healing Touch Day Spa', 'Into the Blue Excursions', 'CareBelize', 'Superstar Car Wash'];
-  const wrap = { width: '100%', maxWidth: 1240, margin: '0 auto', boxSizing: 'border-box', paddingLeft: 48, paddingRight: 48 };
+  const wrap = { width: '100%', maxWidth: 1240, margin: '0 auto', boxSizing: 'border-box', paddingLeft: 'var(--space-7)', paddingRight: 'var(--space-7)' };
   return (
     <div style={{ background: 'transparent', color: 'var(--text-primary)', fontFamily: 'var(--font-sans)', position: 'relative' }}>
 
       <Header />
 
-      <main data-screen-label="Hero" style={{ ...wrap, minHeight: 'calc(100vh - 68px)', paddingTop: 64, paddingBottom: 96,
-        display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: 72, alignItems: 'center' }}>
+      <main data-screen-label="Hero" className="ctech-hero-grid"
+        style={{ ...wrap, minHeight: 'calc(100vh - 68px)', paddingTop: 'var(--space-8)', paddingBottom: 'var(--space-9)',
+        display: 'grid', gap: 72, alignItems: 'center' }}>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 28 }}>
           <ShimmerHeading size={72}>Ctech International</ShimmerHeading>
           <p style={{ margin: 0, maxWidth: 520, fontSize: 18, lineHeight: 1.6, color: 'var(--text-secondary)' }}>
             Websites, web apps, and everything around them. Built in Belize, ready for the world.
           </p>
           <div style={{ display: 'flex', gap: 16, alignItems: 'center', marginTop: 8 }}>
-            <Button variant="secondary" size="lg">Book a Consultation</Button>
+            <a href={withBase('/build')} style={{ textDecoration: 'none' }}>
+              <Button variant="secondary" size="lg">Book a Consultation</Button>
+            </a>
           </div>
           <div style={{ fontSize: 14, color: 'var(--text-secondary)' }}>+501 600-8328 · info@ctechintl.com</div>
         </div>
@@ -85,7 +89,7 @@ export function Homepage() {
         </aside>
       </main>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 128, paddingBottom: 128 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-10)', paddingBottom: 'var(--space-10)' }}>
 
         <section data-screen-label="Value prop" style={wrap}>
           <SectionTitle title="One studio for your whole online presence"
@@ -116,10 +120,14 @@ export function Homepage() {
           <div style={{ border: '1px solid var(--nebula-cyan-30)', borderRadius: 'var(--radius-card)',
             boxShadow: 'var(--glow-cyan-soft), var(--glass-highlight)', background: 'var(--glass-bg)',
             backdropFilter: 'var(--glass-blur)', WebkitBackdropFilter: 'var(--glass-blur)',
-            padding: '72px 48px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 18, textAlign: 'center' }}>
+            padding: '72px var(--space-7)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 18, textAlign: 'center' }}>
             <h2 style={{ margin: 0, fontSize: 36, fontWeight: 600, lineHeight: 1.1 }}>Let's build something that wins clients</h2>
             <p style={{ margin: 0, fontSize: 16, lineHeight: 1.6, color: 'var(--text-secondary)' }}>A 20-minute call is all it takes to scope your project.</p>
-            <div style={{ marginTop: 10 }}><Button variant="primary" size="lg">Book a Consultation</Button></div>
+            <div style={{ marginTop: 10 }}>
+              <a href={withBase('/build')} style={{ textDecoration: 'none' }}>
+                <Button variant="primary" size="lg">Book a Consultation</Button>
+              </a>
+            </div>
             <div style={{ fontSize: 14, color: 'var(--text-secondary)' }}>or call +501 600-8328</div>
           </div>
         </section>
@@ -149,8 +157,8 @@ export function Homepage() {
             </Card>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 24, marginTop: 32, flexWrap: 'wrap' }}>
-            <Button variant="primary" size="md" onClick={() => { window.location.href = '/build'; }}>See Full Pricing</Button>
-            <a href="/products" style={{ fontSize: 14.5, color: 'var(--text-secondary)', textDecoration: 'none' }}>
+            <Button variant="primary" size="md" onClick={() => { window.location.href = withBase('/build'); }}>See Full Pricing</Button>
+            <a href={withBase('/products')} style={{ fontSize: 14.5, color: 'var(--text-secondary)', textDecoration: 'none' }}>
               Also: Tapt and Tesseract, our own products →
             </a>
           </div>
