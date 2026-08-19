@@ -19,6 +19,7 @@ const websites = [
   { name: 'Father of the Nation', domain: 'fatherofthenation.blog', image: withBase('/portfolio/websites/fatherofthenation.webp'), description: "Tribute site for Belize's founding father" },
   { name: 'CareBelize', domain: 'carebelize.bz', image: withBase('/portfolio/websites/carebelize.webp'), description: 'On-demand telemedicine for visitors across Belize' },
   { name: 'Superstar Car Wash', domain: 'heavystinger.github.io/superstar-car-wash-website/', image: withBase('/portfolio/websites/superstarcarwash.webp'), description: 'Car wash service website' },
+  { name: 'Cosmic Pharmacy', domain: 'cosmicpharmacybz.com', image: withBase('/portfolio/websites/cosmicpharmacy.webp'), description: 'Pharmacy in Belize District' },
 ];
 
 function albumImages(folder, count) {

@@ -34,19 +34,19 @@ const sellGroups = [
     title: 'Development',
     lead: 'The foundation everything else builds on. Designed and coded around your business, not squeezed into a theme.',
     items: [
-      { icon: Globe, name: 'Website Development', tagline: 'A site built to bring in customers, not just look nice.',
+      { icon: Globe, name: 'Website Development', slug: 'website-development', tagline: 'A site built to bring in customers, not just look nice.',
         features: [
           'Designed from scratch around your business, never a template',
           'Loads fast and works on every screen',
           'Structured to turn visitors into calls and messages',
         ] },
-      { icon: AppWindow, name: 'Web App Development', tagline: 'Custom software for workflows off-the-shelf tools can’t handle.',
+      { icon: AppWindow, name: 'Web App Development', slug: 'web-app-development', tagline: 'Custom software for workflows off-the-shelf tools can’t handle.',
         features: [
           'Portals, dashboards, booking and tracking systems',
           'Built around how your business actually works',
           'Grows with you as your needs change',
         ] },
-      { icon: Sparkles, name: 'Custom Services', tagline: 'For the projects that don’t fit a checkbox.',
+      { icon: Sparkles, name: 'Custom Services', slug: 'custom-services', tagline: 'For the projects that don’t fit a checkbox.',
         features: [
           'Voting systems, internal tools, one-off builds',
           'Scoped around your exact problem, not a package',
@@ -58,13 +58,13 @@ const sellGroups = [
     title: 'Infrastructure',
     lead: 'What we build has to stay online. We host and manage it ourselves, so there’s one team accountable for the whole thing, not three.',
     items: [
-      { icon: Server, name: 'Hosting', tagline: '99.9% uptime, watched around the clock.',
+      { icon: Server, name: 'Hosting', slug: 'hosting', tagline: '99.9% uptime, watched around the clock.',
         features: [
           'Your site stays up while we handle the infrastructure',
           'Fast servers, no third-party handoffs',
           'Issues get caught before your customers notice',
         ] },
-      { icon: Mail, name: 'Custom Domain Email', tagline: 'you@yourbusiness.com looks like a real business.',
+      { icon: Mail, name: 'Custom Domain Email', slug: 'custom-domain-email', tagline: 'you@yourbusiness.com looks like a real business.',
         features: [
           'Professional email on your own domain',
           'More credible than a free @gmail address',
@@ -76,13 +76,13 @@ const sellGroups = [
     title: 'Local Presence',
     lead: 'The best site in the world does nothing if customers can’t find it. This is how they do.',
     items: [
-      { customSvg: googleBusinessProfileSvg, name: 'Google Business Profiles', tagline: 'Show up when people search for what you do, nearby.',
+      { customSvg: googleBusinessProfileSvg, name: 'Google Business Profiles', slug: 'google-business-profiles', tagline: 'Show up when people search for what you do, nearby.',
         features: [
           'Setup and optimization from scratch',
           'Hours, photos, and reviews kept current',
           'Free visibility that keeps paying off',
         ] },
-      { customSvg: googleAdsSvg, name: 'Google Ads', tagline: 'Paid campaigns that bring leads in faster.',
+      { customSvg: googleAdsSvg, name: 'Google Ads', slug: 'google-ads', tagline: 'Paid campaigns that bring leads in faster.',
         features: [
           'Campaigns built around your goals and budget',
           'Targeted at the customers actually looking for you',
@@ -96,37 +96,37 @@ const designGroup = {
   title: 'Design',
   lead: 'The same brand everywhere it shows up. Print and signage designed to match the site, not clash with it.',
   items: [
-    { icon: CreditCard, name: 'Business Cards', tagline: 'The first thing people hold onto after they meet you.',
+    { icon: CreditCard, name: 'Business Cards', slug: 'business-cards', tagline: 'The first thing people hold onto after they meet you.',
       features: [
         'Front and back layout designed to match your brand',
         'Print-ready files, no guesswork for the printer',
         'Makes a stronger impression than a generic template',
       ] },
-    { icon: Megaphone, name: 'Flyers', tagline: 'Built to grab attention and get the offer read.',
+    { icon: Megaphone, name: 'Flyers', slug: 'flyers', tagline: 'Built to grab attention and get the offer read.',
       features: [
         'Promotions, events, and announcements',
         'Clear hierarchy so the message lands fast',
         'Sized for print or sharing online',
       ] },
-    { icon: Image, name: 'Posters', tagline: 'Made to hold up from across a room.',
+    { icon: Image, name: 'Posters', slug: 'posters', tagline: 'Made to hold up from across a room.',
       features: [
         'Bold layouts that read at a distance',
         'Sized for standard print formats',
         'Same colors and fonts as your site',
       ] },
-    { icon: RectangleHorizontal, name: 'Banners', tagline: 'Storefronts and events, branded the moment people walk up.',
+    { icon: RectangleHorizontal, name: 'Banners', slug: 'banners', tagline: 'Storefronts and events, branded the moment people walk up.',
       features: [
         'Designed for indoor or outdoor display',
         'Built to be readable at a glance',
         'Matches the rest of your brand materials',
       ] },
-    { icon: SignpostBig, name: 'Billboards', tagline: 'Wide reach, built for a few seconds of attention.',
+    { icon: SignpostBig, name: 'Billboards', slug: 'billboards', tagline: 'Wide reach, built for a few seconds of attention.',
       features: [
         'Simple, bold layouts that work at highway speed',
         'Sized to spec for your chosen location',
         'Consistent with your site and other print',
       ] },
-    { icon: Shirt, name: 'T-Shirts', tagline: 'The same brand, on and off the screen.',
+    { icon: Shirt, name: 'T-Shirts', slug: 't-shirts', tagline: 'The same brand, on and off the screen.',
       features: [
         'Apparel for staff, events, or merch',
         'Print-ready artwork for your chosen shop',
@@ -155,11 +155,12 @@ function ServiceFlowStrip() {
   );
 }
 
-function ServiceCard({ icon: Icon, customSvg, name, tagline, features }) {
+function ServiceCard({ icon: Icon, customSvg, name, tagline, features, href }) {
   const [hover, setHover] = React.useState(false);
   return (
-    <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}
-      style={{ background: 'var(--glass-tint)', backdropFilter: 'blur(2px) saturate(1.3)', WebkitBackdropFilter: 'blur(2px) saturate(1.3)',
+    <a href={href} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}
+      style={{ display: 'block', textDecoration: 'none', color: 'inherit',
+        background: 'var(--glass-tint)', backdropFilter: 'blur(2px) saturate(1.3)', WebkitBackdropFilter: 'blur(2px) saturate(1.3)',
         border: '1px solid ' + (hover ? 'var(--nebula-cyan-30)' : 'var(--space-border)'),
         borderRadius: 'var(--radius-card)', padding: 28,
         transform: hover ? 'translateY(-3px)' : 'translateY(0)',
@@ -186,7 +187,11 @@ function ServiceCard({ icon: Icon, customSvg, name, tagline, features }) {
           </div>
         ))}
       </div>
-    </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 18, fontSize: 13.5, fontWeight: 600,
+        color: hover ? 'var(--nebula-cyan)' : 'var(--text-secondary)', transition: 'color 250ms var(--ease-hud)' }}>
+        Ask about this <ArrowRight size={14} strokeWidth={2.25} style={{ transform: hover ? 'translateX(3px)' : 'translateX(0)', transition: 'transform 250ms var(--ease-hud)' }} />
+      </div>
+    </a>
   );
 }
 
@@ -212,7 +217,8 @@ export function Services() {
             <SectionTitle title={g.title} lead={g.lead} />
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20, marginTop: 36 }}>
               {g.items.map((item) => (
-                <ServiceCard key={item.name} icon={item.icon} customSvg={item.customSvg} name={item.name} tagline={item.tagline} features={item.features} />
+                <ServiceCard key={item.name} icon={item.icon} customSvg={item.customSvg} name={item.name} tagline={item.tagline} features={item.features}
+                  href={withBase(`/contact?service=${item.slug}`)} />
               ))}
             </div>
           </section>
@@ -222,7 +228,8 @@ export function Services() {
           <SectionTitle title={designGroup.title} lead={designGroup.lead} />
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20, marginTop: 36 }}>
             {designGroup.items.map((item) => (
-              <ServiceCard key={item.name} icon={item.icon} customSvg={item.customSvg} name={item.name} tagline={item.tagline} features={item.features} />
+              <ServiceCard key={item.name} icon={item.icon} customSvg={item.customSvg} name={item.name} tagline={item.tagline} features={item.features}
+                href={withBase(`/contact?service=${item.slug}`)} />
             ))}
           </div>
         </section>

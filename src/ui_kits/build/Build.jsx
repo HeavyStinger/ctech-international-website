@@ -215,8 +215,22 @@ export function Build() {
   const total = path === 'custom' ? customTotal({ extraPages, booking, logo, rush }) : null;
 
   React.useEffect(() => {
+    const plan = new URLSearchParams(window.location.search).get('plan');
+    if (plan === 'starter' || plan === 'custom') {
+      setPath(plan);
+      setStarted(true);
+    }
+  }, []);
+
+  React.useEffect(() => {
     if (started) cardsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, [started]);
+
+  // re-anchor instantly (no animated scroll) on every path pick / step change, so
+  // the card never jumps around as its content height changes underneath the user
+  React.useEffect(() => {
+    if (started && path) cardsRef.current?.scrollIntoView({ behavior: 'auto', block: 'start' });
+  }, [path, stepIndex]);
 
   function choosePath(p) {
     setPath(p);
@@ -249,7 +263,7 @@ export function Build() {
         </section>
 
         {started && (
-        <section ref={cardsRef} style={wrap}>
+        <section ref={cardsRef} style={{ ...wrap, scrollMarginTop: 88 }}>
           {!path ? (
             <>
               <div style={{ textAlign: 'center', marginBottom: 28 }}>
@@ -320,7 +334,7 @@ export function Build() {
               </div>
             </>
           ) : (
-            <FlatCard padding={40} style={{ maxWidth: 560, margin: '0 auto' }}>
+            <FlatCard padding={40} style={{ maxWidth: 560, margin: '0 auto', minHeight: 460 }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24 }}>
                 <button aria-label="Back" onClick={goBack} style={iconBtnStyle(false)}>
                   <ArrowLeft size={16} strokeWidth={2} />
@@ -331,32 +345,34 @@ export function Build() {
                 <div style={{ width: 36 }} />
               </div>
 
-              {total !== null && currentStep !== 'summary' && (
-                <div style={{ textAlign: 'center', marginBottom: 28 }}>
-                  <div style={{ fontSize: 11.5, letterSpacing: '0.08em', color: 'var(--text-secondary)' }}>ESTIMATED TOTAL</div>
-                  <div style={{ fontSize: 32, fontWeight: 700 }}>
-                    {total} BZD <span style={{ fontSize: 14, fontWeight: 400, color: 'var(--text-secondary)' }}>one-time</span>
+              <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                {total !== null && currentStep !== 'summary' && (
+                  <div style={{ textAlign: 'center', marginBottom: 28 }}>
+                    <div style={{ fontSize: 11.5, letterSpacing: '0.08em', color: 'var(--text-secondary)' }}>ESTIMATED TOTAL</div>
+                    <div style={{ fontSize: 32, fontWeight: 700 }}>
+                      {total} BZD <span style={{ fontSize: 14, fontWeight: 400, color: 'var(--text-secondary)' }}>one-time</span>
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
 
-              {currentStep === 'pages' && <PagesStep value={extraPages} onChange={setExtraPages} onContinue={goNext} />}
-              {currentStep === 'booking' && (
-                <YesNoStep question="Need online booking or scheduling?" note={`Adds ${BOOKING_PRICE} BZD`} value={booking}
-                  onAnswer={(v) => { setBooking(v); goNext(); }} />
-              )}
-              {currentStep === 'logo' && (
-                <YesNoStep question="Need a logo designed?" note={`Adds ${LOGO_PRICE} BZD`} value={logo}
-                  onAnswer={(v) => { setLogo(v); goNext(); }} />
-              )}
-              {currentStep === 'rush' && (
-                <YesNoStep question="Need it delivered in a week?" note={`Adds ${RUSH_PRICE} BZD for rush delivery`} value={rush}
-                  onAnswer={(v) => { setRush(v); goNext(); }} />
-              )}
-              {currentStep === 'domain' && <DomainStep value={domain} onChange={setDomain} onContinue={goNext} />}
-              {currentStep === 'summary' && (
-                <SummaryStep path={path} extraPages={extraPages} booking={booking} logo={logo} rush={rush} domain={domain} total={total} />
-              )}
+                {currentStep === 'pages' && <PagesStep value={extraPages} onChange={setExtraPages} onContinue={goNext} />}
+                {currentStep === 'booking' && (
+                  <YesNoStep question="Need online booking or scheduling?" note={`Adds ${BOOKING_PRICE} BZD`} value={booking}
+                    onAnswer={(v) => { setBooking(v); goNext(); }} />
+                )}
+                {currentStep === 'logo' && (
+                  <YesNoStep question="Need a logo designed?" note={`Adds ${LOGO_PRICE} BZD`} value={logo}
+                    onAnswer={(v) => { setLogo(v); goNext(); }} />
+                )}
+                {currentStep === 'rush' && (
+                  <YesNoStep question="Need it delivered in a week?" note={`Adds ${RUSH_PRICE} BZD for rush delivery`} value={rush}
+                    onAnswer={(v) => { setRush(v); goNext(); }} />
+                )}
+                {currentStep === 'domain' && <DomainStep value={domain} onChange={setDomain} onContinue={goNext} />}
+                {currentStep === 'summary' && (
+                  <SummaryStep path={path} extraPages={extraPages} booking={booking} logo={logo} rush={rush} domain={domain} total={total} />
+                )}
+              </div>
             </FlatCard>
           )}
         </section>

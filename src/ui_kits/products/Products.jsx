@@ -8,7 +8,6 @@ import { ShimmerHeading } from '../../components/brand/ShimmerHeading.jsx';
 import { SectionTitle } from '../../components/brand/SectionTitle.jsx';
 import { Header } from '../../components/brand/Header.jsx';
 import { Footer } from '../../components/brand/Footer.jsx';
-import { ImageLightbox } from '../../components/brand/ImageLightbox.jsx';
 import { withBase } from '../../lib/url.js';
 
 const hubItems = ['Save Contact', 'Google Reviews', 'Digital Menu', 'Socials', 'Booking'];
@@ -148,11 +147,6 @@ function ProductSection({ icon: Icon, eyebrow, name, tagline, features, photos, 
 
 export function Products() {
   const wrap = { width: '100%', maxWidth: 1240, margin: '0 auto', boxSizing: 'border-box', paddingLeft: 'var(--space-7)', paddingRight: 'var(--space-7)' };
-  const [lightboxProduct, setLightboxProduct] = React.useState(null);
-
-  function openTaptPhoto() {
-    setLightboxProduct({ name: 'Tapt', aspectRatio: '1485 / 704' });
-  }
 
   return (
     <div style={{ background: 'transparent', color: 'var(--text-primary)', fontFamily: 'var(--font-sans)', position: 'relative' }}>
@@ -182,7 +176,7 @@ export function Products() {
             media={(
               <iframe
                 src="https://www.youtube.com/embed/4UGk1fJPvDA"
-                title="Tesseract demo"
+                title="Tapt demo"
                 loading="lazy"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
@@ -283,9 +277,6 @@ export function Products() {
       </div>
 
       <Footer />
-
-      <ImageLightbox open={!!lightboxProduct} images={lightboxProduct?.images ?? []}
-        name={lightboxProduct?.name} aspectRatio={lightboxProduct?.aspectRatio} onClose={() => setLightboxProduct(null)} />
     </div>
   );
 }

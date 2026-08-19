@@ -87,7 +87,7 @@ function NavDrawer({ open, onClose, links, path }) {
             {l.label}
           </HeaderNavLink>
         ))}
-        <a href={withBase('/build')} onClick={onClose} style={{ textDecoration: 'none', marginTop: 8, display: 'block' }}>
+        <a href={`${withBase('/contact')}#form`} onClick={onClose} style={{ textDecoration: 'none', marginTop: 8, display: 'block' }}>
           <Button variant="secondary" size="sm" style={{ width: '100%' }}>Book a Call</Button>
         </a>
       </div>
@@ -127,7 +127,7 @@ export function Header() {
         </a>
         <nav className="ctech-nav-desktop" style={{ alignItems: 'center', gap: 26 }}>
           {links.map((l) => <HeaderNavLink key={l.label} href={l.href} active={path === l.href}>{l.label}</HeaderNavLink>)}
-          <a href={withBase('/build')} style={{ textDecoration: 'none' }}>
+          <a href={`${withBase('/contact')}#form`} style={{ textDecoration: 'none' }}>
             <Button variant="secondary" size="sm">Book a Call</Button>
           </a>
         </nav>

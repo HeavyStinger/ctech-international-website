@@ -184,7 +184,7 @@
     var base = Math.min(W, H);
     var defs = [], i;
     for (i = 0; i < NAMED.length; i++) defs.push(normalize(cloneDef(NAMED[i])));
-    var total = mobile ? 6 : 12 + Math.floor(rng() * 3); /* 6 mobile / 12-14 desktop */
+    var total = mobile ? 4 : 7 + Math.floor(rng() * 2); /* 4 mobile / 7-8 desktop — named + tesseract, light on filler chains */
     var fillers = Math.max(0, total - defs.length - 1);
     for (i = 0; i < fillers; i++) defs.push(buildFiller());
     defs.push(buildTesseract()); /* always preserved */
