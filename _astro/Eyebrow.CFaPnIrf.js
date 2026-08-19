@@ -1,0 +1,1 @@
+import{j as e}from"./Footer.FdOm9Lft.js";import"./index.BX2CdW4Z.js";function n({children:t,style:r}){return e.jsx("div",{style:{fontFamily:"var(--font-sans)",fontSize:"var(--text-eyebrow)",fontWeight:400,letterSpacing:"normal",textTransform:"uppercase",color:"var(--text-primary)",...r},children:t})}export{n as E};
