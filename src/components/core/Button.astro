@@ -1,0 +1,64 @@
+---
+import { pxify } from '../../lib/style.js';
+const { variant = 'primary', size = 'md', disabled = false, href, style, class: className, ...rest } = Astro.props;
+
+const sizes = {
+  sm: { padding: '8px 16px', fontSize: 14 },
+  md: { padding: '12px 24px', fontSize: 16 },
+  lg: { padding: '16px 32px', fontSize: 18 },
+};
+const base = {
+  fontFamily: 'var(--font-sans)', fontWeight: 600, letterSpacing: '0.01em',
+  cursor: disabled ? 'not-allowed' : 'pointer',
+  borderRadius: 'var(--radius-control)',
+  transition: 'background 250ms var(--ease-hud), border-color 250ms var(--ease-hud), box-shadow 250ms var(--ease-hud), transform 250ms var(--ease-hud)',
+  display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8, textAlign: 'center',
+  textDecoration: 'none', touchAction: 'manipulation',
+  opacity: disabled ? 0.4 : 1,
+  ...sizes[size],
+};
+const variants = {
+  primary: {
+    background: 'var(--nebula-cyan)', color: 'var(--space-black)', border: 'none',
+    boxShadow: 'none',
+  },
+  secondary: {
+    background: 'var(--surface-translucent)', color: 'var(--text-primary)',
+    border: '0.8px solid var(--nebula-cyan-50)',
+    boxShadow: 'var(--glow-cyan)',
+  },
+  ghost: {
+    background: 'var(--glass-bg)',
+    backdropFilter: 'var(--glass-blur)', WebkitBackdropFilter: 'var(--glass-blur)',
+    color: 'var(--text-primary)',
+    border: '1px solid var(--glass-border)',
+    boxShadow: 'var(--glass-highlight)',
+    transform: 'translateY(0)',
+  },
+};
+---
+
+{href ? (
+  <a href={href} class:list={['ctech-btn', `ctech-btn-${variant}`, className]}
+    aria-disabled={disabled || undefined}
+    style={pxify({ ...base, ...variants[variant], ...style })} {...rest}><slot /></a>
+) : (
+  <button type="button" class:list={['ctech-btn', `ctech-btn-${variant}`, className]} disabled={disabled}
+    style={pxify({ ...base, ...variants[variant], ...style })} {...rest}><slot /></button>
+)}
+
+<style>
+  .ctech-btn-primary:hover:not(:disabled) {
+    box-shadow: var(--glow-cyan-strong);
+  }
+  .ctech-btn-secondary:hover:not(:disabled) {
+    border-color: var(--nebula-cyan-60);
+    box-shadow: var(--glow-cyan-strong);
+  }
+  .ctech-btn-ghost:hover:not(:disabled) {
+    background: var(--glass-bg-hover);
+    border-color: var(--nebula-cyan-50);
+    box-shadow: var(--glow-cyan-soft), var(--glass-highlight);
+    transform: translateY(-2px);
+  }
+</style>

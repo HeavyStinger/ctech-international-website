@@ -1,0 +1,145 @@
+---
+import { pxify } from '../../lib/style.js';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Header } from '../../components/brand/Header.jsx';
+import Footer from '../../components/brand/Footer.astro';
+import Eyebrow from '../../components/brand/Eyebrow.astro';
+import ShimmerHeading from '../../components/brand/ShimmerHeading.astro';
+import SectionTitle from '../../components/brand/SectionTitle.astro';
+import ServiceCard from '../../components/brand/ServiceCard.astro';
+import Button from '../../components/core/Button.astro';
+import { withBase } from '../../lib/url.js';
+import { websiteDevItems } from '../../lib/serviceContent.js';
+
+const wrap = pxify({ width: '100%', maxWidth: 1240, margin: '0 auto', boxSizing: 'border-box', paddingLeft: 'var(--space-7)', paddingRight: 'var(--space-7)' });
+
+const faqs = [
+  { q: 'What’s the difference between the two packages?', a: 'Business Starter is a single page, built to get a real business online fast. Custom Website Build covers up to 5 pages and is meant for a business that needs more than one page to tell its story, like a services page, an about page, or a gallery.' },
+  { q: 'Can I start with one page and add more later?', a: 'Yes. Extra pages can be added to either package at any point, at 50 BZD per page.' },
+  { q: 'Do I own the site?', a: 'Yes, outright. It’s built for your business, not leased to you.' },
+  { q: 'What’s included in the price?', a: 'Design and development around your business, a working contact form, and a site that loads fast and works on every screen. Hosting is separate and billed at 500 BZD/year, see the full pricing breakdown on the Build page.' },
+];
+
+const includes = [
+  { title: 'Designed from scratch', body: 'Around your business and your customers, never a theme squeezed to fit.' },
+  { title: 'Fast on every screen', body: 'Optimized to load quickly and look right on phones, tablets, and desktops.' },
+  { title: 'Built to convert', body: 'A working contact form, structured so visitors turn into calls and messages.' },
+];
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: 'Website Development',
+  name: 'Website Development',
+  provider: { '@type': 'Organization', name: 'Ctech International', url: 'https://ctechintl.com' },
+  areaServed: { '@type': 'Country', name: 'Belize' },
+  description: 'Custom website development in Belize starting at 500 BZD. Business Starter one-page sites and Custom Website Builds up to 5 pages, designed from scratch, never a template.',
+  offers: {
+    '@type': 'Offer',
+    priceCurrency: 'BZD',
+    price: '500',
+    url: 'https://ctechintl.com/services/website-development',
+  },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+const currentPath = Astro.url.pathname;
+---
+
+<BaseLayout title="Website Development in Belize | Ctech International"
+  description="Custom website development in Belize starting at 500 BZD. Business Starter one-page sites and Custom Website Builds up to 5 pages, designed from scratch, never a template."
+  path="/services/website-development"
+  structuredData={[serviceSchema, faqSchema]}>
+  <div style={pxify({ background: 'transparent', color: 'var(--text-primary)', fontFamily: 'var(--font-sans)', position: 'relative' })}>
+    <Header client:load currentPath={currentPath} />
+
+    <main data-screen-label="Intro" style={pxify({ ...wrap, paddingTop: 'var(--space-9)', paddingBottom: 'var(--space-8)',
+      display: 'flex', flexDirection: 'column', gap: 20, alignItems: 'flex-start' })}>
+      <Eyebrow>Website Development</Eyebrow>
+      <ShimmerHeading as="h1" size={56}>A website built to bring in customers</ShimmerHeading>
+      <p style={pxify({ margin: 0, maxWidth: 640, fontSize: 18, lineHeight: 1.6, color: 'var(--text-secondary)' })}>
+        Designed and coded from scratch around your business in Belize, from a single, focused page to a
+        full multi-page site. Never a template, never squeezed into someone else’s design.
+      </p>
+    </main>
+
+    <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 'var(--space-9)', paddingBottom: 'var(--space-10)' })}>
+      <section style={wrap}>
+        <SectionTitle title="Pick your starting point" lead="Both packages are designed from scratch around your business. The difference is how much of your story needs telling." />
+        <div style={pxify({ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(380px, 100%), 1fr))', gap: 20, marginTop: 36 })}>
+          {websiteDevItems.map((item) => {
+            const card = (
+              <ServiceCard icon={item.icon} name={item.name} tagline={item.tagline} features={item.features}
+                price={item.price}
+                primaryLabel={item.primaryLabel} href={withBase(item.primaryHref)}
+                secondaryLabel={item.secondaryLabel} secondaryHref={withBase(item.secondaryHref)} />
+            );
+            return item.name === 'Custom Website Build' ? (
+              <div class="ctech-flame-wrap" data-flame-wrap style={pxify({ position: 'relative', zIndex: 1, height: '100%' })}>
+                <canvas class="ctech-flame-source" aria-hidden="true" style={pxify({ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0, pointerEvents: 'none' })}></canvas>
+                <canvas class="ctech-flame-output" aria-hidden="true" style={pxify({ position: 'absolute', top: -190, left: -24, width: 'calc(100% + 48px)', height: 'calc(100% + 210px)', pointerEvents: 'none' })}></canvas>
+                <div class="ctech-flame-content" style={pxify({ position: 'relative', height: '100%' })}>{card}</div>
+              </div>
+            ) : card;
+          })}
+        </div>
+      </section>
+
+      <section style={wrap}>
+        <SectionTitle title="What every build includes" lead="Regardless of which package you pick, these are non-negotiable." />
+        <div style={pxify({ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 20, marginTop: 36 })}>
+          {includes.map((f) => (
+            <div style={pxify({ borderTop: '1px solid var(--space-border)', paddingTop: 18 })}>
+              <div style={pxify({ fontSize: 17, fontWeight: 600 })}>{f.title}</div>
+              <p style={pxify({ margin: '8px 0 0', fontSize: 14.5, lineHeight: 1.6, color: 'var(--text-secondary)' })}>{f.body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section style={wrap}>
+        <SectionTitle title="Frequently asked" />
+        <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 24, marginTop: 36, maxWidth: 720 })}>
+          {faqs.map((f) => (
+            <div>
+              <div style={pxify({ fontSize: 16.5, fontWeight: 600 })}>{f.q}</div>
+              <p style={pxify({ margin: '8px 0 0', fontSize: 14.5, lineHeight: 1.6, color: 'var(--text-secondary)' })}>{f.a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section style={pxify({ ...wrap, textAlign: 'center' })}>
+        <div style={pxify({ fontSize: 17, color: 'var(--text-secondary)' })}>
+          Want to see the full breakdown, extra pages, logo design, and more?
+          <a href={withBase('/build')} style={pxify({ color: 'var(--nebula-cyan)', fontWeight: 600, textDecoration: 'none' })}>
+            Build your estimate →
+          </a>
+        </div>
+      </section>
+
+      <section data-screen-label="Consultation CTA" style={wrap}>
+        <div style={pxify({ border: '1px solid var(--nebula-cyan-30)', borderRadius: 'var(--radius-card)',
+          boxShadow: 'var(--glow-cyan-soft), var(--glass-highlight)', background: 'var(--glass-bg)',
+          backdropFilter: 'var(--glass-blur)', WebkitBackdropFilter: 'var(--glass-blur)',
+          padding: '72px var(--space-7)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 18, textAlign: 'center' })}>
+          <h2 style={pxify({ margin: 0, fontSize: 36, fontWeight: 600, lineHeight: 1.1, textWrap: 'balance' })}>Ready to get your business online?</h2>
+          <p style={pxify({ margin: 0, fontSize: 16, lineHeight: 1.6, color: 'var(--text-secondary)' })}>A 20-minute call is all it takes to scope your project.</p>
+          <div style={pxify({ marginTop: 10 })}>
+            <Button href={`${withBase('/contact')}?service=website-development#form`} variant="primary" size="lg">Book a Consultation</Button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <Footer currentPath={currentPath} />
+  </div>
+</BaseLayout>
+
+<script>
+  import '../../lib/flameWrap.client.js';
+</script>

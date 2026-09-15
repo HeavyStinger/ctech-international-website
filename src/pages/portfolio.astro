@@ -1,0 +1,91 @@
+---
+import { pxify } from '../lib/style.js';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Header } from '../components/brand/Header.jsx';
+import Footer from '../components/brand/Footer.astro';
+import Button from '../components/core/Button.astro';
+import Card from '../components/core/Card.astro';
+import Eyebrow from '../components/brand/Eyebrow.astro';
+import ShimmerHeading from '../components/brand/ShimmerHeading.astro';
+import SectionTitle from '../components/brand/SectionTitle.astro';
+import MockupFrame from '../components/brand/MockupFrame.astro';
+import { PortfolioInteractive } from '../ui_kits/portfolio/PortfolioInteractive.jsx';
+import { withBase } from '../lib/url.js';
+
+const currentPath = Astro.url.pathname;
+const wrap = pxify({ width: '100%', maxWidth: 1240, margin: '0 auto', boxSizing: 'border-box', paddingLeft: 'var(--space-7)', paddingRight: 'var(--space-7)' });
+
+const websites = [
+  { name: 'Solo Jewel Sports Network', domain: 'jewelsportsnetwork.com', image: withBase('/portfolio/websites/jspn.webp'), description: 'Sports network platform', tech: ['html', 'css', 'js'] },
+  { name: 'Cosmic Pharmacy', domain: 'cosmicpharmacybz.com', image: withBase('/portfolio/websites/cosmicpharmacy.webp'), description: 'Pharmacy in Belize District', tech: ['php', 'html', 'css', 'js'] },
+  { name: 'Superstar Car Wash', domain: 'superstarcarwash.bz', image: withBase('/portfolio/websites/superstarcarwash.webp'), description: 'Car wash service website', tech: ['html', 'css', 'js'] },
+  { name: 'YEC Belize', domain: 'yecbelize.com', image: withBase('/portfolio/websites/yec.webp'), description: 'Civil & structural engineering firm', tech: ['html', 'css', 'js'] },
+  { name: 'CareBelize', domain: 'carebelize.bz', image: withBase('/portfolio/websites/carebelize.webp'), description: 'On-demand telemedicine for visitors across Belize', tech: ['laravel', 'css', 'js'] },
+  { name: 'Into the Blue Excursions', domain: 'intotheblueexcursions.bz', image: withBase('/portfolio/websites/intotheblueexcursions.webp'), description: 'Scenic flights, snorkeling & diving tours', tech: ['html', 'css', 'js'] },
+  { name: 'Healing Touch Day Spa', domain: 'healingtouchdayspa.com', image: withBase('/portfolio/websites/healingtouchdayspa.webp'), description: 'Massage & wellness spa in Caye Caulker', tech: ['html', 'css', 'js'] },
+  { name: 'Father of the Nation', domain: 'fatherofthenation.blog', image: withBase('/portfolio/websites/fatherofthenation.webp'), description: 'Tribute site for Belize’s founding father', tech: ['wordpress'] },
+];
+---
+
+<BaseLayout title="Ctech International | Portfolio"
+  description="Websites and brand concepts built by Ctech International for businesses in Belize. See real, live sites and design work."
+  path="/portfolio">
+  <div style={pxify({ background: 'transparent', color: 'var(--text-primary)', fontFamily: 'var(--font-sans)', position: 'relative' })}>
+    <Header client:load currentPath={currentPath} />
+
+    <main data-screen-label="Intro" style={pxify({ ...wrap, paddingTop: 'var(--space-9)', paddingBottom: 'var(--space-8)',
+      display: 'flex', flexDirection: 'column', gap: 20, alignItems: 'flex-start' })}>
+      <Eyebrow>Portfolio</Eyebrow>
+      <ShimmerHeading as="h1" size={56}>Past client work</ShimmerHeading>
+      <p style={pxify({ margin: 0, maxWidth: 640, fontSize: 18, lineHeight: 1.6, color: 'var(--text-secondary)' })}>
+        A look at what we’ve built for businesses across Belize.
+      </p>
+    </main>
+
+    <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 'var(--space-9)', paddingBottom: 'var(--space-10)' })}>
+      <section style={wrap}>
+        <SectionTitle title="Websites" lead="Including web apps." />
+        <div style={pxify({ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 20, marginTop: 36 })}>
+          {websites.map((p) => {
+            const cardMarkup = (
+              <Card interactive padding={0} style={pxify({ overflow: 'hidden' })}>
+                <MockupFrame domain={p.domain} name={p.name} image={p.image} alt={p.name} tech={p.tech} />
+                <div style={pxify({ padding: '16px 20px 18px' })}>
+                  <div style={pxify({ fontSize: 17, fontWeight: 600 })}>{p.name}</div>
+                  {p.description && (
+                    <div style={pxify({ marginTop: 4, fontSize: 13, color: 'var(--text-secondary)' })}>{p.description}</div>
+                  )}
+                </div>
+              </Card>
+            );
+            return p.domain ? (
+              <a href={`https://${p.domain}`} target="_blank" rel="noopener noreferrer"
+                style={pxify({ display: 'block', textDecoration: 'none', color: 'inherit' })}>
+                {cardMarkup}
+              </a>
+            ) : (
+              <div>{cardMarkup}</div>
+            );
+          })}
+        </div>
+      </section>
+
+      <PortfolioInteractive client:visible />
+
+      <section data-screen-label="Consultation CTA" style={wrap}>
+        <div style={pxify({ border: '1px solid var(--nebula-cyan-30)', borderRadius: 'var(--radius-card)',
+          boxShadow: 'var(--glow-cyan-soft), var(--glass-highlight)', background: 'var(--glass-bg)',
+          backdropFilter: 'var(--glass-blur)', WebkitBackdropFilter: 'var(--glass-blur)',
+          padding: '72px var(--space-7)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 18, textAlign: 'center' })}>
+          <h2 style={pxify({ margin: 0, fontSize: 36, fontWeight: 600, lineHeight: 1.1, textWrap: 'balance' })}>Want to be featured here next?</h2>
+          <p style={pxify({ margin: 0, fontSize: 16, lineHeight: 1.6, color: 'var(--text-secondary)' })}>A 20-minute call is all it takes to scope your project.</p>
+          <div style={pxify({ marginTop: 10 })}>
+            <Button href={`${withBase('/contact')}#form`} variant="primary" size="lg">Book a Consultation</Button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <Footer currentPath={currentPath} />
+  </div>
+</BaseLayout>

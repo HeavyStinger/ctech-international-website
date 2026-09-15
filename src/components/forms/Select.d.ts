@@ -1,0 +1,8 @@
+import * as React from 'react';
+
+/** Styled native select matching Input. */
+export interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
+  label?: string;
+  options: { value: string; label: string }[];
+}
+export declare function Select(props: SelectProps): JSX.Element;

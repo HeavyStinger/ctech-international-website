@@ -1,0 +1,32 @@
+---
+import { pxify } from '../../lib/style.js';
+import { Icon } from 'astro-icon/components';
+import Card from '../core/Card.astro';
+import Button from '../core/Button.astro';
+import { withBase } from '../../lib/url.js';
+
+const { groups = [] } = Astro.props;
+---
+
+<div style={pxify({ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 20, marginTop: 24 })}>
+  {groups.map((g) => (
+    <Card padding={26} style={pxify({ display: 'flex', flexDirection: 'column', height: '100%' })}>
+      <div style={pxify({ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 10 })}>
+        <div style={pxify({ fontSize: 16.5, fontWeight: 600 })}>{g.name}</div>
+        {g.price && <div style={pxify({ fontSize: 13, fontWeight: 600, color: 'var(--nebula-cyan)', whiteSpace: 'nowrap' })}>{g.price}</div>}
+      </div>
+      <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 11, marginTop: 16, marginBottom: g.ctaLabel ? 20 : 0 })}>
+        {(g.features || []).map((f) => (
+          <div style={pxify({ display: 'flex', alignItems: 'flex-start', gap: 9 })}>
+            <Icon name="lucide:check" width={15} height={15} style={pxify({ marginTop: 2, flexShrink: 0, color: 'var(--nebula-cyan)' })} aria-hidden="true" />
+            <span style={pxify({ fontSize: 14, lineHeight: 1.55, color: 'var(--text-secondary)' })}>{f}</span>
+          </div>
+        ))}
+      </div>
+      {g.ctaLabel && (
+        <Button href={`${withBase('/contact')}?service=tapt-cards&card=${encodeURIComponent(g.name)}#form`}
+          variant="secondary" size="sm" style={pxify({ width: '100%', marginTop: 'auto' })}>{g.ctaLabel}</Button>
+      )}
+    </Card>
+  ))}
+</div>

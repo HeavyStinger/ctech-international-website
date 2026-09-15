@@ -1,0 +1,7 @@
+---
+import { pxify } from '../../lib/style.js';
+const { style } = Astro.props;
+---
+
+<div style={pxify({ fontFamily: 'var(--font-sans)', fontSize: 'var(--text-eyebrow)', fontWeight: 400,
+  letterSpacing: 'normal', textTransform: 'uppercase', color: 'var(--text-primary)', ...style })}><slot /></div>

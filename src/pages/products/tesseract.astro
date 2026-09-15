@@ -1,0 +1,127 @@
+---
+import { pxify } from '../../lib/style.js';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Icon } from 'astro-icon/components';
+import { Header } from '../../components/brand/Header.jsx';
+import Footer from '../../components/brand/Footer.astro';
+import Eyebrow from '../../components/brand/Eyebrow.astro';
+import ShimmerHeading from '../../components/brand/ShimmerHeading.astro';
+import SectionTitle from '../../components/brand/SectionTitle.astro';
+import ProductSection from '../../components/brand/ProductSection.astro';
+import Button from '../../components/core/Button.astro';
+import Card from '../../components/core/Card.astro';
+import { withBase } from '../../lib/url.js';
+import { tesseractFeatures } from '../../lib/productContent.js';
+
+const wrap = pxify({ width: '100%', maxWidth: 1240, margin: '0 auto', boxSizing: 'border-box', paddingLeft: 'var(--space-7)', paddingRight: 'var(--space-7)' });
+
+const productSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: 'Tesseract',
+  brand: { '@type': 'Brand', name: 'Ctech International' },
+  description: 'Tesseract, a premium link-in-bio page for 100 BZD/year. One link for your contact, reviews, menu, socials, and booking, with analytics and an easy profile editor.',
+  offers: {
+    '@type': 'Offer',
+    priceCurrency: 'BZD',
+    price: '100',
+    priceValidUntil: '2027-12-31',
+    availability: 'https://schema.org/InStock',
+    url: 'https://ctechintl.com/products/tesseract',
+  },
+};
+const currentPath = Astro.url.pathname;
+---
+
+<BaseLayout title="Tesseract Link in Bio Belize | Ctech International"
+  description="Tesseract, a premium link-in-bio page for 100 BZD/year. One link for your contact, reviews, menu, socials, and booking, with analytics and an easy profile editor."
+  path="/products/tesseract"
+  structuredData={productSchema}>
+  <div style={pxify({ background: 'transparent', color: 'var(--text-primary)', fontFamily: 'var(--font-sans)', position: 'relative' })}>
+    <Header client:load currentPath={currentPath} />
+
+    <main data-screen-label="Intro" style={pxify({ ...wrap, paddingTop: 'var(--space-9)', paddingBottom: 'var(--space-8)',
+      display: 'flex', flexDirection: 'column', gap: 20, alignItems: 'flex-start' })}>
+      <Eyebrow>Tesseract</Eyebrow>
+      <ShimmerHeading as="h1" size={56}>One link, everything behind it</ShimmerHeading>
+      <p style={pxify({ margin: 0, maxWidth: 640, fontSize: 18, lineHeight: 1.6, color: 'var(--text-secondary)' })}>
+        Instead of a cluttered link-in-bio page, one clean link holds your contact, reviews, menu, socials,
+        and booking, all in one place. Built and run by us, for businesses in Belize.
+      </p>
+    </main>
+
+    <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 'var(--space-9)', paddingBottom: 'var(--space-10)' })}>
+      <section style={wrap}>
+        <ProductSection icon="link-2" eyebrow="LINK IN BIO" name="Tesseract"
+          tagline="Put it in your bio, print it as a QR code, or use it as the default landing page for a Tapt business card. Either way, it’s the same one link for everything you share."
+          features={tesseractFeatures}>
+          <Fragment slot="media">
+            <iframe
+              src="https://www.youtube.com/embed/tRzfYxVaCxs"
+              title="Tesseract demo"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+              style={pxify({ width: '100%', aspectRatio: '9 / 16', border: '1px solid var(--space-border)',
+                borderRadius: 'var(--radius-card)', display: 'block' })}
+            ></iframe>
+          </Fragment>
+        </ProductSection>
+      </section>
+
+      <section style={wrap}>
+        <SectionTitle title="Pricing" />
+        <div style={pxify({ maxWidth: 480, marginTop: 36 })}>
+          <Card padding={32} style={pxify({ display: 'flex', flexDirection: 'column' })}>
+            <div style={pxify({ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 12 })}>
+              <div style={pxify({ fontSize: 22, fontWeight: 600 })}>Tesseract</div>
+              <div style={pxify({ fontSize: 13, letterSpacing: '0.06em', color: 'var(--text-secondary)' })}>LINK IN BIO</div>
+            </div>
+            <div style={pxify({ marginTop: 20, display: 'flex', alignItems: 'baseline', gap: 8 })}>
+              <span style={pxify({ fontSize: 44, fontWeight: 700, lineHeight: 1 })}>100 BZD</span>
+              <span style={pxify({ fontSize: 15, color: 'var(--text-secondary)' })}>/year</span>
+            </div>
+            <div style={pxify({ fontSize: 14, color: 'var(--text-secondary)', marginTop: 6 })}>Just the link, no physical card</div>
+            <div style={pxify({ height: 1, background: 'var(--space-border)', margin: '24px 0' })} />
+            <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 12, fontSize: 15, lineHeight: 1.5 })}>
+              <div style={pxify({ display: 'flex', gap: 10 })}><Icon name="lucide:check" width={15} height={15} style={pxify({ marginTop: 3, flexShrink: 0, color: 'var(--nebula-cyan)' })} aria-hidden="true" /><span>Easy-to-use profile editor, update it yourself anytime</span></div>
+              <div style={pxify({ display: 'flex', gap: 10 })}><Icon name="lucide:check" width={15} height={15} style={pxify({ marginTop: 3, flexShrink: 0, color: 'var(--nebula-cyan)' })} aria-hidden="true" /><span>Analytics included, see who’s tapping and clicking</span></div>
+              <div style={pxify({ display: 'flex', gap: 10 })}><Icon name="lucide:check" width={15} height={15} style={pxify({ marginTop: 3, flexShrink: 0, color: 'var(--nebula-cyan)' })} aria-hidden="true" /><span>QR code included, print it anywhere and link straight to your page</span></div>
+              <div style={pxify({ display: 'flex', gap: 10 })}><Icon name="lucide:check" width={15} height={15} style={pxify({ marginTop: 3, flexShrink: 0, color: 'var(--nebula-cyan)' })} aria-hidden="true" /><span>Put it in your bio, one link for everything you share</span></div>
+              <div style={pxify({ display: 'flex', gap: 10 })}><Icon name="lucide:check" width={15} height={15} style={pxify({ marginTop: 3, flexShrink: 0, color: 'var(--nebula-cyan)' })} aria-hidden="true" /><span>Save Contact button built in, one tap and you’re in their phone</span></div>
+              <div style={pxify({ display: 'flex', gap: 10 })}><Icon name="lucide:check" width={15} height={15} style={pxify({ marginTop: 3, flexShrink: 0, color: 'var(--nebula-cyan)' })} aria-hidden="true" /><span>Hand-picked templates included, or a custom template for 50 BZD extra, one-time</span></div>
+            </div>
+            <p style={pxify({ fontSize: 13, color: 'var(--text-secondary)', marginTop: 20, lineHeight: 1.5 })}>
+              Already getting a Tapt business card? This is included, no need to buy it separately.
+            </p>
+            <Button href={`${withBase('/contact')}?service=tesseract#form`} variant="secondary" size="sm" style={pxify({ marginTop: 20 })}>Get Tesseract</Button>
+          </Card>
+        </div>
+      </section>
+
+      <section style={pxify({ ...wrap, textAlign: 'center' })}>
+        <div style={pxify({ fontSize: 17, color: 'var(--text-secondary)' })}>
+          Want it on a physical card too?
+          <a href={withBase('/products/tapt')} style={pxify({ color: 'var(--nebula-cyan)', fontWeight: 600, textDecoration: 'none' })}>
+            See Tapt smart cards →
+          </a>
+        </div>
+      </section>
+
+      <section data-screen-label="Consultation CTA" style={wrap}>
+        <div style={pxify({ border: '1px solid var(--nebula-cyan-30)', borderRadius: 'var(--radius-card)',
+          boxShadow: 'var(--glow-cyan-soft), var(--glass-highlight)', background: 'var(--glass-bg)',
+          backdropFilter: 'var(--glass-blur)', WebkitBackdropFilter: 'var(--glass-blur)',
+          padding: '72px var(--space-7)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 18, textAlign: 'center' })}>
+          <h2 style={pxify({ margin: 0, fontSize: 36, fontWeight: 600, lineHeight: 1.1, textWrap: 'balance' })}>Ready for one link that does it all?</h2>
+          <p style={pxify({ margin: 0, fontSize: 16, lineHeight: 1.6, color: 'var(--text-secondary)' })}>A 20-minute call is all it takes.</p>
+          <div style={pxify({ marginTop: 10 })}>
+            <Button href={`${withBase('/contact')}#form`} variant="primary" size="lg">Book a Consultation</Button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <Footer currentPath={currentPath} />
+  </div>
+</BaseLayout>

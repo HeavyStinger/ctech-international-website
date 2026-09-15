@@ -1,0 +1,25 @@
+/* Ctech International — typography tokens */
+:root {
+  --font-sans: 'Outfit', 'Segoe UI', system-ui, -apple-system, sans-serif;
+
+  /* scale */
+  --text-hero: 80px;        /* single biggest headline per page, weight 700, shimmer */
+  --text-h1: 56px;
+  --text-h2: 36px;
+  --text-h3: 24px;
+  --text-body-lg: 18px;
+  --text-body-md: 16px;
+  --text-body-sm: 14px;
+  --text-eyebrow: 16px;     /* "COMING SOON" style label — 400 weight, normal tracking */
+
+  --weight-hero: 700;
+  --weight-heading: 600;
+  --weight-body: 400;
+  --weight-button: 600;
+
+  --leading-heading: 1.1;
+  --leading-body: 1.6;
+
+  /* signature shimmer gradient — reserve for the ONE biggest headline on a page */
+  --shimmer-gradient: linear-gradient(to right, #FFFFFF 20%, #8A95A5, #FFFFFF, #E2E8F0, #FFFFFF, #8A95A5, #FFFFFF 80%);
+}

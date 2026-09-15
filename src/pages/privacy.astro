@@ -1,0 +1,140 @@
+---
+import { pxify } from '../lib/style.js';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Header } from '../components/brand/Header.jsx';
+import Footer from '../components/brand/Footer.astro';
+import Eyebrow from '../components/brand/Eyebrow.astro';
+import ShimmerHeading from '../components/brand/ShimmerHeading.astro';
+import { withBase } from '../lib/url.js';
+
+const LAST_UPDATED = 'September 8, 2026';
+const wrap = pxify({ width: '100%', maxWidth: 1240, margin: '0 auto', boxSizing: 'border-box', paddingLeft: 'var(--space-7)', paddingRight: 'var(--space-7)' });
+const currentPath = Astro.url.pathname;
+---
+
+<BaseLayout title="Ctech International | Privacy Policy"
+  description="How Ctech International collects, uses, and protects information from visitors and clients."
+  path="/privacy">
+  <div style={pxify({ background: 'transparent', color: 'var(--text-primary)', fontFamily: 'var(--font-sans)', position: 'relative' })}>
+    <Header client:load currentPath={currentPath} />
+
+    <main data-screen-label="Intro" style={pxify({ ...wrap, paddingTop: 'var(--space-9)', paddingBottom: 'var(--space-8)',
+      display: 'flex', flexDirection: 'column', gap: 20, alignItems: 'flex-start' })}>
+      <Eyebrow>Legal</Eyebrow>
+      <ShimmerHeading as="h1" size={56}>Privacy Policy</ShimmerHeading>
+      <p style={pxify({ margin: 0, maxWidth: 640, fontSize: 16, lineHeight: 1.6, color: 'var(--text-secondary)' })}>
+        Last updated {LAST_UPDATED}. This page explains what Ctech International collects when you use this
+        site, why, and what you can do about it. Plain language, no fine print games.
+      </p>
+    </main>
+
+    <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 'var(--space-8)', paddingBottom: 'var(--space-10)' })}>
+      <div style={pxify({ ...wrap, display: 'flex', flexDirection: 'column', gap: 'var(--space-8)', maxWidth: 760 })}>
+
+        <section style={pxify({ display: 'flex', flexDirection: 'column', gap: 12 })}>
+          <h2 style={pxify({ margin: 0, fontSize: 22, fontWeight: 600 })}>What we collect</h2>
+          <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 12, fontSize: 15.5, lineHeight: 1.7, color: 'var(--text-secondary)' })}>
+            <p>
+              The only personal information this site collects is what you choose to give us through the
+              <a href={`${withBase('/contact')}#form`} style={pxify({ color: 'var(--nebula-cyan)' })}> contact form</a>:
+              your name, email address, phone number if you provide one, which service you’re asking about, and
+              whatever you write in your message.
+            </p>
+            <p>
+              We don’t use tracking cookies or ad pixels on this site. We use Cloudflare Web Analytics to see
+              general traffic numbers, like how many people visit and which pages, but it’s cookie-less and
+              doesn’t identify you personally, it can’t tell one visitor from another or follow you across sites.
+            </p>
+            <p>
+              The <a href={withBase('/build')} style={pxify({ color: 'var(--nebula-cyan)' })}>quote builder</a> is a
+              separate case: your answers and the price it calculates stay in your own browser the whole time.
+              We never receive them. If you download the PDF quote or send it to us over WhatsApp or email, that’s
+              a separate, deliberate action on your part, not something the builder does automatically.
+            </p>
+          </div>
+        </section>
+
+        <section style={pxify({ display: 'flex', flexDirection: 'column', gap: 12 })}>
+          <h2 style={pxify({ margin: 0, fontSize: 22, fontWeight: 600 })}>How we use it</h2>
+          <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 12, fontSize: 15.5, lineHeight: 1.7, color: 'var(--text-secondary)' })}>
+            <p>
+              Whatever you submit through the contact form is used for exactly one thing: replying to you about
+              the project or question you asked about. We don’t add you to a mailing list, sell your information,
+              or share it with anyone outside of running our business, unless the law requires it of us.
+            </p>
+          </div>
+        </section>
+
+        <section style={pxify({ display: 'flex', flexDirection: 'column', gap: 12 })}>
+          <h2 style={pxify({ margin: 0, fontSize: 22, fontWeight: 600 })}>How your message reaches us</h2>
+          <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 12, fontSize: 15.5, lineHeight: 1.7, color: 'var(--text-secondary)' })}>
+            <p>
+              Depending on how the form is configured when you submit it, your message either opens your own
+              email app with the details pre-filled for you to send, or is delivered to us directly through
+              Web3Forms, a third-party form-delivery service. Either way, the message goes straight to our inbox,
+              nowhere else. If Web3Forms is used, their handling of that transmission is covered by their own
+              privacy policy at
+              <a href="https://web3forms.com/privacy" target="_blank" rel="noopener noreferrer" style={pxify({ color: 'var(--nebula-cyan)' })}> web3forms.com</a>.
+            </p>
+          </div>
+        </section>
+
+        <section style={pxify({ display: 'flex', flexDirection: 'column', gap: 12 })}>
+          <h2 style={pxify({ margin: 0, fontSize: 22, fontWeight: 600 })}>How long we keep it</h2>
+          <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 12, fontSize: 15.5, lineHeight: 1.7, color: 'var(--text-secondary)' })}>
+            <p>
+              We keep messages and contact details for as long as it’s useful to the business relationship, for
+              example while a project is being scoped, quoted, or delivered. If you’d like us to delete what we
+              have on file, just ask, see below.
+            </p>
+          </div>
+        </section>
+
+        <section style={pxify({ display: 'flex', flexDirection: 'column', gap: 12 })}>
+          <h2 style={pxify({ margin: 0, fontSize: 22, fontWeight: 600 })}>Other links on this site</h2>
+          <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 12, fontSize: 15.5, lineHeight: 1.7, color: 'var(--text-secondary)' })}>
+            <p>
+              Buttons on this site link out to WhatsApp, Instagram, and Facebook. Once you leave our domain for
+              one of those, you’re subject to that platform’s own privacy policy, not ours.
+            </p>
+          </div>
+        </section>
+
+        <section style={pxify({ display: 'flex', flexDirection: 'column', gap: 12 })}>
+          <h2 style={pxify({ margin: 0, fontSize: 22, fontWeight: 600 })}>Your rights</h2>
+          <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 12, fontSize: 15.5, lineHeight: 1.7, color: 'var(--text-secondary)' })}>
+            <p>
+              You can ask us what information we hold about you, ask us to correct it, or ask us to delete it
+              entirely. Email <a href="mailto:info@ctechintl.com" style={pxify({ color: 'var(--nebula-cyan)' })}>info@ctechintl.com</a>
+              and we’ll handle it directly, no forms or hoops.
+            </p>
+          </div>
+        </section>
+
+        <section style={pxify({ display: 'flex', flexDirection: 'column', gap: 12 })}>
+          <h2 style={pxify({ margin: 0, fontSize: 22, fontWeight: 600 })}>Changes to this policy</h2>
+          <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 12, fontSize: 15.5, lineHeight: 1.7, color: 'var(--text-secondary)' })}>
+            <p>
+              If how we handle your information changes, for example if we turn on analytics or add a new
+              integration, we’ll update this page and the date at the top.
+            </p>
+          </div>
+        </section>
+
+        <section style={pxify({ display: 'flex', flexDirection: 'column', gap: 12 })}>
+          <h2 style={pxify({ margin: 0, fontSize: 22, fontWeight: 600 })}>Contact</h2>
+          <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 12, fontSize: 15.5, lineHeight: 1.7, color: 'var(--text-secondary)' })}>
+            <p>
+              Questions about this policy or your information: <a href="mailto:info@ctechintl.com" style={pxify({ color: 'var(--nebula-cyan)' })}>info@ctechintl.com</a>
+              or <a href="tel:+5016008328" style={pxify({ color: 'var(--nebula-cyan)' })}>+501 600-8328</a>. Ctech International,
+              Belize City, Belize.
+            </p>
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+    <Footer currentPath={currentPath} />
+  </div>
+</BaseLayout>

@@ -1,0 +1,353 @@
+---
+import { pxify } from '../lib/style.js';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Icon } from 'astro-icon/components';
+import { Header } from '../components/brand/Header.jsx';
+import Footer from '../components/brand/Footer.astro';
+import ShimmerHeading from '../components/brand/ShimmerHeading.astro';
+import SectionTitle from '../components/brand/SectionTitle.astro';
+import Button from '../components/core/Button.astro';
+import Card from '../components/core/Card.astro';
+import { withBase } from '../lib/url.js';
+
+const currentPath = Astro.url.pathname;
+const wrap = pxify({ width: '100%', maxWidth: 1240, margin: '0 auto', boxSizing: 'border-box', paddingLeft: 'var(--space-7)', paddingRight: 'var(--space-7)' });
+
+const TAG_COLORS = {
+  live: { border: 'rgba(34,197,94,0.55)', text: '#4ADE80' },
+  concept: { border: 'rgba(251,191,36,0.55)', text: '#FBBF24' },
+  tapt: { border: 'var(--nebula-cyan-50)', text: 'var(--nebula-cyan)' },
+  tesseract: { border: 'rgba(167,139,250,0.55)', text: '#C4B5FD' },
+};
+
+const bentoTiles = [
+  { index: 0, badgeIcon: 'globe', tag: { label: 'Live', color: 'live', pulse: true },
+    kind: 'image', src: withBase('/portfolio/websites/superstarcarwash.webp'), alt: 'Superstar Car Wash website',
+    href: 'https://superstarcarwash.bz', external: true, icon: 'external-link', eager: true },
+  { index: 1, badgeIcon: 'globe', tag: { label: 'Live', color: 'live', pulse: true },
+    kind: 'image', src: withBase('/portfolio/websites/jspn.webp'), alt: 'Solo Jewel Sports Network website',
+    href: 'https://jewelsportsnetwork.com', external: true, icon: 'external-link' },
+  { index: 2, badgeIcon: 'palette', tag: { label: 'Concept', color: 'concept' },
+    kind: 'image', src: withBase('/portfolio/concepts/luxeglow.webp'), alt: 'Luxe Glow brand concept',
+    href: withBase('/portfolio#concepts'), icon: 'arrow-right' },
+];
+const bentoVideos = [
+  { index: 3, badgeIcon: 'video', tag: { label: 'Tapt', color: 'tapt' },
+    src: withBase('/portfolio/products/tapt/tapt-1.webp'), alt: 'Tapt demo video', videoUrl: 'https://www.youtube.com/shorts/5TdNEBiGkLA' },
+  { index: 4, badgeIcon: 'video', tag: { label: 'Tesseract', color: 'tesseract' },
+    src: withBase('/portfolio/products/tesseract/tesseract-1.webp'), alt: 'Tesseract demo video', videoUrl: 'https://www.youtube.com/shorts/tRzfYxVaCxs' },
+];
+
+const services = [
+  { title: 'Websites & Web Apps', body: 'Fast, modern sites and custom web applications, designed and engineered from scratch, never from a template.' },
+  { title: 'Hosting, Email & Presence', body: 'Managed hosting with 99.9% uptime, email on your own domain, and Google Business Profiles that put you on the map.' },
+  { title: 'Design', body: 'Business cards, flyers, banners, billboards, t-shirts. The same brand, on and off the screen.' },
+];
+const reasons = [
+  { title: 'Everything under one roof', body: 'Site, hosting, email, and design from a single studio. One call fixes anything.' },
+  { title: '99.9% uptime', body: 'Your site stays up. We watch the infrastructure so you never have to.' },
+  { title: 'Custom, never templated', body: 'Every build is designed around your business, not squeezed into a theme.' },
+  { title: 'Fast, local support', body: 'Based in Belize City. Real replies within one business day.' },
+];
+const offers = [
+  { icon: 'globe', name: 'Website Development', price: 'From 500 BZD', href: withBase('/services/website-development'), kind: 'service',
+    checklist: ['Designed from scratch around your business, never a template', 'One-page or up to 5-page custom builds, add more anytime', 'Structured to turn visitors into calls and messages'] },
+  { icon: 'credit-card', name: 'Tapt Cards', price: 'From 150 BZD/year', href: withBase('/products/tapt'), kind: 'product',
+    checklist: ['Business and Google Review cards, 150 BZD/year each', 'Each extra card after your first, 50 BZD/year', 'Menu cards priced with a custom quote'] },
+  { icon: 'rocket', name: 'Website Redesign', price: null, tagline: 'Weak to sleek', taglineColor: 'var(--nebula-cyan)', href: withBase('/services/website-redesign'), kind: 'service',
+    checklist: ['A full rebuild, not a visual refresh', 'Your content and branding carried forward', 'Your current site stays live until the new one is ready'] },
+  { icon: 'app-window', name: 'Custom Webapp Build', price: null, tagline: 'Built for you', href: withBase('/services/web-app-development'), kind: 'service',
+    checklist: ['Portals, dashboards, booking and tracking systems', 'Built around how your business actually works', 'Grows with you as your needs change'] },
+];
+const designTeasers = [
+  { icon: 'megaphone', label: 'Flyers', href: withBase('/services#design') },
+  { icon: 'credit-card', label: 'Business Cards', href: withBase('/services#design') },
+  { icon: 'pen-tool', label: 'Logo Design', href: withBase('/services#design') },
+];
+const partners = [
+  { name: 'YEC Belize', image: withBase('/partners/yeclogo.webp'), domain: 'yecbelize.com' },
+  { name: 'Healing Touch Day Spa', image: withBase('/partners/healingtouchdayspa.webp'), domain: 'healingtouchdayspa.com' },
+  { name: 'Into the Blue Excursions', image: withBase('/partners/intotheblueexcursions.webp'), domain: 'intotheblueexcursions.bz' },
+  { name: 'Cosmic Pharmacy', image: withBase('/partners/cosmicpharmacybz.webp'), domain: 'cosmicpharmacybz.com' },
+  { name: 'Solo Jewel Sports Network', image: withBase('/partners/solojewelsportsnetwork.webp'), domain: 'jewelsportsnetwork.com' },
+  { name: 'CareBelize', domain: 'carebelize.bz' },
+  { name: 'Superstar Car Wash', domain: 'superstarcarwash.bz' },
+];
+const marqueeTrack = [...partners, ...partners];
+---
+
+<BaseLayout title="Ctech International | Websites & Web Apps in Belize"
+  description="Websites, web apps, hosting, email, and design for businesses in Belize. Custom-built from scratch, never a template, with local support based in Belize City."
+  path="/">
+  <div style={pxify({ background: 'transparent', color: 'var(--text-primary)', fontFamily: 'var(--font-sans)', position: 'relative' })}>
+
+    <Header client:load currentPath={currentPath} />
+
+    <main data-screen-label="Hero" class="ctech-hero-grid"
+      style={pxify({ ...wrap, minHeight: 'calc(100vh - 68px)', paddingTop: 'var(--space-8)', paddingBottom: 'var(--space-9)',
+      display: 'grid', gap: 72, alignItems: 'center' })}>
+      <div style={pxify({ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 28 })}>
+        <ShimmerHeading size={72}>Ctech International</ShimmerHeading>
+        <p style={pxify({ margin: 0, maxWidth: 520, fontSize: 18, lineHeight: 1.6, color: 'var(--text-secondary)' })}>
+          Websites, web apps, and everything around them. Built in Belize, ready for the world.
+        </p>
+        <div style={pxify({ display: 'flex', gap: 16, alignItems: 'center', marginTop: 8 })}>
+          <Button href={`${withBase('/contact')}#form`} variant="secondary" size="lg">Book a Consultation</Button>
+        </div>
+        <div style={pxify({ fontSize: 14, color: 'var(--text-secondary)' })}>
+          <a href="tel:+5016008328" style={pxify({ color: 'inherit', textDecoration: 'none' })}>+501 600-8328</a>
+          {' · '}
+          <a href="mailto:info@ctechintl.com" style={pxify({ color: 'inherit', textDecoration: 'none' })}>info@ctechintl.com</a>
+        </div>
+      </div>
+      <aside style={pxify({ width: '100%', aspectRatio: '1 / 1', display: 'flex', gap: 8 })}>
+        <div style={pxify({ flex: 2, display: 'flex', flexDirection: 'column', gap: 8 })}>
+          {bentoTiles.map((t) => {
+            const duration = 4 + (t.index % 4) * 0.7;
+            const delay = -(t.index * 0.6);
+            const tagColor = TAG_COLORS[t.tag.color];
+            return (
+              <div style={pxify({ flex: 1, position: 'relative', borderRadius: 'var(--radius-card)', overflow: 'hidden',
+                animation: `ctech-float ${duration}s ease-in-out infinite`, animationDelay: `${delay}s` })}>
+                <a href={t.href} class="ctech-bento-link" {...(t.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                  style={pxify({ position: 'relative', display: 'block', width: '100%', height: '100%' })}>
+                  <img src={t.src} alt={t.alt} loading={t.eager ? 'eager' : 'lazy'} decoding="async"
+                    fetchpriority={t.eager ? 'high' : undefined}
+                    style={pxify({ width: '100%', height: '100%', objectFit: 'cover', display: 'block' })} />
+                  <div class="ctech-bento-overlay" style={pxify({ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    background: 'transparent', opacity: 0, transition: 'opacity 200ms var(--ease-hud), background 200ms var(--ease-hud)' })}>
+                    <div style={pxify({ width: 44, height: 44, borderRadius: '50%',
+                      background: 'rgba(5,8,15,0.7)', backdropFilter: 'blur(4px)', WebkitBackdropFilter: 'blur(4px)',
+                      border: '1px solid var(--nebula-cyan-50)', boxShadow: 'var(--glow-cyan-soft)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center' })}>
+                      <Icon name={`lucide:${t.icon}`} width={18} height={18} style={pxify({ color: 'white' })} aria-hidden="true" />
+                    </div>
+                  </div>
+                </a>
+                <div style={pxify({ position: 'absolute', top: 8, right: 0, display: 'flex', alignItems: 'center', gap: 6, pointerEvents: 'none' })}>
+                  <div aria-hidden="true" style={pxify({ width: 26, height: 26, borderRadius: '50%', flexShrink: 0,
+                    background: 'rgba(255,255,255,0.28)', display: 'flex', alignItems: 'center', justifyContent: 'center' })}>
+                    <Icon name={`lucide:${t.badgeIcon}`} width={14} height={14} style={pxify({ color: 'rgba(10,14,20,0.85)' })} />
+                  </div>
+                  <div style={pxify({ display: 'flex', alignItems: 'center', gap: 7, padding: '4px 10px 4px 10px',
+                    borderTopLeftRadius: 'var(--radius-control)', borderBottomLeftRadius: 'var(--radius-control)',
+                    background: 'rgba(6,9,16,0.8)', backdropFilter: 'blur(6px) saturate(1.3)', WebkitBackdropFilter: 'blur(6px) saturate(1.3)',
+                    border: `1px solid ${tagColor.border}`, borderRight: 'none',
+                    fontSize: 11, fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase', color: tagColor.text })}>
+                    {t.tag.pulse && (
+                      <span aria-hidden="true" style={pxify({ width: 6, height: 6, borderRadius: '50%', background: 'currentColor', flexShrink: 0,
+                        animation: 'ctech-pulse-ring 2s ease-out infinite' })} />
+                    )}
+                    {t.tag.label}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <div style={pxify({ flex: 1, display: 'flex', flexDirection: 'column', gap: 8 })}>
+          {bentoVideos.map((t) => {
+            const duration = 4 + (t.index % 4) * 0.7;
+            const delay = -(t.index * 0.6);
+            const tagColor = TAG_COLORS[t.tag.color];
+            return (
+              <div style={pxify({ flex: 1, position: 'relative', borderRadius: 'var(--radius-card)', overflow: 'hidden',
+                animation: `ctech-float ${duration}s ease-in-out infinite`, animationDelay: `${delay}s` })}>
+                <a href={t.videoUrl} target="_blank" rel="noopener noreferrer"
+                  style={pxify({ position: 'relative', display: 'block', width: '100%', height: '100%' })}>
+                  <img src={t.src} alt={t.alt} loading="lazy" decoding="async"
+                    style={pxify({ width: '100%', height: '100%', objectFit: 'cover', display: 'block' })} />
+                  <div style={pxify({ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' })}>
+                    <div style={pxify({ width: 52, height: 52, borderRadius: '50%',
+                      background: 'rgba(5,8,15,0.55)', backdropFilter: 'blur(4px)', WebkitBackdropFilter: 'blur(4px)',
+                      border: '1px solid var(--nebula-cyan-50)', boxShadow: 'var(--glow-cyan-soft)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center' })}>
+                      <Icon name="lucide:play" width={20} height={20} style={pxify({ color: 'white', marginLeft: 2 })} aria-hidden="true" />
+                    </div>
+                  </div>
+                </a>
+                <div style={pxify({ position: 'absolute', top: 8, right: 0, display: 'flex', alignItems: 'center', gap: 6, pointerEvents: 'none' })}>
+                  <div aria-hidden="true" style={pxify({ width: 26, height: 26, borderRadius: '50%', flexShrink: 0,
+                    background: 'rgba(255,255,255,0.28)', display: 'flex', alignItems: 'center', justifyContent: 'center' })}>
+                    <Icon name={`lucide:${t.badgeIcon}`} width={14} height={14} style={pxify({ color: 'rgba(10,14,20,0.85)' })} />
+                  </div>
+                  <div style={pxify({ display: 'flex', alignItems: 'center', gap: 7, padding: '4px 10px 4px 10px',
+                    borderTopLeftRadius: 'var(--radius-control)', borderBottomLeftRadius: 'var(--radius-control)',
+                    background: 'rgba(6,9,16,0.8)', backdropFilter: 'blur(6px) saturate(1.3)', WebkitBackdropFilter: 'blur(6px) saturate(1.3)',
+                    border: `1px solid ${tagColor.border}`, borderRight: 'none',
+                    fontSize: 11, fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase', color: tagColor.text })}>
+                    {t.tag.label}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </aside>
+    </main>
+
+    <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 'var(--space-10)', paddingBottom: 'var(--space-10)' })}>
+
+      <section data-screen-label="Value prop" style={wrap}>
+        <SectionTitle title="One studio for your whole online presence"
+          lead="We design, build, host, and maintain for shops, tour operators, clinics, and every business ready to look world class online." />
+        <div style={pxify({ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 20, marginTop: 44 })}>
+          {services.map((s) => (
+            <Card padding={26}>
+              <div style={pxify({ fontSize: 20, fontWeight: 600 })}>{s.title}</div>
+              <p style={pxify({ margin: '10px 0 0', fontSize: 15, lineHeight: 1.6, color: 'var(--text-secondary)' })}>{s.body}</p>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      <section data-screen-label="Why choose us" style={wrap}>
+        <SectionTitle title="Why businesses choose Ctech" />
+        <div style={pxify({ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 28, marginTop: 44 })}>
+          {reasons.map((r) => (
+            <div style={pxify({ borderTop: '1px solid var(--space-border)', paddingTop: 18 })}>
+              <div style={pxify({ fontSize: 17, fontWeight: 600 })}>{r.title}</div>
+              <p style={pxify({ margin: '8px 0 0', fontSize: 14.5, lineHeight: 1.6, color: 'var(--text-secondary)' })}>{r.body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section data-screen-label="Consultation CTA" style={wrap}>
+        <div style={pxify({ border: '1px solid var(--nebula-cyan-30)', borderRadius: 'var(--radius-card)',
+          boxShadow: 'var(--glow-cyan-soft), var(--glass-highlight)', background: 'var(--glass-bg)',
+          backdropFilter: 'var(--glass-blur)', WebkitBackdropFilter: 'var(--glass-blur)',
+          padding: '72px var(--space-7)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 18, textAlign: 'center' })}>
+          <h2 style={pxify({ margin: 0, fontSize: 36, fontWeight: 600, lineHeight: 1.1, textWrap: 'balance' })}>Let’s build something that wins clients</h2>
+          <p style={pxify({ margin: 0, fontSize: 16, lineHeight: 1.6, color: 'var(--text-secondary)' })}>A 20-minute call is all it takes to scope your project.</p>
+          <div style={pxify({ marginTop: 10 })}>
+            <Button href={`${withBase('/contact')}#form`} variant="primary" size="lg">Book a Consultation</Button>
+          </div>
+          <div style={pxify({ fontSize: 14, color: 'var(--text-secondary)' })}>or call <a href="tel:+5016008328" style={pxify({ color: 'inherit', textDecoration: 'none' })}>+501 600-8328</a></div>
+        </div>
+      </section>
+
+      <section data-screen-label="Pricing teaser" style={wrap}>
+        <SectionTitle title="What we offer"
+          lead="A few of the ways businesses work with us, real prices included." />
+        <div style={pxify({ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 20, marginTop: 44 })}>
+          {offers.map((o) => (
+            <div class="ctech-offer-card"
+              style={pxify({ display: 'flex', flexDirection: 'column', height: '100%', boxSizing: 'border-box',
+                background: 'var(--glass-tint)', backdropFilter: 'blur(2px) saturate(1.3)', WebkitBackdropFilter: 'blur(2px) saturate(1.3)',
+                border: '1px solid var(--space-border)',
+                borderRadius: 'var(--radius-card)', padding: 32,
+                transform: 'translateY(0)',
+                transition: 'border-color 250ms var(--ease-hud), transform 250ms var(--ease-hud)' })}>
+              <div style={pxify({ display: 'flex', alignItems: 'center', gap: 14 })}>
+                <div class="ctech-offer-card-icon" style={pxify({ width: 48, height: 48, borderRadius: 'var(--radius-control)', display: 'flex',
+                  alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+                  background: 'var(--nebula-cyan-10)', border: '1px solid var(--nebula-cyan-30)',
+                  transition: 'background 250ms var(--ease-hud)' })}>
+                  <Icon name={`lucide:${o.icon}`} width={24} height={24} style={pxify({ color: 'var(--nebula-cyan)' })} aria-hidden="true" />
+                </div>
+                <div style={pxify({ fontSize: 19, fontWeight: 600 })}>{o.name}</div>
+              </div>
+              {o.tagline ? (
+                <>
+                  <div style={pxify({ marginTop: 16, fontSize: 12, fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase', color: o.taglineColor })}>{o.tagline}</div>
+                  <div style={pxify({ marginTop: 4, fontSize: 28, fontWeight: 700, color: o.price ? 'var(--nebula-cyan)' : 'var(--text-secondary)' })}>{o.price || 'Custom quote'}</div>
+                </>
+              ) : o.price && o.price.startsWith('From ') ? (
+                <>
+                  <div style={pxify({ marginTop: 16, fontSize: 12, fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--text-secondary)' })}>From</div>
+                  <div style={pxify({ marginTop: 4, fontSize: 28, fontWeight: 700, color: 'var(--nebula-cyan)', whiteSpace: 'nowrap' })}>{o.price.slice(5)}</div>
+                </>
+              ) : (
+                <div style={pxify({ marginTop: 16, fontSize: 28, fontWeight: 700, color: o.price ? 'var(--nebula-cyan)' : 'var(--text-secondary)' })}>
+                  {o.price || 'Custom quote'}
+                </div>
+              )}
+              <div style={pxify({ height: 1, background: 'var(--space-border)', margin: '20px 0' })} />
+              <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 11 })}>
+                {o.checklist.map((f) => (
+                  <div style={pxify({ display: 'flex', alignItems: 'flex-start', gap: 9 })}>
+                    <Icon name="lucide:check" width={15} height={15} style={pxify({ marginTop: 2, flexShrink: 0, color: 'var(--nebula-cyan)' })} aria-hidden="true" />
+                    <span style={pxify({ fontSize: 14, lineHeight: 1.55, color: 'var(--text-secondary)' })}>{f}</span>
+                  </div>
+                ))}
+              </div>
+              <div style={pxify({ marginTop: 'auto', paddingTop: 22 })}>
+                <Button href={o.href} variant="secondary" size="sm">{o.kind === 'product' ? 'View Full Product' : 'View Full Service'}</Button>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div class="ctech-teaser-row" style={pxify({ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 20 })}>
+          {designTeasers.map((b) => (
+            <a href={b.href} style={pxify({ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 16px',
+              borderRadius: 'var(--radius-control)', border: '1px solid var(--space-border)', background: 'var(--space-surface)',
+              textDecoration: 'none', color: 'var(--text-secondary)', fontSize: 13.5, fontWeight: 500, boxSizing: 'border-box' })}>
+              <Icon name={`lucide:${b.icon}`} width={15} height={15} style={pxify({ color: 'var(--nebula-cyan)' })} aria-hidden="true" />
+              {b.label}
+            </a>
+          ))}
+          <a href={withBase('/services')} style={pxify({ alignSelf: 'center', textDecoration: 'none',
+            color: 'var(--nebula-cyan)', fontSize: 13.5, fontWeight: 600 })}>
+            + more services →
+          </a>
+        </div>
+        <p style={pxify({ margin: '32px 0 0', fontSize: 15.5, color: 'var(--text-secondary)' })}>
+          This is only a slice, we offer more than what’s shown here.
+        </p>
+        <div style={pxify({ display: 'flex', alignItems: 'center', gap: 16, marginTop: 16, flexWrap: 'wrap' })}>
+          <Button href={withBase('/services')} variant="primary" size="md">See All Services</Button>
+          <Button href={withBase('/products')} variant="secondary" size="md">See Products</Button>
+        </div>
+      </section>
+
+      <section data-screen-label="Trust" style={pxify({ ...wrap, textAlign: 'center' })}>
+        <div style={pxify({ fontSize: 13, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-secondary)' })}>Trusted by businesses across Belize</div>
+        <div class="ctech-logo-marquee-wrap" style={pxify({ overflow: 'hidden', marginTop: 28,
+          WebkitMaskImage: 'linear-gradient(to right, transparent, black 8%, black 92%, transparent)',
+          maskImage: 'linear-gradient(to right, transparent, black 8%, black 92%, transparent)' })}>
+          <div class="ctech-logo-marquee-track" style={pxify({ display: 'flex', alignItems: 'center', gap: 56, width: 'max-content',
+            animation: 'ctech-marquee 30s linear infinite' })}>
+            {marqueeTrack.map((item) => (
+              <a href={`https://${item.domain}`} target="_blank" rel="noopener noreferrer"
+                style={pxify({ display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  height: 44, flexShrink: 0, textDecoration: 'none' })}>
+                {item.image ? (
+                  <img src={item.image} alt={item.name} loading="lazy" decoding="async"
+                    style={pxify({ height: '100%', width: 'auto', maxWidth: 140, objectFit: 'contain', opacity: 0.85, display: 'block' })} />
+                ) : (
+                  <span style={pxify({ fontSize: 19, fontWeight: 600, color: 'var(--text-secondary)', opacity: 0.85, whiteSpace: 'nowrap' })}>{item.name}</span>
+                )}
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <Footer currentPath={currentPath} />
+  </div>
+</BaseLayout>
+
+<style>
+  .ctech-bento-link:hover .ctech-bento-overlay,
+  .ctech-bento-link:focus-visible .ctech-bento-overlay {
+    opacity: 1;
+    background: rgba(5,8,15,0.35);
+  }
+  .ctech-offer-card:hover {
+    border-color: var(--nebula-cyan-30);
+    transform: translateY(-3px);
+  }
+  .ctech-offer-card:hover .ctech-offer-card-icon {
+    background: var(--nebula-cyan-20);
+  }
+  /* !important is required here: the track's animation is set via an inline
+     style attribute (style={pxify(...)}), which always wins over an external
+     stylesheet rule regardless of selector specificity unless !important
+     overrides it — without it, this pause-on-hover rule is silently dead. */
+  .ctech-logo-marquee-wrap:hover .ctech-logo-marquee-track,
+  .ctech-logo-marquee-wrap:focus-within .ctech-logo-marquee-track {
+    animation-play-state: paused !important;
+  }
+</style>

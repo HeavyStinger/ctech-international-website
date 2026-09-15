@@ -1,0 +1,4 @@
+/* Ctech International — webfonts.
+   Outfit (Google Fonts CDN) — used for ALL headings and body copy.
+   Loaded via a <link rel="stylesheet"> in BaseLayout.astro's <head>, not a CSS
+   @import, so the browser can fetch it in parallel instead of after this file. */

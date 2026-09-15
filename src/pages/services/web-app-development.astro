@@ -1,0 +1,117 @@
+---
+import { pxify } from '../../lib/style.js';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Icon } from 'astro-icon/components';
+import { Header } from '../../components/brand/Header.jsx';
+import Footer from '../../components/brand/Footer.astro';
+import Eyebrow from '../../components/brand/Eyebrow.astro';
+import ShimmerHeading from '../../components/brand/ShimmerHeading.astro';
+import SectionTitle from '../../components/brand/SectionTitle.astro';
+import ServiceCard from '../../components/brand/ServiceCard.astro';
+import Button from '../../components/core/Button.astro';
+import { withBase } from '../../lib/url.js';
+import { webAppDevItem } from '../../lib/serviceContent.js';
+
+const wrap = pxify({ width: '100%', maxWidth: 1240, margin: '0 auto', boxSizing: 'border-box', paddingLeft: 'var(--space-7)', paddingRight: 'var(--space-7)' });
+
+const examples = [
+  { icon: 'layout-dashboard', title: 'Portals & dashboards', body: 'A private space for your staff or clients to log in and manage what matters, orders, records, requests.' },
+  { icon: 'calendar-clock', title: 'Booking & tracking systems', body: 'Custom scheduling, reservations, or tracking tools built around exactly how your business runs, not a generic template.' },
+  { icon: 'workflow', title: 'Internal tools & workflows', body: 'Replace a spreadsheet or a manual process with something built specifically for your team.' },
+  { icon: 'vote', title: 'Voting & voter management systems', body: 'Secure ballots, voter rolls, and results tracking for elections, associations, or organizations.' },
+];
+
+const steps = [
+  { n: '01', label: 'Tell us the problem', body: 'A 20-minute call to understand what you need and how your business runs today.' },
+  { n: '02', label: 'We scope it', body: 'A clear proposal with what’s included and a price, before any work starts.' },
+  { n: '03', label: 'We build and hand it over', body: 'Built, tested, and handed to you, hosted and managed by us if you want that too.' },
+];
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: 'Web App Development',
+  name: 'Web App Development',
+  provider: { '@type': 'Organization', name: 'Ctech International', url: 'https://ctechintl.com' },
+  areaServed: { '@type': 'Country', name: 'Belize' },
+  description: 'Custom web app development in Belize. Portals, dashboards, booking systems, and internal tools built around your business, scoped and quoted around your exact workflow.',
+};
+const currentPath = Astro.url.pathname;
+---
+
+<BaseLayout title="Web App Development in Belize | Ctech International"
+  description="Custom web app development in Belize. Portals, dashboards, booking systems, and internal tools built around your business, scoped and quoted around your exact workflow."
+  path="/services/web-app-development"
+  structuredData={serviceSchema}>
+  <div style={pxify({ background: 'transparent', color: 'var(--text-primary)', fontFamily: 'var(--font-sans)', position: 'relative' })}>
+    <Header client:load currentPath={currentPath} />
+
+    <main data-screen-label="Intro" style={pxify({ ...wrap, paddingTop: 'var(--space-9)', paddingBottom: 'var(--space-8)',
+      display: 'flex', flexDirection: 'column', gap: 20, alignItems: 'flex-start' })}>
+      <Eyebrow>Web App Development</Eyebrow>
+      <ShimmerHeading as="h1" size={56}>Custom software for how your business actually works</ShimmerHeading>
+      <p style={pxify({ margin: 0, maxWidth: 640, fontSize: 18, lineHeight: 1.6, color: 'var(--text-secondary)' })}>
+        For the workflows off-the-shelf tools can’t handle. Portals, dashboards, booking systems, and
+        internal tools, built around your business in Belize, not the other way around.
+      </p>
+    </main>
+
+    <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 'var(--space-9)', paddingBottom: 'var(--space-10)' })}>
+      <section style={wrap}>
+        <SectionTitle title="What we build" />
+        <div style={pxify({ maxWidth: 420, marginTop: 36 })}>
+          <ServiceCard icon={webAppDevItem.icon} name={webAppDevItem.name} tagline={webAppDevItem.tagline}
+            features={webAppDevItem.features} primaryLabel="Inquire" href={withBase('/contact?service=web-app-development')} />
+        </div>
+      </section>
+
+      <section style={wrap}>
+        <SectionTitle title="A few examples" lead="Every project is scoped around your exact problem, not a package. Here’s the kind of thing that fits." />
+        <div style={pxify({ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20, marginTop: 36 })}>
+          {examples.map((e) => (
+            <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 12, padding: 24,
+              background: 'var(--glass-tint)', backdropFilter: 'blur(2px) saturate(1.3)', WebkitBackdropFilter: 'blur(2px) saturate(1.3)',
+              border: '1px solid var(--space-border)', borderRadius: 'var(--radius-card)' })}>
+              <div style={pxify({ width: 44, height: 44, borderRadius: 'var(--radius-control)', display: 'flex',
+                alignItems: 'center', justifyContent: 'center', background: 'var(--nebula-cyan-10)', border: '1px solid var(--nebula-cyan-30)' })}>
+                <Icon name={`lucide:${e.icon}`} width={22} height={22} style={pxify({ color: 'var(--nebula-cyan)' })} aria-hidden="true" />
+              </div>
+              <div style={pxify({ fontSize: 17, fontWeight: 600 })}>{e.title}</div>
+              <p style={pxify({ margin: 0, fontSize: 14.5, lineHeight: 1.6, color: 'var(--text-secondary)' })}>{e.body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section style={wrap}>
+        <SectionTitle title="How it works" lead="No fixed price, since no two custom builds are the same. Here’s how we get to a number." />
+        <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 20, marginTop: 36, maxWidth: 640 })}>
+          {steps.map((s) => (
+            <div style={pxify({ display: 'flex', alignItems: 'flex-start', gap: 16 })}>
+              <div style={pxify({ fontSize: 13, fontWeight: 700, color: 'var(--nebula-cyan)', paddingTop: 3 })}>{s.n}</div>
+              <div>
+                <div style={pxify({ fontSize: 16, fontWeight: 600 })}>{s.label}</div>
+                <p style={pxify({ margin: '4px 0 0', fontSize: 14.5, lineHeight: 1.6, color: 'var(--text-secondary)' })}>{s.body}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section data-screen-label="Consultation CTA" style={wrap}>
+        <div style={pxify({ border: '1px solid var(--nebula-cyan-30)', borderRadius: 'var(--radius-card)',
+          boxShadow: 'var(--glow-cyan-soft), var(--glass-highlight)', background: 'var(--glass-bg)',
+          backdropFilter: 'var(--glass-blur)', WebkitBackdropFilter: 'var(--glass-blur)',
+          padding: '72px var(--space-7)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 18, textAlign: 'center' })}>
+          <h2 style={pxify({ margin: 0, fontSize: 36, fontWeight: 600, lineHeight: 1.1, textWrap: 'balance' })}>Got a workflow that doesn’t fit off-the-shelf software?</h2>
+          <p style={pxify({ margin: 0, fontSize: 16, lineHeight: 1.6, color: 'var(--text-secondary)' })}>A 20-minute call is all it takes to scope your project.</p>
+          <div style={pxify({ marginTop: 10 })}>
+            <Button href={`${withBase('/contact')}?service=web-app-development#form`} variant="primary" size="lg">Book a Consultation</Button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <Footer currentPath={currentPath} />
+  </div>
+</BaseLayout>

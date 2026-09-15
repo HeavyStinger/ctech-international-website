@@ -1,0 +1,242 @@
+/* Ctech International — glow, borders, motion. Glow, not drop shadows. */
+:root {
+  /* layered cyan glow — the brand's replacement for elevation shadows */
+  --glow-cyan: 0 0 15px rgba(0,204,255,0.30), 0 0 30px rgba(0,204,255,0.20), inset 0 0 10px rgba(0,204,255,0.10);
+  --glow-cyan-strong: 0 0 20px rgba(0,204,255,0.45), 0 0 45px rgba(0,204,255,0.28), inset 0 0 12px rgba(0,204,255,0.15);
+  --glow-cyan-soft: 0 0 12px rgba(0,204,255,0.18), 0 0 24px rgba(0,204,255,0.10);
+  --glow-text: 0 0 24px rgba(0,204,255,0.35);
+
+  --ease-hud: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+}
+
+/* dark glass — flat, cool, translucent panels over the star sky. No gloss, no
+   specular streak, no bright rim: just a dark transparent surface with a soft
+   blur so the sky still reads through, and a hairline border for definition. */
+:root {
+  --glass-tint: linear-gradient(180deg, rgba(15, 21, 38, 0.06), rgba(9, 14, 26, 0.11));
+  --glass-tint-hover: linear-gradient(180deg, rgba(22, 31, 52, 0.11), rgba(13, 19, 34, 0.16));
+  --glass-bg: rgba(6, 9, 17, 0.5);
+  --glass-bg-hover: rgba(9, 13, 24, 0.62);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-blur: blur(10px) saturate(1.2);
+  --glass-highlight: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+/* signature hero moment: shimmering gradient text */
+.shimmer-text {
+  background: var(--shimmer-gradient);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: ctech-shimmer 5s linear infinite;
+}
+@keyframes ctech-shimmer {
+  0% { background-position: 200% center; }
+  100% { background-position: 0% center; }
+}
+
+/* subtle star-point decoration mark */
+.star-point {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: var(--text-primary);
+  opacity: 0.25;
+}
+
+/* pulsing status dot */
+@keyframes ctech-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0,204,255,0.5); }
+  50% { box-shadow: 0 0 0 6px rgba(0,204,255,0); }
+}
+
+/* hero bento tiles: slow independent drift, like debris floating in zero gravity */
+@keyframes ctech-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* bento tile "Live" tag dot: color-agnostic pulse ring (uses currentColor, unlike
+   ctech-pulse which is hardcoded cyan) so it can sit inside differently-colored tags */
+@keyframes ctech-pulse-ring {
+  0%, 100% { box-shadow: 0 0 0 0 currentColor; opacity: 1; }
+  50% { box-shadow: 0 0 0 4px transparent; opacity: 0.7; }
+}
+
+/* concept marquee: continuous drift, one full item-set width per loop (track is
+   rendered twice back-to-back so -50% is a seamless wrap) */
+@keyframes ctech-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Astro stack icon: small contained engine vibration — sub-pixel jitter, not a
+   visible bounce, so it reads as "idling" rather than "broken." */
+@keyframes ctech-astro-shake {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  10% { transform: translate(-0.6px, 0.4px) rotate(-0.4deg); }
+  20% { transform: translate(0.5px, -0.5px) rotate(0.3deg); }
+  30% { transform: translate(-0.4px, 0.6px) rotate(-0.3deg); }
+  40% { transform: translate(0.6px, -0.3px) rotate(0.4deg); }
+  50% { transform: translate(-0.5px, 0.3px) rotate(-0.2deg); }
+  60% { transform: translate(0.4px, -0.6px) rotate(0.3deg); }
+  70% { transform: translate(-0.3px, 0.4px) rotate(-0.4deg); }
+  80% { transform: translate(0.5px, -0.4px) rotate(0.2deg); }
+  90% { transform: translate(-0.4px, 0.5px) rotate(-0.3deg); }
+}
+
+/* Astro stack icon: flickering thruster flame beneath the logomark */
+@keyframes ctech-astro-flame {
+  0%, 100% { transform: scaleY(1) scaleX(1); opacity: 0.75; }
+  50% { transform: scaleY(1.4) scaleX(0.82); opacity: 1; }
+}
+
+/* React stack icon: continuous slow spin */
+@keyframes ctech-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* loading spinners (buttons, etc): fast, standard spin rate */
+@keyframes ctech-spin-fast {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* mobile-first nav: hamburger + drawer below 1024px, the original inline nav
+   row at/above it. Inline styles can't express a media query, so this is the
+   one bit of layout that has to live in CSS rather than a style object.
+   1024px (not the more usual 768px) because the full row — logo, 6 nav
+   links/dropdown, and the "Contact the Professionals" button — needs ~892px
+   of unbroken width to lay out without overlapping; 768px let the desktop
+   nav switch on well before it actually fit. */
+.ctech-nav-desktop {
+  display: none;
+}
+.ctech-nav-toggle {
+  display: inline-flex;
+}
+.ctech-nav-drawer {
+  display: block;
+}
+@media (min-width: 1024px) {
+  .ctech-nav-desktop {
+    display: flex;
+  }
+  .ctech-nav-toggle,
+  .ctech-nav-drawer {
+    display: none;
+  }
+}
+
+/* Homepage hero grid: a plain single column is always overflow-safe on mobile;
+   restore the two-up minmax(340px, 1fr) layout only once there's room for it. */
+.ctech-hero-grid {
+  grid-template-columns: 1fr;
+}
+@media (min-width: 768px) {
+  .ctech-hero-grid {
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  }
+}
+
+/* Homepage "what we offer" teaser banner: the Flyers/Business Cards/Logo Design
+   chips go full-width and stack on mobile (flex's own default align-items:
+   stretch does the full-width part once row-only alignItems isn't set inline
+   anymore), then settle into a centered inline row once there's room. */
+.ctech-teaser-row {
+  flex-direction: column;
+}
+@media (min-width: 768px) {
+  .ctech-teaser-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Products page "how they work together" flow: the "or" between the two entry
+   chips reads fine inline once there's room for the whole row, but on mobile
+   should stack directly under the first chip rather than wrapping wherever
+   the flex row happens to break. */
+.ctech-converge-flow {
+  flex-direction: column;
+}
+@media (min-width: 768px) {
+  .ctech-converge-flow {
+    flex-direction: row;
+  }
+}
+
+/* two-button card actions (e.g. "Build My Estimate" / "Get My Site Today"):
+   stacked and full-width when the CARD itself is narrow (mobile, or a tight
+   grid column) so neither button gets crushed; side by side and evenly split
+   once the card has room. A container query keyed to the card's own width
+   (not the viewport) so this holds regardless of how many columns the grid
+   around it happens to have. */
+.ctech-service-card {
+  container-type: inline-size;
+}
+.ctech-card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+.ctech-card-actions > a {
+  width: 100%;
+}
+@container (min-width: 300px) {
+  .ctech-card-actions {
+    flex-direction: row;
+    align-items: stretch;
+  }
+  .ctech-card-actions > a {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+}
+
+/* Build page: intro card stacks above the estimate wizard on mobile; once
+   there's room for both side by side, they sit in a row at matched height
+   (uneven column widths on purpose — the wizard needs more room than the intro). */
+.ctech-build-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+@media (min-width: 960px) {
+  .ctech-build-layout {
+    display: grid;
+    grid-template-columns: minmax(300px, 380px) minmax(0, 560px);
+    justify-content: center;
+    align-items: stretch;
+    gap: 20px;
+  }
+  .ctech-build-layout > * {
+    height: 100%;
+  }
+}
+
+/* native <dialog>: strip the UA chrome (white box, default border/padding),
+   let our own panel markup inside it do the styling. margin: auto restores
+   the browser's default modal centering, which Tailwind's preflight
+   (`* { margin: 0 }`) otherwise strips, leaving the dialog pinned top-left. */
+dialog.ctech-dialog {
+  border: none;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  max-width: none;
+  max-height: none;
+  overflow: visible;
+  margin: auto;
+}
+dialog.ctech-dialog::backdrop {
+  background: var(--scrim);
+}

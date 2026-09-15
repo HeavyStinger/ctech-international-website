@@ -1,0 +1,153 @@
+---
+import '../styles/global.css';
+import '../components/brand/hero.css';
+import { withBase } from '../lib/url.js';
+
+interface Props {
+  title: string;
+  description?: string;
+  path: string;
+  image?: string;
+  structuredData?: Record<string, any> | Record<string, any>[];
+}
+
+const SITE_URL = 'https://ctechintl.com';
+
+const {
+  title,
+  description = 'Websites, web apps, and everything around them. Built in Belize, ready for the world.',
+  path,
+  image = '/logo.png',
+  structuredData,
+} = Astro.props;
+
+const canonicalUrl = `${SITE_URL}${path}`;
+const ogImageUrl = `${SITE_URL}${image}`;
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Ctech International',
+  url: SITE_URL,
+  logo: `${SITE_URL}/logo.png`,
+  image: `${SITE_URL}/logo.png`,
+  description: 'Websites, web apps, and everything around them. Built in Belize, ready for the world.',
+  telephone: '+501-600-8328',
+  email: 'info@ctechintl.com',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Belize City',
+    addressCountry: 'BZ',
+  },
+  sameAs: [
+    'https://www.instagram.com/ctech.intl/',
+    'https://www.facebook.com/ctechintl',
+  ],
+};
+
+const structuredDataList = [
+  organizationSchema,
+  ...(structuredData ? (Array.isArray(structuredData) ? structuredData : [structuredData]) : []),
+];
+
+// Cloudflare Web Analytics: free, cookie-less, no consent banner needed. Get a
+// site token from the Cloudflare dashboard (Analytics & Logs -> Web Analytics
+// -> Add a site -> "I'll add the JavaScript snippet myself" -- no DNS change
+// needed) and paste it below to switch it on.
+const CF_ANALYTICS_TOKEN = '3f1f22df19204e40bd0a614b82565ac1';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#05080F" />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" type="image/x-icon" href={withBase('/favicon.ico')} />
+    <!-- Outfit webfont: preconnect + a real <link rel="stylesheet"> instead of a CSS
+         @import, so the browser can start fetching it as soon as HTML parsing begins
+         instead of waiting on the CSS-import chain (fetch CSS -> parse -> discover
+         @import -> fetch Google's CSS -> discover font URLs -> fetch fonts). -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" />
+    <!-- Bootstrap Icons: used for the footer's social links (Instagram/Facebook/WhatsApp) -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    {CF_ANALYTICS_TOKEN && <link rel="preconnect" href="https://static.cloudflareinsights.com" />}
+    <title>{title}</title>
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Ctech International" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    {structuredDataList.map((schema) => (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    ))}
+
+    {CF_ANALYTICS_TOKEN && (
+      <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={`{"token": "${CF_ANALYTICS_TOKEN}"}`}></script>
+    )}
+  </head>
+  <body>
+    <a href="#root" class="ctech-skip-link">Skip to content</a>
+    <div class="hero-sky" data-hero-sky></div>
+    <div id="root" tabindex="-1">
+      <slot />
+    </div>
+    <script src={withBase('/hero.js')} defer></script>
+  </body>
+</html>
+
+<style is:global>
+  html {
+    scroll-behavior: smooth;
+    color-scheme: dark;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+  html,
+  body {
+    margin: 0;
+    background: var(--space-black);
+  }
+  .hero-sky {
+    position: fixed;
+  }
+  #root {
+    position: relative;
+    z-index: 1;
+  }
+  .ctech-skip-link {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 1000;
+    padding: 12px 20px;
+    background: var(--space-black);
+    color: var(--text-primary);
+    border: 1px solid var(--nebula-cyan-50);
+    border-radius: var(--radius-control);
+    box-shadow: var(--glow-cyan-strong);
+    font-family: var(--font-sans);
+    font-weight: 600;
+    text-decoration: none;
+    transform: translateY(-120px);
+    transition: transform 200ms var(--ease-hud);
+  }
+  .ctech-skip-link:focus-visible {
+    transform: translateY(0);
+  }
+</style>

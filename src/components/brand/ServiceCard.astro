@@ -1,0 +1,74 @@
+---
+import { pxify } from '../../lib/style.js';
+import { Icon } from 'astro-icon/components';
+import Button from '../core/Button.astro';
+
+const { icon, customSvg, name, tagline, taglineHighlight, features = [], href, price, primaryLabel = 'Inquire', secondaryLabel, secondaryHref, detailsHref, detailsLabel = 'Full details' } = Astro.props;
+const highlighted = taglineHighlight && tagline?.startsWith(taglineHighlight);
+---
+
+<div class="ctech-service-card"
+  style={pxify({ position: 'relative', display: 'flex', flexDirection: 'column', height: '100%', boxSizing: 'border-box',
+    background: 'var(--glass-tint)', backdropFilter: 'blur(2px) saturate(1.3)', WebkitBackdropFilter: 'blur(2px) saturate(1.3)',
+    borderRadius: 'var(--radius-card)', padding: 32,
+    transform: 'translateY(0)',
+    transition: 'border-color 250ms var(--ease-hud), transform 250ms var(--ease-hud)',
+    border: '1px solid var(--space-border)', boxShadow: 'none' })}>
+  <div style={pxify({ display: 'flex', alignItems: 'center', gap: 14 })}>
+    <div class:list={['ctech-service-card-icon', !customSvg && 'ctech-service-card-icon-lucide']} style={pxify({ width: 48, height: 48, borderRadius: 'var(--radius-control)', display: 'flex',
+      alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+      background: customSvg ? 'var(--space-surface-hover)' : 'var(--nebula-cyan-10)',
+      border: '1px solid ' + (customSvg ? 'var(--space-border)' : 'var(--nebula-cyan-30)'),
+      transition: 'background 250ms var(--ease-hud)' })}>
+      {customSvg
+        ? <div style={pxify({ width: 26, height: 26 })} set:html={customSvg} />
+        : <Icon name={`lucide:${icon}`} width={24} height={24} style={pxify({ color: 'var(--nebula-cyan)' })} aria-hidden="true" />}
+    </div>
+    <div style={pxify({ fontSize: 19, fontWeight: 600 })}>{name}</div>
+  </div>
+  {price && (
+    <div style={pxify({ marginTop: 16, display: 'flex', alignItems: 'baseline', gap: 6 })}>
+      <span style={pxify({ fontSize: 28, fontWeight: 700, color: price.includes('BZD') ? 'var(--nebula-cyan)' : 'var(--text-secondary)' })}>{price}</span>
+    </div>
+  )}
+  <p style={pxify({ margin: (price ? 10 : 16) + 'px 0 0', fontSize: 14.5, lineHeight: 1.6, color: 'var(--text-secondary)' })}>
+    {highlighted ? (
+      <Fragment><span style={pxify({ color: 'var(--nebula-cyan)' })}>{taglineHighlight}</span>{tagline.slice(taglineHighlight.length)}</Fragment>
+    ) : tagline}
+  </p>
+  {detailsHref && (
+    <a href={detailsHref} style={pxify({ marginTop: 8, fontSize: 13.5, fontWeight: 600, color: 'var(--nebula-cyan)', textDecoration: 'none' })}>
+      {detailsLabel} →
+    </a>
+  )}
+  <div style={pxify({ height: 1, background: 'var(--space-border)', margin: '20px 0' })} />
+  <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 11 })}>
+    {features.map((f) => (
+      <div style={pxify({ display: 'flex', alignItems: 'flex-start', gap: 9 })}>
+        <Icon name="lucide:check" width={15} height={15} style={pxify({ marginTop: 2, flexShrink: 0, color: 'var(--nebula-cyan)' })} aria-hidden="true" />
+        <span style={pxify({ fontSize: 14, lineHeight: 1.55, color: 'var(--text-secondary)' })}>{f}</span>
+      </div>
+    ))}
+  </div>
+  {(href || secondaryHref) && (
+    <div class:list={[secondaryHref && 'ctech-card-actions']}
+      style={pxify({ marginTop: 'auto', paddingTop: 22, display: 'flex', gap: 10, flexWrap: 'wrap' })}>
+      {href && (
+        <Button href={href} variant="secondary" size="sm" style={pxify({ width: '100%' })}>{primaryLabel}</Button>
+      )}
+      {secondaryHref && (
+        <Button href={secondaryHref} variant="primary" size="sm" style={pxify({ width: '100%' })}>{secondaryLabel}</Button>
+      )}
+    </div>
+  )}
+</div>
+
+<style>
+  .ctech-service-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--nebula-cyan-30);
+  }
+  .ctech-service-card:hover .ctech-service-card-icon-lucide {
+    background: var(--nebula-cyan-20);
+  }
+</style>

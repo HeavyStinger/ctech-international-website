@@ -1,0 +1,48 @@
+---
+import { pxify } from '../lib/style.js';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Header } from '../components/brand/Header.jsx';
+import Footer from '../components/brand/Footer.astro';
+import Button from '../components/core/Button.astro';
+import Eyebrow from '../components/brand/Eyebrow.astro';
+import ShimmerHeading from '../components/brand/ShimmerHeading.astro';
+import { BuildWizard } from '../ui_kits/build/BuildWizard.jsx';
+import { withBase } from '../lib/url.js';
+
+const currentPath = Astro.url.pathname;
+const wrap = pxify({ width: '100%', maxWidth: 1240, margin: '0 auto', boxSizing: 'border-box', paddingLeft: 'var(--space-7)', paddingRight: 'var(--space-7)' });
+---
+
+<BaseLayout title="Ctech International | Build My Site Estimate"
+  description="Get a live price for your website in under a minute. Answer a few quick questions and see a real, no-obligation estimate, no calls needed."
+  path="/build">
+  <div style={pxify({ background: 'transparent', color: 'var(--text-primary)', fontFamily: 'var(--font-sans)', position: 'relative' })}>
+    <Header client:load currentPath={currentPath} />
+
+    <main data-screen-label="Intro" style={pxify({ ...wrap, paddingTop: 'var(--space-9)', paddingBottom: 'var(--space-8)',
+      display: 'flex', flexDirection: 'column', gap: 20, alignItems: 'flex-start' })}>
+      <Eyebrow>Build My Site Estimate</Eyebrow>
+      <ShimmerHeading as="h1" size={56}>Get a live price for your site</ShimmerHeading>
+      <p style={pxify({ margin: 0, maxWidth: 640, fontSize: 18, lineHeight: 1.6, color: 'var(--text-secondary)' })}>
+        Answer a few quick questions and get a live estimate, no back and forth needed.
+      </p>
+    </main>
+
+    <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 'var(--space-9)', paddingBottom: 'var(--space-10)' })}>
+      <BuildWizard client:load />
+
+      <section data-screen-label="Consultation CTA" style={wrap}>
+        <div style={pxify({ border: '1px solid var(--nebula-cyan-30)', borderRadius: 'var(--radius-card)',
+          boxShadow: 'var(--glow-cyan-soft), var(--glass-highlight)', background: 'var(--glass-bg)',
+          backdropFilter: 'var(--glass-blur)', WebkitBackdropFilter: 'var(--glass-blur)',
+          padding: '72px var(--space-7)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 18, textAlign: 'center' })}>
+          <h2 style={pxify({ margin: 0, fontSize: 36, fontWeight: 600, lineHeight: 1.1, textWrap: 'balance' })}>Still not sure? Let’s talk it through.</h2>
+          <p style={pxify({ margin: 0, fontSize: 16, lineHeight: 1.6, color: 'var(--text-secondary)' })}>A 20-minute call is all it takes.</p>
+          <Button href={`${withBase('/contact')}#form`} variant="primary" size="lg" style={pxify({ marginTop: 10 })}>Contact Us</Button>
+        </div>
+      </section>
+    </div>
+
+    <Footer currentPath={currentPath} />
+  </div>
+</BaseLayout>

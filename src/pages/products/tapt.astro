@@ -1,0 +1,133 @@
+---
+import { pxify } from '../../lib/style.js';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Icon } from 'astro-icon/components';
+import { Header } from '../../components/brand/Header.jsx';
+import Footer from '../../components/brand/Footer.astro';
+import Eyebrow from '../../components/brand/Eyebrow.astro';
+import ShimmerHeading from '../../components/brand/ShimmerHeading.astro';
+import SectionTitle from '../../components/brand/SectionTitle.astro';
+import ProductSection from '../../components/brand/ProductSection.astro';
+import TaptCardBenefits from '../../components/brand/TaptCardBenefits.astro';
+import Button from '../../components/core/Button.astro';
+import Card from '../../components/core/Card.astro';
+import Badge from '../../components/core/Badge.astro';
+import { withBase } from '../../lib/url.js';
+import { taptFeatures, taptCardBenefits } from '../../lib/productContent.js';
+
+const wrap = pxify({ width: '100%', maxWidth: 1240, margin: '0 auto', boxSizing: 'border-box', paddingLeft: 'var(--space-7)', paddingRight: 'var(--space-7)' });
+
+const productSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: 'Tapt',
+  brand: { '@type': 'Brand', name: 'Ctech International' },
+  description: 'Tapt NFC smart cards for businesses in Belize. Business and Google Review cards from 150 BZD/year, menu cards custom quoted. Tap a phone and your whole presence shows up instantly.',
+  offers: [
+    { '@type': 'Offer', name: 'Business Card', priceCurrency: 'BZD', price: '150', priceValidUntil: '2027-12-31', availability: 'https://schema.org/InStock', url: 'https://ctechintl.com/products/tapt' },
+    { '@type': 'Offer', name: 'Google Review Card', priceCurrency: 'BZD', price: '150', priceValidUntil: '2027-12-31', availability: 'https://schema.org/InStock', url: 'https://ctechintl.com/products/tapt' },
+  ],
+};
+const currentPath = Astro.url.pathname;
+---
+
+<BaseLayout title="Tapt Smart Business Cards Belize | Ctech International"
+  description="Tapt NFC smart cards for businesses in Belize. Business and Google Review cards from 150 BZD/year, menu cards custom quoted. Tap a phone and your whole presence shows up instantly."
+  path="/products/tapt"
+  structuredData={productSchema}>
+  <div style={pxify({ background: 'transparent', color: 'var(--text-primary)', fontFamily: 'var(--font-sans)', position: 'relative' })}>
+    <Header client:load currentPath={currentPath} />
+
+    <main data-screen-label="Intro" style={pxify({ ...wrap, paddingTop: 'var(--space-9)', paddingBottom: 'var(--space-8)',
+      display: 'flex', flexDirection: 'column', gap: 20, alignItems: 'flex-start' })}>
+      <Eyebrow>Tapt Smart Cards</Eyebrow>
+      <ShimmerHeading as="h1" size={56}>Tap the card, and everything’s right there</ShimmerHeading>
+      <p style={pxify({ margin: 0, maxWidth: 640, fontSize: 18, lineHeight: 1.6, color: 'var(--text-secondary)' })}>
+        NFC smart business, Google review, and menu cards for businesses in Belize. No more paper cards
+        that get lost or thrown out, tap a phone against one and your whole presence shows up instantly.
+      </p>
+    </main>
+
+    <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 'var(--space-9)', paddingBottom: 'var(--space-10)' })}>
+      <section style={wrap}>
+        <SectionTitle title="Pricing" />
+        <div style={pxify({ maxWidth: 480, marginTop: 36 })}>
+          <Card padding={32} glow style={pxify({ display: 'flex', flexDirection: 'column' })}>
+            <div style={pxify({ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 12 })}>
+              <div style={pxify({ fontSize: 22, fontWeight: 600 })}>Tapt</div>
+              <div style={pxify({ fontSize: 13, letterSpacing: '0.06em', color: 'var(--nebula-cyan)' })}>SMART CARDS</div>
+            </div>
+            <div style={pxify({ marginTop: 3, display: 'flex', flexDirection: 'column', gap: 4 })}>
+              <span style={pxify({ fontSize: 13, lineHeight: 1, color: 'var(--text-secondary)' })}>Business or Review card</span>
+              <div style={pxify({ display: 'flex', alignItems: 'baseline', gap: 8 })}>
+                <span style={pxify({ fontSize: 44, fontWeight: 700, lineHeight: 1 })}>150 BZD</span>
+                <span style={pxify({ fontSize: 15, color: 'var(--text-secondary)' })}>/year</span>
+              </div>
+            </div>
+            <Badge variant="cyan" style={pxify({ marginTop: 12, alignSelf: 'flex-start' })}>Includes your hub</Badge>
+            <div style={pxify({ fontSize: 14, color: 'var(--text-secondary)', marginTop: 10 })}>+50 BZD/year for each extra card. Menu cards are custom quoted.</div>
+            <div style={pxify({ height: 1, background: 'var(--space-border)', margin: '24px 0' })} />
+            <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 12, fontSize: 15, lineHeight: 1.5 })}>
+              <div style={pxify({ display: 'flex', gap: 10 })}><Icon name="lucide:check" width={15} height={15} style={pxify({ marginTop: 3, flexShrink: 0, color: 'var(--nebula-cyan)' })} aria-hidden="true" /><span>Business card hub: your Tesseract page, contact, socials, and everything else in one tap</span></div>
+              <div style={pxify({ display: 'flex', gap: 10 })}><Icon name="lucide:check" width={15} height={15} style={pxify({ marginTop: 3, flexShrink: 0, color: 'var(--nebula-cyan)' })} aria-hidden="true" /><span>Google review hub: a Review vs Feedback page, happy customers go straight to a 5-star review, everyone else is routed to private feedback instead</span></div>
+              <div style={pxify({ display: 'flex', gap: 10 })}><Icon name="lucide:check" width={15} height={15} style={pxify({ marginTop: 3, flexShrink: 0, color: 'var(--nebula-cyan)' })} aria-hidden="true" /><span>Menu hub: a live editor you control, edit anytime and it goes live the instant you save, priced with a custom quote</span></div>
+              <div style={pxify({ display: 'flex', gap: 10 })}><Icon name="lucide:check" width={15} height={15} style={pxify({ marginTop: 3, flexShrink: 0, color: 'var(--nebula-cyan)' })} aria-hidden="true" /><span>WiFi QR auto-connect codes, 50 BZD one-time</span></div>
+            </div>
+            <p style={pxify({ fontSize: 13, color: 'var(--text-secondary)', marginTop: 20, lineHeight: 1.5 })}>
+              Business and Google Review cards are 150 BZD/year each, with each additional card after your first at 50 BZD/year. Menu cards are priced with a custom quote. Ask us about deals for larger orders.
+            </p>
+            <Button href={`${withBase('/contact')}?service=tapt-cards#form`} variant="primary" size="sm" style={pxify({ marginTop: 20 })}>Ask for a Quote</Button>
+          </Card>
+        </div>
+      </section>
+
+      <section style={wrap}>
+        <SectionTitle title="What each card does" lead="Every card leads to your Tesseract hub, but what it’s for changes what it’s built around." />
+        <TaptCardBenefits groups={taptCardBenefits} />
+      </section>
+
+      <section style={wrap}>
+        <ProductSection icon="credit-card" eyebrow="SMART CARDS" name="Tapt"
+          tagline="Buy one card or a full set and mix and match by type. Tap a phone against any of them and your whole presence shows up instantly, contact included."
+          typesLabel="Card Types" types={['Business', 'Google Review', 'Menu', 'WiFi QR', 'Custom']}
+          features={taptFeatures}>
+          <Fragment slot="media">
+            <iframe
+              src="https://www.youtube.com/embed/5TdNEBiGkLA"
+              title="Tapt demo"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+              style={pxify({ width: '100%', aspectRatio: '9 / 16', border: '1px solid var(--space-border)',
+                borderRadius: 'var(--radius-card)', display: 'block' })}
+            ></iframe>
+          </Fragment>
+        </ProductSection>
+      </section>
+
+      <section style={pxify({ ...wrap, textAlign: 'center' })}>
+        <div style={pxify({ fontSize: 17, color: 'var(--text-secondary)' })}>
+          Already have a website or want your card to link somewhere custom?
+          <a href={withBase('/products/tesseract')} style={pxify({ color: 'var(--nebula-cyan)', fontWeight: 600, textDecoration: 'none' })}>
+            See Tesseract, the hub behind every card →
+          </a>
+        </div>
+      </section>
+
+      <section data-screen-label="Consultation CTA" style={wrap}>
+        <div style={pxify({ border: '1px solid var(--nebula-cyan-30)', borderRadius: 'var(--radius-card)',
+          boxShadow: 'var(--glow-cyan-soft), var(--glass-highlight)', background: 'var(--glass-bg)',
+          backdropFilter: 'var(--glass-blur)', WebkitBackdropFilter: 'var(--glass-blur)',
+          padding: '72px var(--space-7)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 18, textAlign: 'center' })}>
+          <h2 style={pxify({ margin: 0, fontSize: 36, fontWeight: 600, lineHeight: 1.1, textWrap: 'balance' })}>Ready for a smart card of your own?</h2>
+          <p style={pxify({ margin: 0, fontSize: 16, lineHeight: 1.6, color: 'var(--text-secondary)' })}>A 20-minute call is all it takes.</p>
+          <div style={pxify({ marginTop: 10 })}>
+            <Button href={`${withBase('/contact')}?service=tapt-cards#form`} variant="primary" size="lg">Book a Consultation</Button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <Footer currentPath={currentPath} />
+  </div>
+</BaseLayout>

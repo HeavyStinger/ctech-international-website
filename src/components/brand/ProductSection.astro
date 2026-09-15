@@ -1,0 +1,57 @@
+---
+import { pxify } from '../../lib/style.js';
+import { Icon } from 'astro-icon/components';
+import Card from '../core/Card.astro';
+import Badge from '../core/Badge.astro';
+import Button from '../core/Button.astro';
+
+const { icon, eyebrow, name, tagline, typesLabel, types, features = [], flameWrap = false, detailsHref, detailsLabel = 'View Full Product' } = Astro.props;
+---
+
+<div style={pxify({ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 32, marginTop: 36 })}>
+  <div class:list={['ctech-flame-wrap', flameWrap && 'ctech-flame-active']} data-flame-wrap={flameWrap ? true : undefined}
+    style={pxify({ height: '100%', ...(flameWrap ? { position: 'relative', zIndex: 1 } : {}) })}>
+    {flameWrap && <canvas class="ctech-flame-source" aria-hidden="true" style={pxify({ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0, pointerEvents: 'none' })}></canvas>}
+    {flameWrap && <canvas class="ctech-flame-output" aria-hidden="true" style={pxify({ position: 'absolute', top: -190, left: -24, width: 'calc(100% + 48px)', height: 'calc(100% + 210px)', pointerEvents: 'none' })}></canvas>}
+    <div class={flameWrap ? 'ctech-flame-content' : undefined} style={pxify({ height: '100%', ...(flameWrap ? { position: 'relative' } : {}) })}>
+      <Card padding={32} style={pxify({ height: '100%', boxSizing: 'border-box', display: 'flex', flexDirection: 'column' })}>
+        <div style={pxify({ display: 'flex', alignItems: 'center', gap: 14 })}>
+          <div style={pxify({ width: 44, height: 44, borderRadius: 'var(--radius-control)', display: 'flex',
+            alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+            background: 'var(--nebula-cyan-10)', border: '1px solid var(--nebula-cyan-30)' })}>
+            <Icon name={`lucide:${icon}`} width={22} height={22} style={pxify({ color: 'var(--nebula-cyan)' })} aria-hidden="true" />
+          </div>
+          <div>
+            <div style={pxify({ fontSize: 12, fontWeight: 500, letterSpacing: '0.08em', color: 'var(--text-secondary)' })}>{eyebrow}</div>
+            <div style={pxify({ fontSize: 20, fontWeight: 600 })}>{name}</div>
+          </div>
+        </div>
+        <p style={pxify({ margin: '16px 0 0', fontSize: 15, lineHeight: 1.6, color: 'var(--text-secondary)' })}>{tagline}</p>
+        {types && types.length > 0 && (
+          <div style={pxify({ marginTop: 20 })}>
+            <div style={pxify({ fontSize: 11.5, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)' })}>
+              {typesLabel}
+            </div>
+            <div style={pxify({ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 10 })}>
+              {types.map((t) => <Badge variant="cyan">{t}</Badge>)}
+            </div>
+          </div>
+        )}
+        <div style={pxify({ height: 1, background: 'var(--space-border)', margin: '22px 0' })} />
+        <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: detailsHref ? 20 : 0 })}>
+          {features.map((f) => (
+            <div style={pxify({ display: 'flex', alignItems: 'flex-start', gap: 10 })}>
+              <Icon name="lucide:check" width={15} height={15} style={pxify({ marginTop: 2, flexShrink: 0, color: 'var(--nebula-cyan)' })} aria-hidden="true" />
+              <span style={pxify({ fontSize: 14.5, lineHeight: 1.55, color: 'var(--text-secondary)' })}>{f}</span>
+            </div>
+          ))}
+        </div>
+        {detailsHref && (
+          <Button href={detailsHref} variant="secondary" size="sm" style={pxify({ marginTop: 'auto', width: '100%' })}>{detailsLabel}</Button>
+        )}
+      </Card>
+    </div>
+  </div>
+
+  <slot name="media" />
+</div>

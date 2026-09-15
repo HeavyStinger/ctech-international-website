@@ -1,0 +1,32 @@
+/* Ctech International — color tokens */
+:root {
+  /* base palette */
+  --space-black: #05080F;
+  --space-surface: #080C16;
+  --space-surface-hover: #0D1220;
+  --space-border: #1D283A;
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --nebula-cyan: #00CCFF;
+
+  /* cyan alpha steps */
+  --nebula-cyan-10: rgba(0, 204, 255, 0.10);
+  --nebula-cyan-20: rgba(0, 204, 255, 0.20);
+  --nebula-cyan-30: rgba(0, 204, 255, 0.30);
+  --nebula-cyan-50: rgba(0, 204, 255, 0.50);
+  --nebula-cyan-60: rgba(0, 204, 255, 0.60);
+
+  /* semantic aliases */
+  --bg-page: var(--space-black);
+  --surface-card: var(--space-surface);
+  --surface-hover: var(--space-surface-hover);
+  --border-card: var(--space-border);
+  --text-body: var(--text-primary);
+  --text-muted: var(--text-secondary);
+  --accent: var(--nebula-cyan);
+  --accent-fill-subtle: var(--nebula-cyan-10);
+  --accent-border: var(--nebula-cyan-50);
+  --on-accent: var(--space-black); /* dark text on bright cyan, never white */
+  --scrim: rgba(5, 8, 15, 0.80);
+  --surface-translucent: rgba(5, 8, 15, 0.50);
+}

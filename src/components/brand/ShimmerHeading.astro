@@ -1,0 +1,13 @@
+---
+import { pxify } from '../../lib/style.js';
+const { as = 'h1', size = 80, animated = true, style } = Astro.props;
+const Tag = as;
+---
+
+<Tag class={animated ? 'shimmer-text' : undefined}
+  style={pxify({ margin: 0, fontFamily: 'var(--font-sans)', fontWeight: 700,
+    fontSize: `min(${size}px, 13vw)`, lineHeight: 1.05, letterSpacing: '-0.01em', textWrap: 'balance',
+    ...(animated ? {} : {
+      background: 'var(--shimmer-gradient)', WebkitBackgroundClip: 'text', backgroundClip: 'text',
+      WebkitTextFillColor: 'transparent', color: 'transparent',
+    }), ...style })}><slot /></Tag>

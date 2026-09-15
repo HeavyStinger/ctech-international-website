@@ -1,0 +1,330 @@
+---
+import { pxify } from '../lib/style.js';
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import googleBusinessProfileRaw from '../assets/brand-icons/google-business-profile.svg?raw';
+import { Header } from '../components/brand/Header.jsx';
+import Footer from '../components/brand/Footer.astro';
+import Button from '../components/core/Button.astro';
+import Card from '../components/core/Card.astro';
+import Eyebrow from '../components/brand/Eyebrow.astro';
+import ShimmerHeading from '../components/brand/ShimmerHeading.astro';
+import SectionTitle from '../components/brand/SectionTitle.astro';
+import ServiceCard from '../components/brand/ServiceCard.astro';
+import { withBase } from '../lib/url.js';
+import { TechStack, DesignToolsStack } from '../components/brand/TechStack.jsx';
+import { websiteDevItems, websiteRedesignItem, webAppDevItem } from '../lib/serviceContent.js';
+
+const currentPath = Astro.url.pathname;
+const googleBusinessProfileSvg = googleBusinessProfileRaw.replace('<svg ', '<svg width="100%" height="100%" ');
+
+const lightGlass = {
+  background: 'var(--glass-tint)',
+  backdropFilter: 'blur(2px) saturate(1.3)',
+  WebkitBackdropFilter: 'blur(2px) saturate(1.3)',
+  boxShadow: 'none',
+};
+
+const flowSteps = [
+  { n: '01', label: 'Build', body: 'A site or app made for your business' },
+  { n: '02', label: 'Host', body: '99.9% uptime, fully managed' },
+  { n: '03', label: 'Get found', body: 'Local search that brings leads in' },
+];
+
+const sellGroups = [
+  {
+    title: 'Development',
+    id: 'development',
+    lead: 'The foundation everything else builds on. Designed and coded around your business, not squeezed into a theme.',
+    items: [
+      ...websiteDevItems,
+      websiteRedesignItem,
+      webAppDevItem,
+      { icon: 'sparkles', name: 'Custom Services', slug: 'custom-services', tagline: 'For the projects that don’t fit a checkbox.',
+        features: [
+          'Voting systems, internal tools, one-off builds',
+          'Scoped around your exact problem, not a package',
+          'If it’s not on this list, ask anyway',
+        ] },
+    ],
+  },
+  {
+    title: 'Infrastructure',
+    id: 'infrastructure',
+    lead: 'What we build has to stay online. We host and manage it ourselves, so there’s one team accountable for the whole thing, not three.',
+    items: [
+      { icon: 'server', name: 'Hosting', slug: 'hosting', noInquiry: true, tagline: '99.9% uptime, watched around the clock. Included with every build, not sold on its own.',
+        features: [
+          'Your site stays up while we handle the infrastructure',
+          'Fast servers, no third-party handoffs',
+          'Issues get caught before your customers notice',
+        ] },
+      { icon: 'mail', name: 'Custom Domain Email', slug: 'custom-domain-email', tagline: 'you@yourbusiness.com looks like a real business.',
+        features: [
+          'Professional email on your own domain',
+          'More credible than a free @gmail address',
+          'Set up and managed for you',
+        ] },
+    ],
+  },
+  {
+    title: 'Local Presence',
+    id: 'local-presence',
+    lead: 'The best site in the world does nothing if customers can’t find it. This is how they do.',
+    items: [
+      { customSvg: googleBusinessProfileSvg, name: 'Google Business Profiles', slug: 'google-business-profiles', tagline: 'Show up when people search for what you do, nearby.',
+        features: [
+          'Setup and optimization from scratch',
+          'Hours, photos, and reviews kept current',
+          'Free visibility that keeps paying off',
+        ] },
+    ],
+  },
+];
+
+const designGroup = {
+  title: 'Design',
+  lead: 'The same brand everywhere it shows up. Print and signage designed to match the site, not clash with it.',
+  items: [
+    { icon: 'credit-card', name: 'Business Cards', slug: 'business-cards', price: '150 BZD', tagline: 'The first thing people hold onto after they meet you.',
+      features: [
+        'Front and back layout designed to match your brand',
+        'Print-ready files, no guesswork for the printer',
+        'Makes a stronger impression than a generic template',
+      ] },
+    { icon: 'megaphone', name: 'Flyers', slug: 'flyers', price: '150 BZD', tagline: 'Built to grab attention and get the offer read.',
+      features: [
+        'Promotions, events, and announcements',
+        'Clear hierarchy so the message lands fast',
+        'Sized for print or sharing online',
+      ] },
+    { icon: 'image', name: 'Posters', slug: 'posters', price: '150 BZD', tagline: 'Made to hold up from across a room.',
+      features: [
+        'Bold layouts that read at a distance',
+        'Sized for standard print formats',
+        'Same colors and fonts as your site',
+      ] },
+    { icon: 'rectangle-horizontal', name: 'Banners', slug: 'banners', price: '150 BZD', tagline: 'Storefronts and events, branded the moment people walk up.',
+      features: [
+        'Designed for indoor or outdoor display',
+        'Built to be readable at a glance',
+        'Matches the rest of your brand materials',
+      ] },
+    { icon: 'signpost-big', name: 'Billboards', slug: 'billboards', price: 'Custom quote', tagline: 'Wide reach, built for a few seconds of attention.',
+      features: [
+        'Simple, bold layouts that work at highway speed',
+        'Sized to spec for your chosen location',
+        'Consistent with your site and other print',
+      ] },
+    { icon: 'shirt', name: 'T-Shirts', slug: 't-shirts', price: 'Custom quote', tagline: 'The same brand, on and off the screen.',
+      features: [
+        'Apparel for staff, events, or merch',
+        'Print-ready artwork for your chosen shop',
+        'Logo and colors kept consistent everywhere',
+      ] },
+  ],
+};
+
+const pricingGroups = [
+  {
+    title: 'Development',
+    items: [
+      { name: 'One-Page Website', price: '500 BZD', note: 'A single page built to convert', slug: 'website-development' },
+      { name: 'Custom Website Build', price: '750 BZD', note: 'Up to 5 pages, extra pages 50 BZD each', href: '/build' },
+      { name: 'Website Redesign', price: 'Custom quote', note: 'Scoped to your existing site', slug: 'website-redesign' },
+      { name: 'Web App Development', price: 'Custom quote', note: 'Scoped to your workflow', slug: 'web-app-development' },
+      { name: 'Custom Services', price: 'Custom quote', note: 'Scoped to your project', slug: 'custom-services' },
+    ],
+  },
+  {
+    title: 'Design',
+    items: [
+      { name: 'Business Cards', price: '150 BZD', slug: 'business-cards' },
+      { name: 'Flyers', price: '150 BZD', slug: 'flyers' },
+      { name: 'Posters', price: '150 BZD', slug: 'posters' },
+      { name: 'Banners', price: '150 BZD', slug: 'banners' },
+      { name: 'Billboards', price: 'Custom quote', slug: 'billboards' },
+      { name: 'T-Shirts', price: 'Custom quote', slug: 't-shirts' },
+      { name: 'Logo Design', price: 'Custom quote', slug: 'logo-design' },
+    ],
+  },
+];
+
+const wrap = pxify({ width: '100%', maxWidth: 1240, margin: '0 auto', boxSizing: 'border-box', paddingLeft: 'var(--space-7)', paddingRight: 'var(--space-7)' });
+const anchor = pxify({ ...wrap, scrollMarginTop: 88 });
+---
+
+<BaseLayout title="Ctech International | Services & Tech"
+  description="Website development, website redesign, custom web apps, hosting, email, and design services from Ctech International, built for businesses in Belize."
+  path="/services">
+  <div style={pxify({ background: 'transparent', color: 'var(--text-primary)', fontFamily: 'var(--font-sans)', position: 'relative' })}>
+    <Header client:load currentPath={currentPath} />
+
+    <main data-screen-label="Intro" style={pxify({ ...wrap, paddingTop: 'var(--space-9)', paddingBottom: 'var(--space-8)',
+      display: 'flex', flexDirection: 'column', gap: 20, alignItems: 'flex-start' })}>
+      <Eyebrow>Services &amp; Tech</Eyebrow>
+      <ShimmerHeading as="h1" size={56}>What we build</ShimmerHeading>
+      <p style={pxify({ margin: 0, maxWidth: 640, fontSize: 18, lineHeight: 1.6, color: 'var(--text-secondary)' })}>
+        Everything a business needs to look and run world-class online, from one studio in Belize City.
+      </p>
+      <div style={pxify({ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 6, marginTop: 8 })}>
+        {flowSteps.map((s, i) => (
+          <Fragment>
+            <div style={pxify({ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 16px',
+              border: '1px solid var(--space-border)', borderRadius: 'var(--radius-control)' })}>
+              <span style={pxify({ fontSize: 12, fontWeight: 700, color: 'var(--nebula-cyan)' })}>{s.n}</span>
+              <div>
+                <div style={pxify({ fontSize: 14, fontWeight: 600 })}>{s.label}</div>
+                <div style={pxify({ fontSize: 12, color: 'var(--text-secondary)' })}>{s.body}</div>
+              </div>
+            </div>
+            {i < flowSteps.length - 1 && <Icon name="lucide:arrow-right" width={16} height={16} style={pxify({ color: 'var(--text-secondary)', flexShrink: 0 })} aria-hidden="true" />}
+          </Fragment>
+        ))}
+      </div>
+    </main>
+
+    <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 'var(--space-9)', paddingBottom: 'var(--space-10)' })}>
+      {sellGroups.map((g) => (
+        <section id={g.id} style={anchor}>
+          <SectionTitle title={g.title} lead={g.lead} />
+          {g.id === 'local-presence' ? (
+            <div style={pxify({ display: 'flex', flexWrap: 'wrap', gap: 20, marginTop: 36 })}>
+              {g.items.map((item) => (
+                <div style={pxify({ flex: '0 1 min(340px, 100%)', maxWidth: 380, minWidth: 0 })}>
+                  <ServiceCard icon={item.icon} customSvg={item.customSvg} name={item.name} tagline={item.tagline} features={item.features}
+                    price={item.price}
+                    primaryLabel={item.primaryLabel} href={item.noInquiry ? undefined : withBase(item.primaryHref || `/contact?service=${item.slug}`)}
+                    secondaryLabel={item.secondaryLabel} secondaryHref={item.secondaryHref ? withBase(item.secondaryHref) : undefined} />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div style={pxify({ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(380px, 100%), 1fr))', gap: 20, marginTop: 36 })}>
+              {g.items.map((item) => {
+                const card = (
+                  <ServiceCard icon={item.icon} customSvg={item.customSvg} name={item.name} tagline={item.tagline} taglineHighlight={item.taglineHighlight} features={item.features}
+                    price={item.price} detailsHref={item.detailsHref ? withBase(item.detailsHref) : undefined}
+                    primaryLabel={item.primaryLabel} href={item.noInquiry ? undefined : withBase(item.primaryHref || `/contact?service=${item.slug}`)}
+                    secondaryLabel={item.secondaryLabel} secondaryHref={item.secondaryHref ? withBase(item.secondaryHref) : undefined} />
+                );
+                return item.name === 'Custom Website Build' ? (
+                  <div class="ctech-flame-wrap" data-flame-wrap style={pxify({ position: 'relative', zIndex: 1, height: '100%' })}>
+                    <canvas class="ctech-flame-source" aria-hidden="true" style={pxify({ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0, pointerEvents: 'none' })}></canvas>
+                    <canvas class="ctech-flame-output" aria-hidden="true" style={pxify({ position: 'absolute', top: -190, left: -24, width: 'calc(100% + 48px)', height: 'calc(100% + 210px)', pointerEvents: 'none' })}></canvas>
+                    <div class="ctech-flame-content" style={pxify({ position: 'relative', height: '100%' })}>{card}</div>
+                  </div>
+                ) : card;
+              })}
+            </div>
+          )}
+          {g.id === 'development' && (
+            <div style={pxify({ marginTop: 32, textAlign: 'center' })}>
+              <Button href={withBase('/portfolio')} variant="primary" size="lg">See Portfolio</Button>
+            </div>
+          )}
+        </section>
+      ))}
+
+      <section id="design" style={anchor}>
+        <SectionTitle title={designGroup.title} lead={designGroup.lead} />
+        <div style={pxify({ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(380px, 100%), 1fr))', gap: 20, marginTop: 36 })}>
+          {designGroup.items.map((item) => (
+            <ServiceCard icon={item.icon} customSvg={item.customSvg} name={item.name} tagline={item.tagline} features={item.features}
+              price={item.price} href={withBase(`/contact?service=${item.slug}`)}
+              secondaryLabel={item.slug === 'business-cards' ? 'Get Your Tapt Card Today' : undefined}
+              secondaryHref={item.slug === 'business-cards' ? withBase('/contact?service=tapt-cards') : undefined} />
+          ))}
+        </div>
+      </section>
+
+      <section id="pricing" style={anchor}>
+        <SectionTitle title="Pricing" lead="Website pricing first, everything else after. Anything marked custom quote is scoped to your project." />
+        <div style={pxify({ marginTop: 36, maxWidth: 720 })}>
+          <section style={pxify({ display: 'flex', flexDirection: 'column', gap: 40 })}>
+            {pricingGroups.map((g) => (
+              <div>
+                <div style={pxify({ fontSize: 20, fontWeight: 600 })}>{g.title}</div>
+                <div style={pxify({ marginTop: 4 })}>
+                  {g.items.map((item) => {
+                    const href = item.href ? withBase(item.href) : (item.slug ? withBase(`/contact?service=${item.slug}`) : undefined);
+                    const row = (
+                      <div style={pxify({ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16,
+                        padding: '18px 4px', borderTop: '1px solid var(--space-border)' })}>
+                        <div>
+                          <div style={pxify({ fontSize: 15.5, fontWeight: 600 })}>{item.name}</div>
+                          {item.note && <div style={pxify({ marginTop: 3, fontSize: 13, color: 'var(--text-secondary)' })}>{item.note}</div>}
+                        </div>
+                        <div style={pxify({ fontSize: 17, fontWeight: 700, color: item.price.includes('BZD') ? 'var(--nebula-cyan)' : 'var(--text-secondary)', whiteSpace: 'nowrap', fontVariantNumeric: 'tabular-nums' })}>
+                          {item.price}
+                        </div>
+                      </div>
+                    );
+                    return href ? (
+                      <a href={href} style={pxify({ textDecoration: 'none', color: 'inherit', display: 'block' })}>{row}</a>
+                    ) : row;
+                  })}
+                </div>
+              </div>
+            ))}
+          </section>
+        </div>
+      </section>
+
+      <section id="emerging" style={anchor}>
+        <SectionTitle title="Emerging" />
+        <div style={pxify({ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 20, marginTop: 36 })}>
+          <Card padding={24} style={pxify({ ...lightGlass, opacity: 0.6 })}>
+            <div style={pxify({ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 })}>
+              <div style={pxify({ fontSize: 17, fontWeight: 600 })}>AI Automation</div>
+              <span style={pxify({ fontSize: 11.5, letterSpacing: '0.08em', color: 'var(--text-secondary)' })}>COMING SOON</span>
+            </div>
+            <p style={pxify({ margin: '8px 0 0', fontSize: 14.5, lineHeight: 1.6, color: 'var(--text-secondary)' })}>Not launched yet.</p>
+          </Card>
+        </div>
+      </section>
+
+      <section id="frameworks-stack" style={anchor}>
+        <SectionTitle title="Frameworks & Stack" lead="This site is built with Astro. Here’s the rest of the toolkit we build with." />
+        <div style={pxify({ marginTop: 36 })}>
+          <TechStack client:visible />
+        </div>
+      </section>
+
+      <section id="design-tools" style={anchor}>
+        <SectionTitle title="Design & Development Tools" lead="The software behind the design work and the code itself." />
+        <div style={pxify({ marginTop: 36 })}>
+          <DesignToolsStack client:visible />
+        </div>
+      </section>
+
+      <section style={pxify({ ...wrap, textAlign: 'center' })}>
+        <div style={pxify({ fontSize: 17, color: 'var(--text-secondary)' })}>
+          Want to see it in action?
+          <a href={withBase('/portfolio')} style={pxify({ color: 'var(--nebula-cyan)', fontWeight: 600, textDecoration: 'none' })}>
+            See portfolio →
+          </a>
+        </div>
+      </section>
+
+      <section data-screen-label="Consultation CTA" style={wrap}>
+        <div style={pxify({ border: '1px solid var(--nebula-cyan-30)', borderRadius: 'var(--radius-card)',
+          boxShadow: 'var(--glow-cyan-soft), var(--glass-highlight)', background: 'var(--glass-bg)',
+          backdropFilter: 'var(--glass-blur)', WebkitBackdropFilter: 'var(--glass-blur)',
+          padding: '72px var(--space-7)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 18, textAlign: 'center' })}>
+          <h2 style={pxify({ margin: 0, fontSize: 36, fontWeight: 600, lineHeight: 1.1, textWrap: 'balance' })}>Not sure what you need? Let’s talk it through.</h2>
+          <p style={pxify({ margin: 0, fontSize: 16, lineHeight: 1.6, color: 'var(--text-secondary)' })}>A 20-minute call is all it takes to scope your project.</p>
+          <div style={pxify({ marginTop: 10 })}>
+            <Button href={`${withBase('/contact')}#form`} variant="primary" size="lg">Book a Consultation</Button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <Footer currentPath={currentPath} />
+  </div>
+</BaseLayout>
+
+<script>
+  import '../lib/flameWrap.client.js';
+</script>

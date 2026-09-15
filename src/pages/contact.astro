@@ -1,0 +1,60 @@
+---
+import { pxify } from '../lib/style.js';
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Header } from '../components/brand/Header.jsx';
+import Footer from '../components/brand/Footer.astro';
+import Eyebrow from '../components/brand/Eyebrow.astro';
+import ShimmerHeading from '../components/brand/ShimmerHeading.astro';
+import { ContactForm } from '../ui_kits/contact/ContactForm.jsx';
+
+const currentPath = Astro.url.pathname;
+const wrap = pxify({ width: '100%', maxWidth: 1240, margin: '0 auto', boxSizing: 'border-box', paddingLeft: 'var(--space-7)', paddingRight: 'var(--space-7)' });
+---
+
+<BaseLayout title="Ctech International | Contact"
+  description="Get in touch with Ctech International. Call, WhatsApp, or send a message about your website, web app, or design project in Belize."
+  path="/contact">
+  <div style={pxify({ background: 'transparent', color: 'var(--text-primary)', fontFamily: 'var(--font-sans)', position: 'relative' })}>
+    <Header client:load currentPath={currentPath} />
+
+    <main data-screen-label="Intro" style={pxify({ ...wrap, paddingTop: 'var(--space-9)', paddingBottom: 'var(--space-8)',
+      display: 'flex', flexDirection: 'column', gap: 20, alignItems: 'flex-start' })}>
+      <Eyebrow>Contact</Eyebrow>
+      <ShimmerHeading as="h1" size={56}>Let’s talk</ShimmerHeading>
+      <p style={pxify({ margin: 0, maxWidth: 640, fontSize: 18, lineHeight: 1.6, color: 'var(--text-secondary)' })}>
+        Tell us what you need and we’ll get back to you within one business day.
+      </p>
+    </main>
+
+    <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 'var(--space-9)', paddingBottom: 'var(--space-10)' })}>
+      <section id="form" style={pxify({ ...wrap, scrollMarginTop: 88 })}>
+        <div style={pxify({ border: '1px solid var(--glass-border)', borderRadius: 'var(--radius-card)',
+          background: 'var(--glass-bg)', backdropFilter: 'var(--glass-blur)', WebkitBackdropFilter: 'var(--glass-blur)',
+          boxShadow: 'var(--glass-highlight)', padding: 'var(--space-7)', maxWidth: 640, margin: '0 auto',
+          height: 820, boxSizing: 'border-box', display: 'flex', flexDirection: 'column' })}>
+          <ContactForm client:visible />
+        </div>
+
+        <div style={pxify({ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 16, marginTop: 32 })}>
+          <a href="tel:+5016008328" style={pxify({ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 20px',
+            fontSize: 15, fontWeight: 600, textDecoration: 'none', color: 'var(--text-primary)',
+            border: '1px solid var(--nebula-cyan-50)', borderRadius: 'var(--radius-control)',
+            background: 'var(--surface-translucent)', boxShadow: 'var(--glow-cyan)' })}>
+            <Icon name="lucide:phone" width={17} height={17} aria-hidden="true" />
+            +501 600-8328
+          </a>
+          <a href="mailto:info@ctechintl.com" style={pxify({ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 20px',
+            fontSize: 15, fontWeight: 600, textDecoration: 'none', color: 'var(--text-primary)',
+            border: '1px solid var(--space-border)', borderRadius: 'var(--radius-control)',
+            background: 'var(--space-surface)' })}>
+            <Icon name="lucide:mail" width={17} height={17} aria-hidden="true" />
+            info@ctechintl.com
+          </a>
+        </div>
+      </section>
+    </div>
+
+    <Footer currentPath={currentPath} />
+  </div>
+</BaseLayout>

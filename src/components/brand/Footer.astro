@@ -1,0 +1,170 @@
+---
+import { pxify } from '../../lib/style.js';
+import { Icon } from 'astro-icon/components';
+import Button from '../core/Button.astro';
+import { withBase } from '../../lib/url.js';
+
+const { currentPath = '' } = Astro.props;
+
+const wrap = pxify({ width: '100%', maxWidth: 1240, margin: '0 auto', boxSizing: 'border-box', paddingLeft: 'var(--space-7)', paddingRight: 'var(--space-7)', position: 'relative' });
+const explore = [
+  { label: 'Home', href: withBase('/') },
+  { label: 'Services & Tech', href: withBase('/services') },
+  { label: 'Build My Site Estimate', href: withBase('/build') },
+  { label: 'Portfolio', href: withBase('/portfolio') },
+  { label: 'About', href: withBase('/about') },
+  { label: 'Contact', href: `${withBase('/contact')}#form`, button: true },
+];
+const products = [
+  { label: 'Tapt', href: withBase('/products/tapt') },
+  { label: 'Tesseract', href: withBase('/products/tesseract') },
+];
+const legal = [
+  { label: 'Privacy Policy', href: withBase('/privacy') },
+];
+const socials = [
+  { label: 'Instagram', icon: 'bi-instagram', href: 'https://www.instagram.com/ctech.intl/' },
+  { label: 'Facebook', icon: 'bi-facebook', href: 'https://www.facebook.com/ctechintl' },
+  { label: 'WhatsApp', icon: 'bi-whatsapp', href: 'https://wa.me/5016008328?text=I%20am%20messaging%20from%20the%20Ctech%20International%20website' },
+];
+---
+
+<footer style={pxify({ position: 'relative', borderTop: '1px solid var(--glass-border)',
+  background: 'var(--glass-tint)', backdropFilter: 'var(--glass-blur)', WebkitBackdropFilter: 'var(--glass-blur)' })}>
+
+  <div style={pxify({ ...wrap, paddingTop: 'var(--space-9)', paddingBottom: 'var(--space-7)' })}>
+
+    <div style={pxify({ background: 'var(--glass-bg)', backdropFilter: 'var(--glass-blur)', WebkitBackdropFilter: 'var(--glass-blur)',
+      border: '1px solid var(--glass-border)', borderRadius: 'var(--radius-card)',
+      boxShadow: 'var(--glass-highlight)',
+      padding: '40px var(--space-7)', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between',
+      gap: 24, marginBottom: 'var(--space-9)' })}>
+      <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 8, maxWidth: 480 })}>
+        <h2 style={pxify({ margin: 0, fontSize: 'var(--text-h3)', fontWeight: 600, color: 'var(--text-primary)', lineHeight: 1.2, textWrap: 'balance' })}>
+          Let’s build something that wins clients
+        </h2>
+        <div style={pxify({ fontSize: 15, color: 'var(--text-secondary)', lineHeight: 1.6 })}>
+          A 20-minute call is all it takes to scope your project.
+        </div>
+      </div>
+      <Button href={`${withBase('/contact')}#form`} variant="primary" size="lg">Book a Consultation</Button>
+    </div>
+
+    <div style={pxify({ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 40 })}>
+      <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 18, maxWidth: 280 })}>
+        <div style={pxify({ fontSize: 16, fontWeight: 600, letterSpacing: '0.14em', color: 'var(--text-primary)' })}>
+          CTECH INTERNATIONAL
+        </div>
+        <div style={pxify({ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.6 })}>
+          Websites, web apps, and everything around them. Built in Belize, ready for the world.
+        </div>
+        <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 10 })}>
+          <a href="tel:+5016008328" class="ctech-footer-contact-link" style={pxify({ display: 'flex', alignItems: 'center', gap: 10, fontSize: 14, textDecoration: 'none', color: 'var(--text-secondary)' })}>
+            <Icon name="lucide:phone" width={15} height={15} aria-hidden="true" /> +501 600-8328
+          </a>
+          <a href="mailto:info@ctechintl.com" class="ctech-footer-contact-link" style={pxify({ display: 'flex', alignItems: 'center', gap: 10, fontSize: 14, textDecoration: 'none', color: 'var(--text-secondary)' })}>
+            <Icon name="lucide:mail" width={15} height={15} aria-hidden="true" /> info@ctechintl.com
+          </a>
+          <div style={pxify({ display: 'flex', alignItems: 'center', gap: 10, fontSize: 14, color: 'var(--text-secondary)' })}>
+            <Icon name="lucide:map-pin" width={15} height={15} aria-hidden="true" /> Belize City, Belize
+          </div>
+        </div>
+        <div style={pxify({ display: 'flex', gap: 10, marginTop: 4 })}>
+          {socials.map(({ label, icon, href }) => (
+            <a href={href} aria-label={label} title={label} target="_blank" rel="noopener noreferrer" class="ctech-footer-social"
+              style={pxify({ width: 36, height: 36, display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                borderRadius: 'var(--radius-control)', textDecoration: 'none',
+                background: 'var(--glass-bg)',
+                backdropFilter: 'var(--glass-blur)', WebkitBackdropFilter: 'var(--glass-blur)',
+                border: '1px solid var(--glass-border)',
+                boxShadow: 'var(--glass-highlight)',
+                color: 'var(--text-secondary)', fontSize: 16,
+                transition: 'background 250ms var(--ease-hud), border-color 250ms var(--ease-hud), box-shadow 250ms var(--ease-hud)' })}>
+              <i class={icon} aria-hidden="true" />
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 16 })}>
+        <div style={pxify({ fontSize: 13, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)' })}>Explore</div>
+        <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 12 })}>
+          {explore.map((l) => (
+            l.button ? (
+              <Button href={l.href} variant="secondary" size="sm" style={pxify({ alignSelf: 'flex-start', marginTop: 4 })}>{l.label}</Button>
+            ) : (
+              <a href={l.href} aria-current={l.href !== '#' && currentPath === l.href ? 'page' : undefined}
+                class:list={['ctech-footer-link']}
+                style={pxify({ fontSize: 14.5, textDecoration: 'none',
+                  fontWeight: (l.href !== '#' && currentPath === l.href) ? 600 : 400,
+                  color: (l.href !== '#' && currentPath === l.href) ? 'var(--text-primary)' : 'var(--text-secondary)',
+                  textShadow: (l.href !== '#' && currentPath === l.href) ? '0 0 14px rgba(0,204,255,0.5)' : 'none' })}>
+                {l.label}
+              </a>
+            )
+          ))}
+        </div>
+      </div>
+
+      <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 16 })}>
+        <div style={pxify({ fontSize: 13, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)' })}>Products</div>
+        <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 12 })}>
+          {products.map((l) => (
+            <a href={l.href} aria-current={currentPath === l.href ? 'page' : undefined}
+              class:list={['ctech-footer-link']}
+              style={pxify({ fontSize: 14.5, textDecoration: 'none',
+                fontWeight: currentPath === l.href ? 600 : 400,
+                color: currentPath === l.href ? 'var(--text-primary)' : 'var(--text-secondary)',
+                textShadow: currentPath === l.href ? '0 0 14px rgba(0,204,255,0.5)' : 'none' })}>
+              {l.label}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 16 })}>
+        <div style={pxify({ fontSize: 13, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)' })}>Legal</div>
+        <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 12 })}>
+          {legal.map((l) => (
+            <a href={l.href} aria-current={currentPath === l.href ? 'page' : undefined}
+              class:list={['ctech-footer-link']}
+              style={pxify({ fontSize: 14.5, textDecoration: 'none',
+                fontWeight: currentPath === l.href ? 600 : 400,
+                color: currentPath === l.href ? 'var(--text-primary)' : 'var(--text-secondary)',
+                textShadow: currentPath === l.href ? '0 0 14px rgba(0,204,255,0.5)' : 'none' })}>
+              {l.label}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <div style={pxify({ height: 1, background: 'var(--space-border)', margin: 'var(--space-7) 0 var(--space-5)' })} />
+
+    <div style={pxify({ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12,
+      fontSize: 14, color: 'var(--text-secondary)' })}>
+      <span>© 2026 Ctech International · Belize City, Belize</span>
+      <span>Powered by <span style={pxify({ color: 'var(--text-primary)' })}>Ctech International</span></span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .ctech-footer-link:hover {
+    color: var(--text-primary);
+    text-shadow: 0 0 14px rgba(0,204,255,0.5);
+  }
+  .ctech-footer-contact-link:hover {
+    color: var(--text-primary);
+    text-shadow: 0 0 14px rgba(0,204,255,0.5);
+  }
+  .ctech-footer-contact-link:hover :global(svg) {
+    color: var(--text-primary);
+  }
+  .ctech-footer-social:hover {
+    background: var(--glass-bg-hover);
+    border-color: var(--nebula-cyan-50);
+    box-shadow: var(--glow-cyan-soft), var(--glass-highlight);
+    color: var(--nebula-cyan);
+  }
+</style>

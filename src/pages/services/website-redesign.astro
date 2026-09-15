@@ -1,0 +1,133 @@
+---
+import { pxify } from '../../lib/style.js';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Header } from '../../components/brand/Header.jsx';
+import Footer from '../../components/brand/Footer.astro';
+import Eyebrow from '../../components/brand/Eyebrow.astro';
+import ShimmerHeading from '../../components/brand/ShimmerHeading.astro';
+import SectionTitle from '../../components/brand/SectionTitle.astro';
+import ServiceCard from '../../components/brand/ServiceCard.astro';
+import Button from '../../components/core/Button.astro';
+import { withBase } from '../../lib/url.js';
+import { websiteRedesignItem } from '../../lib/serviceContent.js';
+
+const wrap = pxify({ width: '100%', maxWidth: 1240, margin: '0 auto', boxSizing: 'border-box', paddingLeft: 'var(--space-7)', paddingRight: 'var(--space-7)' });
+
+const painPoints = [
+  { title: 'Looks dated', body: 'Built years ago, and it shows. Visitors notice before they read a word.' },
+  { title: 'Doesn’t work on phones', body: 'Most of your traffic is mobile. If it doesn’t work there, they leave.' },
+  { title: 'Not bringing in leads', body: 'No clear path to contact you, so visitors browse and move on.' },
+];
+
+const includes = [
+  { title: 'Rebuilt from scratch', body: 'Not a template pass on your old design. A real rebuild around your business today.' },
+  { title: 'Your content, carried over', body: 'Copy, images, and branding you want kept are carried forward, cleaned up along the way.' },
+  { title: 'Nothing goes dark', body: 'Your current site stays live until the new one is ready to switch over.' },
+];
+
+const faqs = [
+  { q: 'Do I lose my existing content?', a: 'No. Send us what you have, text, images, logos, and we carry over what still works, and help you replace what doesn’t.' },
+  { q: 'Will my Google rankings be affected?', a: 'We carry your page structure and URLs forward wherever possible, so search engines don’t lose track of you. A short dip during transition is normal for any redesign, but nothing is done to put your rankings at risk.' },
+  { q: 'How long does a redesign take?', a: 'It depends on how much of your current site is being kept versus rebuilt. We’ll give you a real timeline once we’ve seen what you have.' },
+  { q: 'What if I don’t have my old site’s files?', a: 'That’s fine, we don’t need the source files. Just a link to the live site (or a login if it’s private) is enough for us to see what’s worth keeping.' },
+];
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: 'Website Redesign',
+  name: 'Website Redesign',
+  provider: { '@type': 'Organization', name: 'Ctech International', url: 'https://ctechintl.com' },
+  areaServed: { '@type': 'Country', name: 'Belize' },
+  description: 'Website redesign services in Belize. Rebuild your outdated site from the ground up, your content and branding carried forward, custom quoted to your project.',
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+const currentPath = Astro.url.pathname;
+---
+
+<BaseLayout title="Website Redesign in Belize | Ctech International"
+  description="Website redesign services in Belize. Rebuild your outdated site from the ground up, your content and branding carried forward, custom quoted to your project."
+  path="/services/website-redesign"
+  structuredData={[serviceSchema, faqSchema]}>
+  <div style={pxify({ background: 'transparent', color: 'var(--text-primary)', fontFamily: 'var(--font-sans)', position: 'relative' })}>
+    <Header client:load currentPath={currentPath} />
+
+    <main data-screen-label="Intro" style={pxify({ ...wrap, paddingTop: 'var(--space-9)', paddingBottom: 'var(--space-8)',
+      display: 'flex', flexDirection: 'column', gap: 20, alignItems: 'flex-start' })}>
+      <Eyebrow>Website Redesign</Eyebrow>
+      <ShimmerHeading as="h1" size={56}>Weak to Sleek</ShimmerHeading>
+      <p style={pxify({ margin: 0, maxWidth: 640, fontSize: 18, lineHeight: 1.6, color: 'var(--text-secondary)' })}>
+        Your current site got you this far, but it’s not doing your business any favors anymore. We rebuild
+        it from the ground up, around who you are today, so it finally looks and works the way your business deserves.
+      </p>
+      <Eyebrow style={pxify({ color: 'var(--nebula-cyan)', fontSize: 13, letterSpacing: '0.08em' })}>Old to Orbit</Eyebrow>
+    </main>
+
+    <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 'var(--space-9)', paddingBottom: 'var(--space-10)' })}>
+      <section style={wrap}>
+        <SectionTitle title="Sound familiar?" lead="Most redesign requests start with one of these." />
+        <div style={pxify({ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(260px, 100%), 1fr))', gap: 20, marginTop: 36 })}>
+          {painPoints.map((f) => (
+            <div style={pxify({ borderTop: '1px solid var(--space-border)', paddingTop: 18 })}>
+              <div style={pxify({ fontSize: 17, fontWeight: 600 })}>{f.title}</div>
+              <p style={pxify({ margin: '8px 0 0', fontSize: 14.5, lineHeight: 1.6, color: 'var(--text-secondary)' })}>{f.body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section style={wrap}>
+        <SectionTitle title="What you get" lead="One rebuild, scoped to your site and your business, quoted once we’ve seen both." />
+        <div style={pxify({ maxWidth: 420, marginTop: 36 })}>
+          <ServiceCard icon={websiteRedesignItem.icon} name={websiteRedesignItem.name}
+            tagline="Your current site, rebuilt from the ground up around your business today."
+            features={websiteRedesignItem.features} primaryLabel="Inquire" href={withBase('/contact?service=website-redesign')} />
+        </div>
+      </section>
+
+      <section style={wrap}>
+        <SectionTitle title="What every redesign includes" lead="Regardless of scope, these are non-negotiable." />
+        <div style={pxify({ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(260px, 100%), 1fr))', gap: 20, marginTop: 36 })}>
+          {includes.map((f) => (
+            <div style={pxify({ borderTop: '1px solid var(--space-border)', paddingTop: 18 })}>
+              <div style={pxify({ fontSize: 17, fontWeight: 600 })}>{f.title}</div>
+              <p style={pxify({ margin: '8px 0 0', fontSize: 14.5, lineHeight: 1.6, color: 'var(--text-secondary)' })}>{f.body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section style={wrap}>
+        <SectionTitle title="Frequently asked" />
+        <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 24, marginTop: 36, maxWidth: 720 })}>
+          {faqs.map((f) => (
+            <div>
+              <div style={pxify({ fontSize: 16.5, fontWeight: 600 })}>{f.q}</div>
+              <p style={pxify({ margin: '8px 0 0', fontSize: 14.5, lineHeight: 1.6, color: 'var(--text-secondary)' })}>{f.a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section data-screen-label="Consultation CTA" style={wrap}>
+        <div style={pxify({ border: '1px solid var(--nebula-cyan-30)', borderRadius: 'var(--radius-card)',
+          boxShadow: 'var(--glow-cyan-soft), var(--glass-highlight)', background: 'var(--glass-bg)',
+          backdropFilter: 'var(--glass-blur)', WebkitBackdropFilter: 'var(--glass-blur)',
+          padding: '72px var(--space-7)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 18, textAlign: 'center' })}>
+          <h2 style={pxify({ margin: 0, fontSize: 36, fontWeight: 600, lineHeight: 1.1, textWrap: 'balance' })}>Ready to send your site into orbit?</h2>
+          <p style={pxify({ margin: 0, fontSize: 16, lineHeight: 1.6, color: 'var(--text-secondary)' })}>A 20-minute call is all it takes to scope your redesign.</p>
+          <div style={pxify({ marginTop: 10 })}>
+            <Button href={`${withBase('/contact')}?service=website-redesign#form`} variant="primary" size="lg">Book a Consultation</Button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <Footer currentPath={currentPath} />
+  </div>
+</BaseLayout>

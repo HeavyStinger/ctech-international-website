@@ -1,0 +1,86 @@
+---
+import { pxify } from '../lib/style.js';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Header } from '../components/brand/Header.jsx';
+import Footer from '../components/brand/Footer.astro';
+import Button from '../components/core/Button.astro';
+import Card from '../components/core/Card.astro';
+import Eyebrow from '../components/brand/Eyebrow.astro';
+import ShimmerHeading from '../components/brand/ShimmerHeading.astro';
+import SectionTitle from '../components/brand/SectionTitle.astro';
+import { TechStack, DesignToolsStack } from '../components/brand/TechStack.jsx';
+import { withBase } from '../lib/url.js';
+
+const wrap = pxify({ width: '100%', maxWidth: 1240, margin: '0 auto', boxSizing: 'border-box', paddingLeft: 'var(--space-7)', paddingRight: 'var(--space-7)' });
+const currentPath = Astro.url.pathname;
+---
+
+<BaseLayout title="Ctech International | About"
+  description="Ctech International is a web development and design studio based in Belize City, building custom websites, web apps, and brand work for businesses across Belize."
+  path="/about">
+  <div style={pxify({ background: 'transparent', color: 'var(--text-primary)', fontFamily: 'var(--font-sans)', position: 'relative' })}>
+    <Header client:load currentPath={currentPath} />
+
+    <main data-screen-label="Intro" style={pxify({ ...wrap, paddingTop: 'var(--space-9)', paddingBottom: 'var(--space-8)',
+      display: 'flex', flexDirection: 'column', gap: 20, alignItems: 'flex-start' })}>
+      <Eyebrow>About</Eyebrow>
+      <ShimmerHeading as="h1" size={56}>One studio, built to grow</ShimmerHeading>
+      <p style={pxify({ margin: 0, maxWidth: 640, fontSize: 18, lineHeight: 1.6, color: 'var(--text-secondary)' })}>
+        A web development studio in Belize City, Belize.
+      </p>
+    </main>
+
+    <div style={pxify({ display: 'flex', flexDirection: 'column', gap: 'var(--space-9)', paddingBottom: 'var(--space-10)' })}>
+      <section style={wrap}>
+        <SectionTitle title="Our story"
+          lead="The owner has been building sites and apps since he graduated high school. Ctech International became a formal brand after graduating from college, built on that same hands-on experience, along with a constant drive to teach himself more and a refusal to ever quit." />
+      </section>
+
+      <section style={wrap}>
+        <SectionTitle title="The team" />
+        <div style={pxify({ marginTop: 36, display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 20 })}>
+          <Card padding={26}>
+            <div style={pxify({ fontSize: 17, fontWeight: 600 })}>Solo-run studio</div>
+            <p style={pxify({ margin: '10px 0 0', fontSize: 15, lineHeight: 1.6, color: 'var(--text-secondary)' })}>
+              Every project is run directly by the owner, plus one graphic designer for design work.
+            </p>
+          </Card>
+        </div>
+      </section>
+
+      <section style={wrap}>
+        <SectionTitle title="Where we’re headed"
+          lead="Belize first, then bigger regional and international markets, without leaving our original Belize clients behind. Local-first credibility, building toward international scale." />
+      </section>
+
+      <section style={wrap}>
+        <SectionTitle title="Frameworks & Stack" lead="This site is built with Astro. Here’s the rest of the toolkit we build with." />
+        <div style={pxify({ marginTop: 36 })}>
+          <TechStack client:visible />
+        </div>
+      </section>
+
+      <section style={wrap}>
+        <SectionTitle title="Design & Development Tools" lead="The software behind the design work and the code itself." />
+        <div style={pxify({ marginTop: 36 })}>
+          <DesignToolsStack client:visible />
+        </div>
+      </section>
+
+      <section data-screen-label="Consultation CTA" style={wrap}>
+        <div style={pxify({ border: '1px solid var(--nebula-cyan-30)', borderRadius: 'var(--radius-card)',
+          boxShadow: 'var(--glow-cyan-soft), var(--glass-highlight)', background: 'var(--glass-bg)',
+          backdropFilter: 'var(--glass-blur)', WebkitBackdropFilter: 'var(--glass-blur)',
+          padding: '72px var(--space-7)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 18, textAlign: 'center' })}>
+          <h2 style={pxify({ margin: 0, fontSize: 36, fontWeight: 600, lineHeight: 1.1, textWrap: 'balance' })}>Let’s build something that wins clients</h2>
+          <p style={pxify({ margin: 0, fontSize: 16, lineHeight: 1.6, color: 'var(--text-secondary)' })}>A 20-minute call is all it takes to scope your project.</p>
+          <div style={pxify({ marginTop: 10 })}>
+            <Button href={`${withBase('/contact')}#form`} variant="primary" size="lg">Book a Consultation</Button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <Footer currentPath={currentPath} />
+  </div>
+</BaseLayout>

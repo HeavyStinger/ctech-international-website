@@ -1,0 +1,38 @@
+---
+import { pxify } from '../../lib/style.js';
+// Astro-native counterpart to TechBadges.jsx (kept for ConceptMarquee.jsx,
+// which stays a React island) — same simple-icons/devicon source, so the
+// marks stay pixel-identical between the two. Parent must be position:relative.
+import { siHtml5, siJavascript, siPhp, siLaravel, siWordpress } from 'simple-icons/icons';
+import css3Raw from 'devicon/icons/css3/css3-original.svg?raw';
+
+const css3Svg = css3Raw.replace('<svg ', '<svg width="100%" height="100%" ');
+
+const TECH = {
+  html: { icon: siHtml5, hex: siHtml5.hex, label: 'HTML' },
+  css: { customSvg: css3Svg, hex: '1572B6', label: 'CSS' },
+  js: { icon: siJavascript, hex: siJavascript.hex, label: 'JavaScript' },
+  php: { icon: siPhp, hex: siPhp.hex, label: 'PHP' },
+  laravel: { icon: siLaravel, hex: siLaravel.hex, label: 'Laravel' },
+  wordpress: { icon: siWordpress, hex: siWordpress.hex, label: 'WordPress' },
+};
+
+const { techs, offset = 8 } = Astro.props;
+const shown = (techs || []).filter((t) => TECH[t]);
+---
+
+{shown.length > 0 && (
+  <div style={pxify({ position: 'absolute', top: offset, left: offset, zIndex: 2, display: 'flex', gap: 6 })}>
+    {shown.map((tech) => {
+      const t = TECH[tech];
+      return (
+        <div title={t.label} role="img" aria-label={t.label} style={pxify({ width: 24, height: 24, borderRadius: '50%', flexShrink: 0,
+          background: 'rgba(255,255,255,0.88)', display: 'flex', alignItems: 'center', justifyContent: 'center' })}>
+          {t.customSvg
+            ? <div aria-hidden="true" style={pxify({ width: 14, height: 14 })} set:html={t.customSvg} />
+            : <svg aria-hidden="true" viewBox="0 0 24 24" width={14} height={14} fill={`#${t.hex}`} xmlns="http://www.w3.org/2000/svg"><path d={t.icon.path} /></svg>}
+        </div>
+      );
+    })}
+  </div>
+)}
