@@ -22,11 +22,13 @@ export function Button({ variant = 'primary', size = 'md', disabled = false, hre
     primary: {
       background: 'var(--nebula-cyan)', color: 'var(--space-black)', border: 'none',
       boxShadow: h ? 'var(--glow-cyan-strong)' : 'none',
+      transform: h ? 'translateY(-2px)' : 'translateY(0)',
     },
     secondary: {
       background: 'var(--surface-translucent)', color: 'var(--text-primary)',
       border: '0.8px solid ' + (h ? 'var(--nebula-cyan-60)' : 'var(--nebula-cyan-50)'),
       boxShadow: h ? 'var(--glow-cyan-strong)' : 'var(--glow-cyan)',
+      transform: h ? 'translateY(-2px)' : 'translateY(0)',
     },
     ghost: {
       background: h ? 'var(--glass-bg-hover)' : 'var(--glass-bg)',

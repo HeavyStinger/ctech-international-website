@@ -442,6 +442,19 @@ export function BuildWizard() {
   const currentStep = STEPS[stepIndex];
   const total = customTotal({ siteType, extraPages, cms, logo });
 
+  // pre-select the plan from ?plan=one-page|custom (e.g. linked from the
+  // services page pricing cards) once mounted client-side — done in an
+  // effect rather than as initial state so server-rendered HTML always
+  // matches the first client render and hydration doesn't mismatch.
+  React.useEffect(() => {
+    const plan = new URLSearchParams(window.location.search).get('plan');
+    if (plan === 'one-page' || plan === 'custom') {
+      setSiteType(plan);
+      if (plan === 'one-page') setExtraPages(0);
+      setStepIndex(1);
+    }
+  }, []);
+
   // warn before an in-progress estimate is lost to a page navigation or tab
   // close — mirrors the same guard on the Contact form.
   React.useEffect(() => {

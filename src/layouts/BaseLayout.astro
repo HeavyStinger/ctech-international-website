@@ -99,7 +99,6 @@ const CF_ANALYTICS_TOKEN = '3f1f22df19204e40bd0a614b82565ac1';
     )}
   </head>
   <body>
-    <a href="#root" class="ctech-skip-link">Skip to content</a>
     <div class="hero-sky" data-hero-sky></div>
     <div id="root" tabindex="-1">
       <slot />
@@ -129,25 +128,5 @@ const CF_ANALYTICS_TOKEN = '3f1f22df19204e40bd0a614b82565ac1';
   #root {
     position: relative;
     z-index: 1;
-  }
-  .ctech-skip-link {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    z-index: 1000;
-    padding: 12px 20px;
-    background: var(--space-black);
-    color: var(--text-primary);
-    border: 1px solid var(--nebula-cyan-50);
-    border-radius: var(--radius-control);
-    box-shadow: var(--glow-cyan-strong);
-    font-family: var(--font-sans);
-    font-weight: 600;
-    text-decoration: none;
-    transform: translateY(-120px);
-    transition: transform 200ms var(--ease-hud);
-  }
-  .ctech-skip-link:focus-visible {
-    transform: translateY(0);
   }
 </style>

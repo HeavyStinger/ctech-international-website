@@ -7,7 +7,7 @@
 export const websiteDevItems = [
   { icon: 'globe', name: 'Business Starter Website', slug: 'website-development', price: '500 BZD',
     tagline: 'A focused single page built to get you online and taking leads, fast.',
-    primaryLabel: 'Build My Estimate', primaryHref: '/build',
+    primaryLabel: 'Build My Estimate', primaryHref: '/build?plan=one-page',
     secondaryLabel: 'Get My Site Today', secondaryHref: '/contact?service=website-development',
     detailsHref: '/services/website-development',
     features: [
@@ -17,7 +17,7 @@ export const websiteDevItems = [
     ] },
   { icon: 'globe', name: 'Custom Website Build', slug: 'website-development', price: '750 BZD',
     tagline: 'Up to 5 pages, fully custom, built to turn visitors into customers.',
-    primaryLabel: 'Build My Estimate', primaryHref: '/build',
+    primaryLabel: 'Build My Estimate', primaryHref: '/build?plan=custom',
     secondaryLabel: 'Get My Site Today', secondaryHref: '/contact?service=website-development',
     detailsHref: '/services/website-development',
     features: [

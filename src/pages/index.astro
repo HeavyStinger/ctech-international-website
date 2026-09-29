@@ -91,8 +91,9 @@ const marqueeTrack = [...partners, ...partners];
         <p style={pxify({ margin: 0, maxWidth: 520, fontSize: 18, lineHeight: 1.6, color: 'var(--text-secondary)' })}>
           Websites, web apps, and everything around them. Built in Belize, ready for the world.
         </p>
-        <div style={pxify({ display: 'flex', gap: 16, alignItems: 'center', marginTop: 8 })}>
-          <Button href={`${withBase('/contact')}#form`} variant="secondary" size="lg">Book a Consultation</Button>
+        <div style={pxify({ display: 'flex', gap: 16, alignItems: 'center', marginTop: 8, flexWrap: 'wrap' })}>
+          <Button href={`${withBase('/contact')}#form`} variant="secondary" size="lg">Start My Project</Button>
+          <Button href={withBase('/services')} variant="primary" size="lg">View Services</Button>
         </div>
         <div style={pxify({ fontSize: 14, color: 'var(--text-secondary)' })}>
           <a href="tel:+5016008328" style={pxify({ color: 'inherit', textDecoration: 'none' })}>+501 600-8328</a>
@@ -221,7 +222,7 @@ const marqueeTrack = [...partners, ...partners];
           <h2 style={pxify({ margin: 0, fontSize: 36, fontWeight: 600, lineHeight: 1.1, textWrap: 'balance' })}>Let’s build something that wins clients</h2>
           <p style={pxify({ margin: 0, fontSize: 16, lineHeight: 1.6, color: 'var(--text-secondary)' })}>A 20-minute call is all it takes to scope your project.</p>
           <div style={pxify({ marginTop: 10 })}>
-            <Button href={`${withBase('/contact')}#form`} variant="primary" size="lg">Book a Consultation</Button>
+            <Button href={`${withBase('/contact')}#form`} variant="primary" size="lg">Start My Project</Button>
           </div>
           <div style={pxify({ fontSize: 14, color: 'var(--text-secondary)' })}>or call <a href="tel:+5016008328" style={pxify({ color: 'inherit', textDecoration: 'none' })}>+501 600-8328</a></div>
         </div>
