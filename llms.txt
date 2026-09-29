@@ -1,0 +1,29 @@
+# Ctech International
+
+> Websites, web apps, and everything around them for businesses in Belize. Custom-built from scratch, never a template, with local support based in Belize City.
+
+Ctech International is a web development studio based in Belize City, Belize. We design and build custom websites and web applications, host and manage them (99.9% uptime), and help businesses get found locally through Google Business Profiles and design work like business cards, flyers, and banners. We also build and run two of our own products: Tapt (NFC smart business, review, and menu cards) and Tesseract (a link-in-bio hub for contact, reviews, menu, socials, and booking).
+
+## Services
+
+- [Services & Tech](https://ctechintl.com/services): Full overview of website development, redesigns, web apps, hosting, email, local presence, and design services, plus the tech stack used to build them.
+- [Website Development](https://ctechintl.com/services/website-development): Custom website builds, one-page or up to 5 pages, starting at 500 BZD.
+- [Website Redesign](https://ctechintl.com/services/website-redesign): Full rebuilds of an existing site around the business's current needs, quoted after seeing both the current site and the business.
+- [Web App Development](https://ctechintl.com/services/web-app-development): Custom software scoped to a specific workflow - portals, dashboards, booking and tracking systems.
+- [Build My Site Estimate](https://ctechintl.com/build): An interactive tool that gives a real, live price for a website build in under a minute, no calls required.
+
+## Products
+
+- [Products Overview](https://ctechintl.com/products): How Tapt and Tesseract work together - tap a card in person, or share one link online, both leading to the same hub.
+- [Tapt](https://ctechintl.com/products/tapt): NFC smart cards - Business, Google Review, Menu, WiFi QR, and Custom - that share a contact/hub page instantly when tapped against a phone.
+- [Tesseract](https://ctechintl.com/products/tesseract): A single link holding contact info, reviews, menu, socials, and booking, with an editable profile and built-in analytics.
+
+## Company
+
+- [About](https://ctechintl.com/about): Studio background - a solo-run studio plus one graphic designer, based in Belize City, building toward regional and international clients.
+- [Portfolio](https://ctechintl.com/portfolio): Live client websites, business cards, flyers, and speculative concept work.
+- [Contact](https://ctechintl.com/contact): Contact form for quotes and inquiries; replies within one business day.
+
+## Optional
+
+- [Privacy Policy](https://ctechintl.com/privacy)
